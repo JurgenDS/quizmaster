@@ -117,6 +117,7 @@ When('I try saving the question', async function () {
 Then('I see a link to take the question', async function () {
     const url = await this.createQuestionPage.questionUrl()
     expect(url).not.toBe('')
+    await this.page.goto(url)
 })
 
 Then('I see a link to edit the question', async function () {
