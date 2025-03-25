@@ -2,14 +2,10 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
     <input id="is-loaded" type="hidden" value={isLoaded ? 'loaded' : ''} />
 )
 
-export const QuestionLink = ({ url }: { url: string }) => url && <span id="question-link"><a href="{url}">{url}</a></span>
+export const QuestionLink = ({ url }: { url: string }) => url && <a id="question-link" href="{url}">{url}</a>
 
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
-    editUrl && <span id="question-edit-link">{editUrl}</span>
+    editUrl && <a id="question-edit-link" href={editUrl}>{editUrl}</a>
 
 export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) =>
     errorMessage && <span id="error-message">{errorMessage}</span>
-
-// export const OKStr = ({ okStr }: { okStr: string }) => okStr && <span id="ok-str">{okStr}</span>
-
-// export const EmptyQuestionErrorMessage = ({ emptyQuestionErrorMessage }: { emptyQuestionErrorMessage: string }) => emptyQuestionErrorMessage && <span id="nok-emptyquestion">{emptyQuestionErrorMessage}</span>

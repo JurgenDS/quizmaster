@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
+import question.QuestionCreateResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -33,8 +34,9 @@ public class QuizQuestionController {
 
     @Transactional
     @PostMapping("/quiz-question")
-    public Integer saveQuestion(@RequestBody QuizQuestion question) {
-        return quizQuestionRepository.save(question).getId();
+    public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
+        var createdQuestion = quizQuestionRepository.save(question);
+        return new QuestionCreateResponse(createdQuestion.getId(), "hash");
     }
 
     @Transactional

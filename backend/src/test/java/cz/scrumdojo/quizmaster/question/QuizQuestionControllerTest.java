@@ -38,9 +38,9 @@ public class QuizQuestionControllerTest {
     @Test
     public void getQuestion() {
         var question = createSingleChoiceQuestion();
-        var questionId = quizQuestionController.saveQuestion(question);
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
 
-        var result = quizQuestionController.getQuestion(questionId).getBody();
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
 
         assertNotNull(result);
         assertEquals(question.getQuestion(), result.getQuestion());
@@ -49,12 +49,22 @@ public class QuizQuestionControllerTest {
 
     @Test
     public void getProgressState() {
-        var questionId = quizQuestionController.saveQuestion(createSingleChoiceQuestion());
-        var result = (ProgressState) quizQuestionController.getProgressState(questionId).getBody();
+        var questionCreateResponse = quizQuestionController.saveQuestion(createSingleChoiceQuestion());
+        var result = (ProgressState) quizQuestionController.getProgressState(questionCreateResponse.getId()).getBody();
 
         assertNotNull(result);
         assertEquals(quizQuestionRepository.count(), result.getTotal());
-        assertEquals(quizQuestionRepository.getQuestionIndex(questionId), result.getCurrent());
+        assertEquals(quizQuestionRepository.getQuestionIndex(questionCreateResponse.getId()), result.getCurrent());
+    }
+
+    @Test
+    public void saveQuestion() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+
+        assertNotNull(questionCreateResponse);
+        assertNotNull(questionCreateResponse.getId());
+        assertNotNull(questionCreateResponse.getHash());
     }
 
     @Test
@@ -67,8 +77,8 @@ public class QuizQuestionControllerTest {
     @Test
     public void getAnswers() {
         var question = createSingleChoiceQuestion();
-        var questionId = quizQuestionController.saveQuestion(question);
-        Answers answers = quizQuestionController.getAnswers(questionId).getBody();
+        var questionCreateResult = quizQuestionController.saveQuestion(question);
+        Answers answers = quizQuestionController.getAnswers(questionCreateResult.getId()).getBody();
 
         assertNotNull(answers);
         assertArrayEquals(question.getCorrectAnswers(), answers.getCorrectAnswers());

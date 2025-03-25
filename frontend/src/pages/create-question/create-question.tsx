@@ -14,6 +14,7 @@ export function CreateQuestionForm() {
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
+    const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>('')
 
     useEffect(() => {
@@ -33,7 +34,10 @@ export function CreateQuestionForm() {
                   .then(() => setLinkToQuestion(`${location.origin}/question/${questionId}`))
                   .catch(error => setLinkToQuestion(error.message))
             : saveQuestion(formData)
-                  .then(newQuestionId => setLinkToQuestion(`${location.origin}/question/${newQuestionId}`))
+                  .then(response => {
+                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
+                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}`)
+                })
                   .catch(error => setLinkToQuestion(error.message))
 
     const handleSubmit = () => {
@@ -83,8 +87,10 @@ export function CreateQuestionForm() {
             <h2>If you're happy and you know it create the question</h2>
             <QuestionEditForm questionData={questionData} setQuestionData={setQuestionData} onSubmit={handleSubmit} />
             <ErrorMessage errorMessage={errorMessage} />
+            <h3>Link to see the question:</h3>
             <QuestionLink url={linkToQuestion} />
-            <QuestionEditLink editUrl={'random'} />
+            <h3>Link to edit the question:</h3>
+            <QuestionEditLink editUrl={linkToEditQuestion} />
             <LoadedIndicator isLoaded={isLoaded} />
         </div>
     )
