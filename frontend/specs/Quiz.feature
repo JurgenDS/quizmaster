@@ -62,10 +62,7 @@ Feature: Take a quiz
     * I check answer "Lyon,Paris"
     * I uncheck answer "Lyon"
     * I reload the page
-    * I click the next button
-    Then I should see answer "Paris" is checked
-    *  I should see answer "Lyon" is unchecked
-    * I click the evaluate button
+    Then no answer is selected
 
   Scenario: Progress bar is shown on first quiz page
     Given I visit the quiz page
