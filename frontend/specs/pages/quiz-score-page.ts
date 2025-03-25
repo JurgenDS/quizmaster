@@ -4,10 +4,10 @@ export class QuizScorePage {
     constructor(private page: Page) {}
 
     private correctAnswerLocator = () => this.page.locator('#correct-answers')
-    correctAnswers = () => this.correctAnswerLocator().textContent()
+    correctAnswers = () => this.correctAnswerLocator().textContent().then(Number)
 
     private totalQuestionsLocator = () => this.page.locator('#total-questions')
-    totalQuestions = () => this.totalQuestionsLocator().textContent()
+    totalQuestions = () => this.totalQuestionsLocator().textContent().then(Number)
 
     private percentageResultLocator = () => this.page.locator('#percentage-result')
     percentageResult = () => this.percentageResultLocator().textContent()

@@ -1,30 +1,38 @@
 import { expect } from '@playwright/test'
 import { Given, Then, When } from './fixture.ts'
+import { DataTable } from '@cucumber/cucumber'
 
 Given('a quiz with 10 questions', async () => {
     // Step: Given a quiz with 10 questions
     // From: specs/QuizScore.feature:4:5
 })
 
-When('I answer 5 questions correctly and 5 questions incorrectly', async () => {
-    // Step: When I answer 5 questions correctly and 5 questions incorrectly
-    // From: specs/QuizScore.feature:5:5
-})
+When(
+    'I answer {int} questions correctly from {int} total questions',
+    async function (correctAnswers: number, totalQuestions: number) {
+        // Step: When I answer 5 questions correctly from 10 total questions <correct_answers>
+        // From: specs/QuizScore.feature:5:5
+        this.correctAnswers = correctAnswers
+        this.totalQuestions = totalQuestions
+    },
+)
 
-Then('I see the score', async function () {
+Then('I see the score', async function (dataTable: DataTable) {
     await this.page.goto('/quiz-score')
-    const correctAnswers = await this.quizScorePage.correctAnswers()
-    expect(correctAnswers).toBe('5')
+    const rows = dataTable.hashes()
+    for (const row of rows) {
 
-    const totalQuestions = await this.quizScorePage.totalQuestions()
-    expect(totalQuestions).toBe('10')
+        const {correct_answers, total_questions, percentage_result, text_result } = row
+        const correctAnswers = await this.quizScorePage.correctAnswers()
+        expect(correctAnswers).toBe(Number(correct_answers))
 
-    const result = await this.quizScorePage.percentageResult()
-    expect(result).toBe('50')
+        const totalQuestions = await this.quizScorePage.totalQuestions()
+        expect(totalQuestions).toBe(Number(total_questions))
 
-    const textResult = await this.quizScorePage.textResult()
-    expect(textResult).toBe('failed')
+        const result = await this.quizScorePage.percentageResult()
+        expect(result).toBe(percentage_result)
 
-    // Step: Then I see the score
-    // From: specs/QuizScore.feature:6:5
+        const textResult = await this.quizScorePage.textResult()
+        expect(textResult).toBe(text_result)
+    }
 })

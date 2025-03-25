@@ -23,6 +23,8 @@ export class QuizmasterWorld {
     nextAnswerIdx = 0
     bookmarks: Record<string, Question> = {}
     activeBookmark = ''
+    correctAnswers = 0
+    totalQuestions = 0
 
     get activeQuestion() {
         return this.bookmarks[this.activeBookmark]
