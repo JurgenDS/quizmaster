@@ -67,3 +67,13 @@ Feature: Take a quiz
     *  I should see answer "Lyon" is unchecked
     * I click the evaluate button
 
+  Scenario: Progress bar is shown on first quiz page
+    Given I visit the quiz page
+    Then I should see the progress bar showing page 1 of 2
+
+  Scenario: Progress bar is full on last quiz page
+    Given I visit the quiz page
+    When I answer "Green"
+    And I click the next button
+    Then I should see the progress bar showing page 2 of 2
+

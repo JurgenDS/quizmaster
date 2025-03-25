@@ -115,6 +115,12 @@ export const Quiz = () => {
                     Evaluate
                 </Link>
             )}
+            {
+                <>
+                    <span>You are on a question {currentQuestionIndex + 1} / {quiz.length}</span> - <progress id="progress-bar" value={currentQuestionIndex + 1} max={quiz.length} />
+                </>
+            }
+
         </div>
     )
 }

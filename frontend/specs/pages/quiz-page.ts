@@ -5,6 +5,7 @@ export class QuizPage {
 
     nextQuestionButtonLocator = () => this.page.locator('button#next-question')
     evaluationButtonLocator = () => this.page.locator('#evaluate-button')
+    progressBarLocator = () => this.page.locator('#progress-bar')
 
     next = () => this.nextQuestionButtonLocator().click()
     evaluate = () => this.evaluationButtonLocator().click()
