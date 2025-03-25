@@ -117,10 +117,12 @@ export const Quiz = () => {
             )}
             {
                 <>
-                    <span>You are on a question {currentQuestionIndex + 1} / {quiz.length}</span> - <progress id="progress-bar" value={currentQuestionIndex + 1} max={quiz.length} />
+                    <span>
+                        You are on a question {currentQuestionIndex + 1} / {quiz.length}
+                    </span>
+                    - <progress id="progress-bar" value={currentQuestionIndex + 1} max={quiz.length} />
                 </>
             }
-
         </div>
     )
 }

@@ -63,9 +63,12 @@ Then('I should see answer {string} is unchecked', async function (answerList: st
     }
 })
 
-Then('I should see the progress bar showing page {int} of {int}', async function (expectedValue: number, maxValue: number) {
-    const progressBarValue = await this.quizPage.progressBarLocator().getAttribute('value')
-    expect(progressBarValue).toBe(expectedValue.toString())
-    const progressBarMaxValue = await this.quizPage.progressBarLocator().getAttribute('max')
-    expect(progressBarMaxValue).toBe(maxValue.toString())
-})
+Then(
+    'I should see the progress bar showing page {int} of {int}',
+    async function (expectedValue: number, maxValue: number) {
+        const progressBarValue = await this.quizPage.progressBarLocator().getAttribute('value')
+        expect(progressBarValue).toBe(expectedValue.toString())
+        const progressBarMaxValue = await this.quizPage.progressBarLocator().getAttribute('max')
+        expect(progressBarMaxValue).toBe(maxValue.toString())
+    },
+)
