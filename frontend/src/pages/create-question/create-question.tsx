@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { type QuestionApiData, saveQuestion, getQuestion, updateQuestion } from 'api/quiz-question.ts'
 
-import { ErrorMessage, LoadedIndicator, QuestionLink } from './components'
+import { ErrorMessage, LoadedIndicator, QuestionEditLink, QuestionLink } from './components'
 import { emptyQuestionFormData, QuestionEditForm, toQuestionApiData, toQuestionFormData } from './form'
 
 export function CreateQuestionForm() {
@@ -84,6 +84,7 @@ export function CreateQuestionForm() {
             <QuestionEditForm questionData={questionData} setQuestionData={setQuestionData} onSubmit={handleSubmit} />
             <ErrorMessage errorMessage={errorMessage} />
             <QuestionLink url={linkToQuestion} />
+            <QuestionEditLink editUrl={'random'} />
             <LoadedIndicator isLoaded={isLoaded} />
         </div>
     )

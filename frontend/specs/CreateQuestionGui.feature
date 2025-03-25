@@ -10,7 +10,6 @@ Feature: Create question GUI
     When I take the question
     Then I see the question and the answers
 
-  @skip
   Scenario: Add a single-choice question for edit
     Given I start creating a question
     When I enter question "What is 2 + 2?"

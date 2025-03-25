@@ -4,6 +4,8 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
 
 export const QuestionLink = ({ url }: { url: string }) => url && <span id="question-link">{url}</span>
 
+export const QuestionEditLink = ({ editUrl }: { editUrl: string }) => editUrl && <span id="question-edit-link">{editUrl}</span>
+
 export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) =>
     errorMessage && <span id="error-message">{errorMessage}</span>
 
