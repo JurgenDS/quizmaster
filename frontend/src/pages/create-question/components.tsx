@@ -3,7 +3,11 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
 )
 
 export const QuestionLink = ({ url }: { url: string }) =>
-    url && <a id="question-link" href={url}>{url}</a>
+    url && (
+        <span id="question-link">
+            <a href="{url}">{url}</a>
+        </span>
+    )
 
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
     editUrl && <a id="question-edit-link" href={editUrl}>{editUrl}</a>

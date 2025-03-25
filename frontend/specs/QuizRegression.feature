@@ -22,9 +22,9 @@ Feature: Take a quiz
     Then I see the first question
     And no answer is selected
 
-  Scenario: After page refresh no answer is selected
-      Given I visit the quiz page
-      When I answer "Green"
-      And I refresh page
-      Then no answer is selected
+Scenario: After page refresh no answer is selected
+    Given I visit the quiz page
+    When I answer "Green"
+    And I refresh page
+    Then no answer is selected
 
