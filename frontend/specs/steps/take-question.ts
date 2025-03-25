@@ -89,3 +89,7 @@ Then('I see individual feedback:', async function (dataTable: DataTable) {
         await expect(answerRow).toContainText(feedback)
     }
 })
+
+Then('no explanation answer is displayed', async function () {
+    await expect(await this.takeQuestionPage.answerExplanationLocator().count()).toBe(0)
+})

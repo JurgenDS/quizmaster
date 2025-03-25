@@ -107,6 +107,7 @@ export const Quiz = () => {
         <div>
             <h2>Quiz</h2>
             <QuestionForm
+                key={currentQuestion.id}
                 question={currentQuestion}
                 isSubmitted={submitted}
                 onSubmitted={onSubmitted}
