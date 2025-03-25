@@ -11,16 +11,14 @@ export class TakeQuestionPage {
         this.page.locator(`input[type="checkbox"][value="${answer}"],input[type="radio"][value="${answer}"]`)
 
     answerExplanationLocatorForAnswer = (answer: string) =>
-        this.page
-            .locator(`input[type="checkbox"][value="${answer}"],input[type="radio"][value="${answer}"]`)
+        this.answerLocator(answer)
             .locator('..')
             .locator('span.explanation')
             .locator('..')
             .locator('span.explanationText')
 
     emptyAnswerExplanationLocatorForAnswer = (answer: string) =>
-        this.page
-            .locator(`input[type="checkbox"][value="${answer}"],input[type="radio"][value="${answer}"]`)
+        this.answerLocator(answer)
             .locator('..')
             .locator('span.explanation')
 
@@ -34,4 +32,6 @@ export class TakeQuestionPage {
     answerExplanationLocator = () => this.page.locator('span.explanationText')
 
     questionExplanationLocator = () => this.page.locator('p.question-explanation')
+
+    selectedAnswersLocator = () => this.page.locator('input:checked')
 }
