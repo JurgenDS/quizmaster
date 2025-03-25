@@ -87,7 +87,7 @@ export const AnswersEdit = ({ answers, isMultichoiceQuestion, setAnswers }: Answ
             {answers.map((answer, index) => (
                 <AnswerRow
                     answer={answer}
-                    key={index}
+                    // key={index}
                     index={index}
                     isMultichoiceQuestion={isMultichoiceQuestion}
                     updateAnswerData={updateAnswerData}
