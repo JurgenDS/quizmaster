@@ -2,7 +2,7 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
     <input id="is-loaded" type="hidden" value={isLoaded ? 'loaded' : ''} />
 )
 
-export const QuestionLink = ({ url }: { url: string }) => url && <span id="question-link">{url}</span>
+export const QuestionLink = ({ url }: { url: string }) => url && <span id="question-link"><a href="{url}">{url}</a></span>
 
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
     editUrl && <span id="question-edit-link">{editUrl}</span>
