@@ -3,6 +3,7 @@ import { QuestionTakePage } from 'pages/question-take'
 import { CreateQuestionForm } from 'pages/create-question'
 import { HomePage } from 'pages/home'
 import { Quiz } from 'pages/quiz'
+import { QuizScore } from 'pages/quiz-score'
 
 export const App = () => (
     <BrowserRouter>
@@ -12,6 +13,7 @@ export const App = () => (
             <Route path="/question/:id/edit" element={<CreateQuestionForm />} />
             <Route path="/question/:id" element={<QuestionTakePage />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/quiz-score" element={<QuizScore />} />
         </Routes>
     </BrowserRouter>
 )
