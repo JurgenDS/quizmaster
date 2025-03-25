@@ -5,7 +5,7 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
 export const QuestionLink = ({ url }: { url: string }) =>
     url && (
         <span id="question-link">
-            <a href="{url}">{url}</a>
+            <a href={url}>{url}</a>
         </span>
     )
 
