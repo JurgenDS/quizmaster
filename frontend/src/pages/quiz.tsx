@@ -19,7 +19,7 @@ export const NextQuestionButton = (props: NextQuestionButtonProps) => {
 const sessionKey = 'quizState'
 
 // Clear session storage on page load or refresh
-sessionStorage.removeItem(sessionKey);
+sessionStorage.removeItem(sessionKey)
 
 const quizQuestion1: QuizQuestion = {
     id: 1,

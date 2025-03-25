@@ -18,9 +18,7 @@ export class TakeQuestionPage {
             .locator('span.explanationText')
 
     emptyAnswerExplanationLocatorForAnswer = (answer: string) =>
-        this.answerLocator(answer)
-            .locator('..')
-            .locator('span.explanation')
+        this.answerLocator(answer).locator('..').locator('span.explanation')
 
     selectAnswer = (answer: string) => this.answerLocator(answer).check()
     unselectAnswer = (answer: string) => this.answerLocator(answer).uncheck()
