@@ -35,8 +35,8 @@ export function CreateQuestionForm() {
                   .catch(error => setLinkToQuestion(error.message))
             : saveQuestion(formData)
                   .then(response => {
-                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}`)
+                      setLinkToQuestion(`${location.origin}/question/${response.id}`)
+                      setLinkToEditQuestion(`${location.origin}/question/${response.hash}`)
                 })
                   .catch(error => setLinkToQuestion(error.message))
 
