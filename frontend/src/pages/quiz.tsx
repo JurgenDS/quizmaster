@@ -35,7 +35,7 @@ const quizQuestion2: QuizQuestion = {
     answers: ['Marseille', 'Lyon', 'Paris', 'Toulouse'],
     explanations: [],
     questionExplanation: '',
-    correctAnswers: [2, 0],
+    correctAnswers: [2],
 }
 
 const quiz = [quizQuestion1, quizQuestion2]
