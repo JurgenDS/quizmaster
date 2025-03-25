@@ -37,7 +37,7 @@ export function CreateQuestionForm() {
                   .then(response => {
                       setLinkToQuestion(`${location.origin}/question/${response.id}`)
                       setLinkToEditQuestion(`${location.origin}/question/${response.hash}`)
-                })
+                  })
                   .catch(error => setLinkToQuestion(error.message))
 
     const handleSubmit = () => {

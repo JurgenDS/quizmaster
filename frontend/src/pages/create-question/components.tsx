@@ -10,7 +10,11 @@ export const QuestionLink = ({ url }: { url: string }) =>
     )
 
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
-    editUrl && <a id="question-edit-link" href={editUrl}>{editUrl}</a>
+    editUrl && (
+        <a id="question-edit-link" href={editUrl}>
+            {editUrl}
+        </a>
+    )
 
 export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) =>
     errorMessage && <span id="error-message">{errorMessage}</span>
