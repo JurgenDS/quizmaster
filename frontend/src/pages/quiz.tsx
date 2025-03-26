@@ -1,9 +1,10 @@
 import type { QuizQuestion, QuizResult, QuestionResult } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useMemo, useState } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
+import { EvaluateButton, NextQuestionButton } from './quiz/buttons'
 
 interface QuizQuestionProps {
     readonly currentQuestionIndex: number
@@ -29,29 +30,16 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 onAnswerChange={props.handleStateChanged}
                 quizState={props.quizState}
             />
-            {props.submitted && !props.isLastQuestion && <NextQuestionButton onClick={props.nextQuestionHandler} />}
-            {props.submitted && props.isLastQuestion && (
-                <Link className="submit-btn submit-btn-evaluate" to="score" id="evaluate-button">
-                    Evaluate
-                </Link>
-            )}
+            {props.submitted &&
+                (!props.isLastQuestion ? (
+                    <NextQuestionButton onClick={props.nextQuestionHandler} />
+                ) : (
+                    <EvaluateButton />
+                ))}
         </div>
     )
 }
 
-interface NextQuestionButtonProps {
-    onClick: () => void
-}
-
-export const NextQuestionButton = (props: NextQuestionButtonProps) => {
-    return (
-        <div>
-            <button className="submit-btn" type="button" onClick={props.onClick} id="next-question">
-                Next Question
-            </button>
-        </div>
-    )
-}
 const sessionKey = 'quizState'
 
 // Clear session storage on page load or refresh
