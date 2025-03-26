@@ -30,7 +30,7 @@ export const QuizScore = (props: QuizScoreProps) => {
                 Celkový počet otázok: <span id="total-questions">{countAll}</span>
             </p>
             <p>
-                Úspešnosť: <span id="percentage-result">{quizPercentage.toFixed(2)}</span>
+                Úspešnosť(%): <span id="percentage-result">{quizPercentage.toFixed(2)}</span>
             </p>
             <p>
                 Stav: <span id="text-result">{getQuizResult(quizPercentage)}</span>

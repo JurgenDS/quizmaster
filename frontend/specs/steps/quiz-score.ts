@@ -18,7 +18,7 @@ When(
 )
 
 Then('I see the score', async function (dataTable: DataTable) {
-    await this.page.goto('/quiz-score')
+    await this.page.goto('quiz/score')
     const rows = dataTable.hashes()
     for (const row of rows) {
         const { correct_answers, total_questions, percentage_result, text_result } = row
