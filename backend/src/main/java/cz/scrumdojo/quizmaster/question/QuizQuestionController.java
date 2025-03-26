@@ -32,8 +32,7 @@ public class QuizQuestionController {
     @Transactional
     @GetMapping("/quiz-question/{hash}/edit")
     public ResponseEntity<QuizQuestion> getQuestionByHash(@PathVariable String hash) {
-        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
-        var id = Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - SALT_STRING.length()));
+        var id = getQuestionIdFromHash(hash);
         return response(findQuestion(id));
     }
 
@@ -47,16 +46,14 @@ public class QuizQuestionController {
     @PostMapping("/quiz-question")
     public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
         var createdQuestion = quizQuestionRepository.save(question);
-        var idWithSalt = createdQuestion.getId() + QuizQuestionController.SALT_STRING;
-        var hash = Base64.getUrlEncoder().encodeToString(idWithSalt.getBytes());
+        var hash = getHashFromQuestionId(question.getId());
         return new QuestionCreateResponse(createdQuestion.getId(), hash);
     }
 
     @Transactional
     @PatchMapping("/quiz-question/{hash}")
     public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String hash) {
-        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
-        var id = Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - SALT_STRING.length()));
+        var id = getQuestionIdFromHash(hash);
         question.setId(id);
         System.out.println("Updating question: " + question);
         quizQuestionRepository.save(question);
@@ -85,5 +82,15 @@ public class QuizQuestionController {
         return entity
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
+    }
+
+    private String getHashFromQuestionId(Integer questionId) {
+        var idWithSalt = questionId + QuizQuestionController.SALT_STRING;
+        return Base64.getUrlEncoder().encodeToString(idWithSalt.getBytes());
+    }
+
+    private Integer getQuestionIdFromHash(String hash) {
+        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
+        return Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - QuizQuestionController.SALT_STRING.length()));
     }
 }
