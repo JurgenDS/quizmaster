@@ -9,7 +9,7 @@ Feature: Answering a quiz question with multiple choice
       | Spain   | * | Manana!          |
     * with explanation "Italy, France, and Spain are in Europe. Morocco is in Africa."
     * saved and bookmarked as "Europe"
-@skip
+
   Scenario Outline: Detailed feedback is displayed for each selected answer
     Answer is considered correct if and only if:
     - All correct answers are selected.

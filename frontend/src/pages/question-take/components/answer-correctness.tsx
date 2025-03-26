@@ -2,14 +2,13 @@ import './correctness.css'
 
 interface AnswerCorrectnessProps {
     readonly isCorrect: boolean
-    readonly isChecked: boolean
 }
 
 export const AnswerCorrectness = (props: AnswerCorrectnessProps) => {
-    const evaluation = props.isCorrect ? '\u2705' : '\u274C'
-    const individualFeedback = props.isCorrect ? 'Correct!' : 'Incorrect!'
+    const evaluation = props.isCorrect ? '' : '\u274C'
+    const individualFeedback = props.isCorrect ? '' : 'Incorrect!'
 
-    const className = props.isCorrect ? 'correct' : 'incorrect'
+    const className = props.isCorrect ? '' : 'incorrect'
 
     return (
         <span>
