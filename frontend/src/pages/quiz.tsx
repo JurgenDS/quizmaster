@@ -1,67 +1,10 @@
-import type { QuizQuestion, QuizResult } from 'model/quiz-question'
+import type { QuizQuestion, QuestionResult } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useMemo, useState } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
-import { QuizScore } from './quiz-score'
+import { Link } from 'react-router-dom'
 
 interface NextQuestionButtonProps {
     onClick: () => void
-}
-
-interface QuizQuestionProps {
-    readonly currentQuestionIndex: number
-    readonly currentQuestion: QuizQuestion
-    readonly submitted: boolean
-    readonly isLastQuestion: boolean
-    readonly onSubmitted: () => void
-    readonly nextQuestionHandler: () => void
-    readonly handleStateChanged: (answerIndex: number, selected: boolean) => void
-    readonly quizState: Record<string, number[]>
-}
-
-export const QuizQuestionForm = (props: QuizQuestionProps) => {
-    return (
-        <div>
-            <h2>Quiz</h2>
-            {
-                <>
-                    <span>
-                        You are on a question {props.currentQuestionIndex + 1} / {quiz.length}
-                    </span>
-                    <br />
-                    <progress id="progress-bar" value={props.currentQuestionIndex + 1} max={quiz.length} />
-                </>
-            }
-            <QuestionForm
-                key={props.currentQuestion.id}
-                question={props.currentQuestion}
-                isSubmitted={props.submitted}
-                onSubmitted={props.onSubmitted}
-                onAnswerChange={props.handleStateChanged}
-                quizState={props.quizState}
-            />
-            {props.submitted && !props.isLastQuestion && <NextQuestionButton onClick={props.nextQuestionHandler} />}
-            {props.submitted && props.isLastQuestion && (
-                <Link className="submit-btn submit-btn-evaluate" to="/evaluation" id="evaluate-button">
-                    Evaluate
-                </Link>
-            )}
-        </div>
-    )
-}
-const quizResult: QuizResult = {
-    questions: [
-        {
-            question: 1,
-            answer: [0],
-            result: true,
-        },
-        {
-            question: 2,
-            answer: [2],
-            result: true,
-        },
-    ],
 }
 
 export const NextQuestionButton = (props: NextQuestionButtonProps) => {
@@ -141,6 +84,8 @@ export const Quiz = () => {
         }
     }
 
+    const [questionResults, setQuestionResults] = useState<QuestionResult[]>([])
+
     const onSubmitted = () => {
         setSubmitted(true)
     }
@@ -153,32 +98,63 @@ export const Quiz = () => {
         const removingAnswers = !selected ? [answerIndex] : []
         return answers.filter(i => !removingAnswers.includes(i))
     }
+
+    const saveResults = (id: string, answer: number[], result: boolean) => {
+        setQuestionResults(prevResults => {
+            const existingIndex = prevResults.findIndex(res => res.question === Number(id))
+            let updatedResults: QuestionResult[] // Explicitly typed as QuestionResult[]
+            if (existingIndex !== -1) {
+                // Update existing result
+                updatedResults = [...prevResults]
+                updatedResults[existingIndex] = { question: Number(id), answer, result }
+            } else {
+                // Insert new result
+                updatedResults = [...prevResults, { question: Number(id), answer, result }]
+            }
+            console.log('Updated questionResults:', JSON.stringify(updatedResults))
+            return updatedResults
+        })
+    }
+    console.log(questionResults)
+
     const handleStateChanged = (answerIndex: number, selected: boolean) => {
         const questionId = currentQuestion.id
         const lastAnswers = quizState[questionId] ?? []
         const currentAnswers = resolveAnswers(currentQuestion, lastAnswers, answerIndex, selected)
+        const isCorrect =
+            currentAnswers.length === currentQuestion.correctAnswers.length &&
+            currentAnswers.every(answerIndex => currentQuestion.correctAnswers.includes(answerIndex))
+        console.log('currentAnswers', JSON.stringify(currentAnswers))
+        saveResults(questionId.toString(), currentAnswers, isCorrect)
         setQuizState({ ...quizState, [questionId]: currentAnswers })
     }
 
     return (
-        <Routes>
-            <Route path="/score" element={<QuizScore quizResult={quizResult} />} />
-            <Route
-                index
-                path=""
-                element={
-                    <QuizQuestionForm
-                        currentQuestion={currentQuestion}
-                        currentQuestionIndex={currentQuestionIndex}
-                        submitted={submitted}
-                        isLastQuestion={isLastQuestion}
-                        onSubmitted={onSubmitted}
-                        nextQuestionHandler={nextQuestionHandler}
-                        handleStateChanged={handleStateChanged}
-                        quizState={quizState}
-                    />
-                }
+        <div>
+            <h2>Quiz</h2>
+            {
+                <>
+                    <span>
+                        You are on a question {currentQuestionIndex + 1} / {quiz.length}
+                    </span>
+                    <br />
+                    <progress id="progress-bar" value={currentQuestionIndex + 1} max={quiz.length} />
+                </>
+            }
+            <QuestionForm
+                key={currentQuestion.id}
+                question={currentQuestion}
+                isSubmitted={submitted}
+                onSubmitted={onSubmitted}
+                onAnswerChange={handleStateChanged}
+                quizState={quizState}
             />
-        </Routes>
+            {submitted && !isLastQuestion && <NextQuestionButton onClick={nextQuestionHandler} />}
+            {submitted && isLastQuestion && (
+                <Link className="submit-btn submit-btn-evaluate" to="/evaluation" id="evaluate-button">
+                    Evaluate
+                </Link>
+            )}
+        </div>
     )
 }
