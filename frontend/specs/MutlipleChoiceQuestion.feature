@@ -27,11 +27,12 @@ Feature: Answering a quiz question with multiple choice
 
     Examples:
       | answer                        | italy | italy_feedback | france | france_feedback | morocco | morocco_feedback | spain | spain_feedback | final_feedback                                                |
-      | Italy                         | ✅     | Correct!       | ❌      | You missed it!  | ✅       | Correct!         | ❌     | You missed it! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France                 | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ❌     | You missed it! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France, Morocco        | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ❌     | You missed it! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy                         | ✅     | Correct!       | ❌      | Incorrect!      | ✅       | Correct!         | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France                 | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France, Morocco        | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | Italy, France, Spain          | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | Italy, France, Morocco, Spain | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+
 
   Scenario: Explanations for all answers are displayed after answering the question
     When I take question "Europe"
@@ -42,4 +43,15 @@ Feature: Answering a quiz question with multiple choice
       | France  |                  |
       | Morocco | Almost :D        |
       | Spain   |                  |
+    And I see the question explanation
+
+  Scenario: Explanations for all answers are displayed after answering the question other look
+    When I take question "Europe"
+    And I answer "Italy, France"
+    Then I see the answer explanations for answers
+      | answer  | explanation      |
+      | Italy   |                  |
+      | France  |                  |
+      | Morocco |                  |
+      | Spain   | Manana!          |
     And I see the question explanation

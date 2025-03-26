@@ -7,13 +7,9 @@ interface AnswerCorrectnessProps {
 
 export const AnswerCorrectness = (props: AnswerCorrectnessProps) => {
     const evaluation = props.isCorrect ? '\u2705' : '\u274C'
-    const individualFeedback = props.isCorrect
-        ? 'Correct!'
-        : !props.isCorrect && props.isChecked
-          ? 'Incorrect!'
-          : 'You missed it!'
+    const individualFeedback = props.isCorrect ? 'Correct!' : 'Incorrect!'
 
-    const className = props.isCorrect ? 'correct' : !props.isCorrect && props.isChecked ? 'incorrect' : 'missed'
+    const className = props.isCorrect ? 'correct' : 'incorrect'
 
     return (
         <span>
