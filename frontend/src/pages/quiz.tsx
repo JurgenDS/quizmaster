@@ -96,7 +96,6 @@ export const Quiz = () => {
     const isLastQuestion = currentQuestionIndex === quiz.length - 1
 
     const nextQuestionHandler = () => {
-        console.log('Next question')
         const nextQuestionIndex = currentQuestionIndex + 1
         setCurrentQuestionIndex(nextQuestionIndex)
 
@@ -106,7 +105,7 @@ export const Quiz = () => {
         }
     }
 
-    const [questionResults, setQuestionResults] = useState<QuestionResult[]>([])
+    const [, setQuestionResults] = useState<QuestionResult[]>([])
     const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] })
 
     const onSubmitted = () => {
@@ -134,7 +133,6 @@ export const Quiz = () => {
                 // Insert new result
                 updatedResults = [...prevResults, { question: Number(id), answer, result }]
             }
-            console.log('Updated questionResults:', JSON.stringify(updatedResults))
 
             // Update quizResult
             setQuizResult({
@@ -148,7 +146,6 @@ export const Quiz = () => {
             return updatedResults
         })
     }
-    console.log(questionResults)
 
     const handleStateChanged = (answerIndex: number, selected: boolean) => {
         const questionId = currentQuestion.id
@@ -157,7 +154,6 @@ export const Quiz = () => {
         const isCorrect =
             currentAnswers.length === currentQuestion.correctAnswers.length &&
             currentAnswers.every(answerIndex => currentQuestion.correctAnswers.includes(answerIndex))
-        console.log('currentAnswers', JSON.stringify(currentAnswers))
         saveResults(questionId.toString(), currentAnswers, isCorrect)
         setQuizState({ ...quizState, [questionId]: currentAnswers })
     }
