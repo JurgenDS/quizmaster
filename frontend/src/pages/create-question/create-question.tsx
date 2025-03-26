@@ -28,9 +28,7 @@ export function CreateQuestionForm({
             <h2>If you're happy and you know it create the question</h2>
             <QuestionEditForm questionData={questionData} setQuestionData={setQuestionData} onSubmit={handleSubmit} />
             <ErrorMessage errorMessage={errorMessage} />
-            <h3>Link to see the question:</h3>
             <QuestionLink url={linkToQuestion} />
-            <h3>Link to edit the question:</h3>
             <QuestionEditLink editUrl={linkToEditQuestion} />
             <LoadedIndicator isLoaded={isLoaded} />
         </div>

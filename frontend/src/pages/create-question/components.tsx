@@ -4,16 +4,22 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
 
 export const QuestionLink = ({ url }: { url: string }) =>
     url && (
-        <span id="question-link">
-            <a href={url}>{url}</a>
-        </span>
+        <>
+            <h3>Link to see the question:</h3>
+            <a id="question-link" href={url}>
+                {url}
+            </a>
+        </>
     )
 
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
     editUrl && (
-        <a id="question-edit-link" href={editUrl}>
-            {editUrl}
-        </a>
+        <>
+            <h3>Link to edit the question:</h3>
+            <a id="question-edit-link" href={editUrl}>
+                {editUrl}
+            </a>
+        </>
     )
 
 export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) =>
