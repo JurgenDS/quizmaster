@@ -38,7 +38,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             />
             {props.submitted && !props.isLastQuestion && <NextQuestionButton onClick={props.nextQuestionHandler} />}
             {props.submitted && props.isLastQuestion && (
-                <Link className="submit-btn submit-btn-evaluate" to="/evaluation" id="evaluate-button">
+                <Link className="submit-btn submit-btn-evaluate" to="score" id="evaluate-button">
                     Evaluate
                 </Link>
             )}
