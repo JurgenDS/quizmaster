@@ -8,6 +8,10 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.beans.Transient;
+import java.util.Base64;
+import java.util.logging.Logger;
+
 @SpringBootTest
 public class QuizQuestionControllerTest {
 
@@ -41,6 +45,17 @@ public class QuizQuestionControllerTest {
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
 
         var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(result);
+        assertEquals(question.getQuestion(), result.getQuestion());
+        assertArrayEquals(question.getAnswers(), result.getAnswers());
+    }
+
+    @Test
+    public void getQuestionByHash() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+        var result = quizQuestionController.getQuestionByHash(questionCreateResponse.getHash()).getBody();
 
         assertNotNull(result);
         assertEquals(question.getQuestion(), result.getQuestion());
@@ -92,5 +107,7 @@ public class QuizQuestionControllerTest {
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+
 
 }

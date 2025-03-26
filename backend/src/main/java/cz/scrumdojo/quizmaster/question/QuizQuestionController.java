@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Base64;
 import java.util.Optional;
 import question.QuestionCreateResponse;
 
@@ -12,6 +14,7 @@ import question.QuestionCreateResponse;
 public class QuizQuestionController {
 
     private final QuizQuestionRepository quizQuestionRepository;
+    public static final String SALT_STRING = "ALKMDNEQ";
 
     @Autowired
     public QuizQuestionController(
@@ -27,6 +30,14 @@ public class QuizQuestionController {
     }
 
     @Transactional
+    @GetMapping("/quiz-question/{hash}/edit")
+    public ResponseEntity<QuizQuestion> getQuestionByHash(@PathVariable String hash) {
+        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
+        var id = Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - SALT_STRING.length()));
+        return response(findQuestion(id));
+    }
+
+    @Transactional
     @GetMapping("/quiz-question/{id}/progress-state")
     public ResponseEntity<ProgressState> getProgressState(@PathVariable Integer id) {
         return response(Optional.of(new ProgressState(findAllQuestionsCount(), getQuestionIndex(id))));
@@ -36,7 +47,9 @@ public class QuizQuestionController {
     @PostMapping("/quiz-question")
     public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
         var createdQuestion = quizQuestionRepository.save(question);
-        return new QuestionCreateResponse(createdQuestion.getId(), "hash");
+        var idWithSalt = createdQuestion.getId() + QuizQuestionController.SALT_STRING;
+        var hash = Base64.getUrlEncoder().encodeToString(idWithSalt.getBytes());
+        return new QuestionCreateResponse(createdQuestion.getId(), hash);
     }
 
     @Transactional
