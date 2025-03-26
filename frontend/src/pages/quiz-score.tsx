@@ -1,4 +1,4 @@
-import type { QuestionResult } from 'model/quiz-question'
+import type { QuizResult, QuestionResult } from 'model/quiz-question'
 
 const getQuizStatistic = (questionResult: QuestionResult[]): number[] => {
     const countCorrect = questionResult.filter(i => i.result === true).length
@@ -14,8 +14,8 @@ const getQuizResult = (questionResult: number): string => {
     return 'failed'
 }
 
-export const QuizScore = (props: QuestionResult[]) => {
-    const [correctAnswerCount, countAll, quizPercentage] = getQuizStatistic(props)
+export const QuizScore = (props: QuizResult) => {
+    const [correctAnswerCount, countAll, quizPercentage] = getQuizStatistic(props.questions)
     ;<>
         <span id="correct-answers">{correctAnswerCount}</span>
         <span id="total-questions">{countAll}</span>

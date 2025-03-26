@@ -19,3 +19,7 @@ export interface QuestionResult {
     readonly answer: string[]
     readonly result: boolean
 }
+
+export interface QuizResult {
+    readonly questions: QuestionResult[]
+}
