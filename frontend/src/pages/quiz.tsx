@@ -1,8 +1,64 @@
-import type { QuizQuestion, QuestionResult } from 'model/quiz-question'
+import type { QuizQuestion, QuizResult, QuestionResult } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
+import { QuizScore } from './quiz-score'
 
+interface QuizQuestionProps {
+    readonly currentQuestionIndex: number
+    readonly currentQuestion: QuizQuestion
+    readonly submitted: boolean
+    readonly isLastQuestion: boolean
+    readonly onSubmitted: () => void
+    readonly nextQuestionHandler: () => void
+    readonly handleStateChanged: (answerIndex: number, selected: boolean) => void
+    readonly quizState: Record<string, number[]>
+}
+
+export const QuizQuestionForm = (props: QuizQuestionProps) => {
+    return (
+        <div>
+            <h2>Quiz</h2>
+            {
+                <>
+                    <span>
+                        You are on a question {props.currentQuestionIndex + 1} / {quiz.length}
+                    </span>
+                    <br />
+                    <progress id="progress-bar" value={props.currentQuestionIndex + 1} max={quiz.length} />
+                </>
+            }
+            <QuestionForm
+                key={props.currentQuestion.id}
+                question={props.currentQuestion}
+                isSubmitted={props.submitted}
+                onSubmitted={props.onSubmitted}
+                onAnswerChange={props.handleStateChanged}
+                quizState={props.quizState}
+            />
+            {props.submitted && !props.isLastQuestion && <NextQuestionButton onClick={props.nextQuestionHandler} />}
+            {props.submitted && props.isLastQuestion && (
+                <Link className="submit-btn submit-btn-evaluate" to="/evaluation" id="evaluate-button">
+                    Evaluate
+                </Link>
+            )}
+        </div>
+    )
+}
+const quizResult: QuizResult = {
+    questions: [
+        {
+            question: 1,
+            answer: [0],
+            result: true,
+        },
+        {
+            question: 2,
+            answer: [2],
+            result: true,
+        },
+    ],
+}
 interface NextQuestionButtonProps {
     onClick: () => void
 }
@@ -130,31 +186,24 @@ export const Quiz = () => {
     }
 
     return (
-        <div>
-            <h2>Quiz</h2>
-            {
-                <>
-                    <span>
-                        You are on a question {currentQuestionIndex + 1} / {quiz.length}
-                    </span>
-                    <br />
-                    <progress id="progress-bar" value={currentQuestionIndex + 1} max={quiz.length} />
-                </>
-            }
-            <QuestionForm
-                key={currentQuestion.id}
-                question={currentQuestion}
-                isSubmitted={submitted}
-                onSubmitted={onSubmitted}
-                onAnswerChange={handleStateChanged}
-                quizState={quizState}
+        <Routes>
+            <Route path="/score" element={<QuizScore quizResult={quizResult} />} />
+            <Route
+                index
+                path=""
+                element={
+                    <QuizQuestionForm
+                        currentQuestion={currentQuestion}
+                        currentQuestionIndex={currentQuestionIndex}
+                        submitted={submitted}
+                        isLastQuestion={isLastQuestion}
+                        onSubmitted={onSubmitted}
+                        nextQuestionHandler={nextQuestionHandler}
+                        handleStateChanged={handleStateChanged}
+                        quizState={quizState}
+                    />
+                }
             />
-            {submitted && !isLastQuestion && <NextQuestionButton onClick={nextQuestionHandler} />}
-            {submitted && isLastQuestion && (
-                <Link className="submit-btn submit-btn-evaluate" to="/evaluation" id="evaluate-button">
-                    Evaluate
-                </Link>
-            )}
-        </div>
+        </Routes>
     )
 }
