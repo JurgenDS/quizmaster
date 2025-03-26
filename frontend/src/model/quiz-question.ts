@@ -13,3 +13,9 @@ export interface Answers {
     readonly explanations: readonly string[]
     readonly questionExplanation: string
 }
+
+export interface QuestionResult {
+    readonly question: number
+    readonly answer: string[]
+    readonly result: boolean
+}
