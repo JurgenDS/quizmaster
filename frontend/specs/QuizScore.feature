@@ -24,7 +24,6 @@ Scenario: Quiz score all question are correct
   * I click the evaluate button
   Then I see the result 2 correct out of 2, 100%, passed
 
-@skip
 Scenario: Quiz score one question is inccorect
   Given I visit the quiz page
   When I answer "Green"
