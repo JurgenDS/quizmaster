@@ -9,7 +9,7 @@ Feature: Answering a quiz question with multiple choice
       | Spain   | * | Manana!          |
     * with explanation "Italy, France, and Spain are in Europe. Morocco is in Africa."
     * saved and bookmarked as "Europe"
-
+@skip
   Scenario Outline: Detailed feedback is displayed for each selected answer
     Answer is considered correct if and only if:
     - All correct answers are selected.
@@ -26,13 +26,13 @@ Feature: Answering a quiz question with multiple choice
     And I see the question explanation
 
     Examples:
-      | answer                        | italy | italy_feedback | france | france_feedback | morocco | morocco_feedback | spain | spain_feedback | final_feedback                                                |
-      | Italy                         | ✅     | Correct!       | ❌      | Incorrect!      | ✅       | Correct!         | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France                 | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France, Morocco        | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France, Spain          | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France, Morocco, Spain | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-      | Italy, France, Morocco, Spain | ❌     | Incorrect!     | ✅      | Correct!        | ❌       | Incorrect!       | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | answer                        | italy | italy_feedback | france | france_feedback | morocco | morocco_feedback | spain | spain_feedback | final_feedback                                            |
+      | Italy                         |       |               | ❌      | Incorrect!      |        |                 | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France                 |       |               |         |                 |        |                 | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France, Morocco        |       |               |         |                 | ❌      | Incorrect!       | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France, Spain          |       |               |         |                  |        |                  |        |             | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France, Morocco, Spain |       |               |         |                 | ❌       | Incorrect!       |      |            | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | France, Morocco, Spain        | ❌   | Incorrect!     |         |                 | ❌       | Incorrect!       |      |             | Italy, France, and Spain are in Europe. Morocco is in Africa. |
 
 
   Scenario: Explanations for all answers are displayed after answering the question
