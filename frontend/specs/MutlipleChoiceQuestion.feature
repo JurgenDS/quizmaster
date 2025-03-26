@@ -32,6 +32,7 @@ Feature: Answering a quiz question with multiple choice
       | Italy, France, Morocco        | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ❌     | Incorrect! | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | Italy, France, Spain          | ✅     | Correct!       | ✅      | Correct!        | ✅       | Correct!         | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | Italy, France, Morocco, Spain | ✅     | Correct!       | ✅      | Correct!        | ❌       | Incorrect!       | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
+      | Italy, France, Morocco, Spain | ❌     | Incorrect!     | ✅      | Correct!        | ❌       | Incorrect!       | ✅     | Correct!       | Italy, France, and Spain are in Europe. Morocco is in Africa. |
 
 
   Scenario: Explanations for all answers are displayed after answering the question
