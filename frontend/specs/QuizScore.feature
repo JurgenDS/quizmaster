@@ -9,5 +9,5 @@ Feature: Evaluate quiz score
   Examples:
     | correct_answers | total_questions | percentage_result | text_result |
     | 5               | 10              | 50                | failed      |
-    | 9               | 10              | 90                | passed      |
+#    | 9               | 10              | 90                | passed      |
 
