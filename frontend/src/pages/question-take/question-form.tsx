@@ -11,7 +11,6 @@ export interface QuestionFormProps {
     readonly question: QuizQuestion
     readonly isSubmitted?: boolean
     readonly onSubmitted?: () => void
-    readonly quizState?: Record<number, number[]>
     readonly onAnswerChange?: (answerIndex: number, selected: boolean) => void
 }
 
@@ -34,7 +33,6 @@ export const QuestionForm = (props: QuestionFormProps) => {
                     <Answer
                         key={answer}
                         isMultipleChoice={state.isMultipleChoice}
-                        isChecked={props.quizState?.[props.question.id]?.includes(idx)}
                         idx={idx}
                         answer={answer}
                         isCorrect={feedback.isAnswerCorrect(idx)}

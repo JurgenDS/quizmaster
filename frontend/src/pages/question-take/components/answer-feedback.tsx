@@ -5,7 +5,6 @@ interface AnswerFeedbackProps {
     readonly correct: boolean
     readonly explanation: string
     readonly isMultipleChoice: boolean
-    readonly isChecked: boolean
 }
 
 export const AnswerFeedback = (props: AnswerFeedbackProps) => (

@@ -14,7 +14,6 @@ interface QuizQuestionProps {
     readonly onSubmitted: () => void
     readonly nextQuestionHandler: () => void
     readonly handleStateChanged: (answerIndex: number, selected: boolean) => void
-    readonly quizState: Record<string, number[]>
 }
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
@@ -28,7 +27,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 isSubmitted={props.submitted}
                 onSubmitted={props.onSubmitted}
                 onAnswerChange={props.handleStateChanged}
-                quizState={props.quizState}
             />
             {props.submitted &&
                 (!props.isLastQuestion ? (
@@ -179,7 +177,6 @@ export const Quiz = () => {
                         onSubmitted={onSubmitted}
                         nextQuestionHandler={nextQuestionHandler}
                         handleStateChanged={handleStateChanged}
-                        quizState={quizState}
                     />
                 }
             />

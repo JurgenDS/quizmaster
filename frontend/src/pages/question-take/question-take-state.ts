@@ -11,10 +11,9 @@ export interface QuestionTakeState {
 
 export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeState => {
     const question = props.question
-    const checkedAnswers = props.quizState?.[props.question.id]
     const isMultipleChoice = question.correctAnswers.length > 1
 
-    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<number[]>(checkedAnswers ?? [])
+    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<number[]>([])
 
     const setSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs([idx])
     const addSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => [...prev, idx])
