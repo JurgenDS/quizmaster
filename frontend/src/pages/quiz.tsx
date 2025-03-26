@@ -45,20 +45,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         </div>
     )
 }
-const quizResult: QuizResult = {
-    questions: [
-        {
-            question: 1,
-            answer: [0],
-            result: true,
-        },
-        {
-            question: 2,
-            answer: [2],
-            result: true,
-        },
-    ],
-}
+
 interface NextQuestionButtonProps {
     onClick: () => void
 }
@@ -141,6 +128,7 @@ export const Quiz = () => {
     }
 
     const [questionResults, setQuestionResults] = useState<QuestionResult[]>([])
+    const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] });
 
     const onSubmitted = () => {
         setSubmitted(true)
@@ -168,6 +156,16 @@ export const Quiz = () => {
                 updatedResults = [...prevResults, { question: Number(id), answer, result }]
             }
             console.log('Updated questionResults:', JSON.stringify(updatedResults))
+
+            // Update quizResult
+            setQuizResult({
+                questions: updatedResults.map(res => ({
+                    question: res.question,
+                    answer: res.answer,
+                    result: res.result,
+                })),
+            });
+
             return updatedResults
         })
     }
