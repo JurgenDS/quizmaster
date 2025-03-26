@@ -1,6 +1,6 @@
 import type { QuizQuestion, QuizResult, QuestionResult } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
@@ -62,35 +62,24 @@ type QuizState = Record<string, number[]>
 export const Quiz = () => {
     const [quizState, setQuizState] = useState<QuizState>({})
 
-    const isAlreadyAnswered = (questionId: number) => {
-        return Boolean(quizState[questionId]?.length)
-    }
-
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+    const currentQuestion = quiz[currentQuestionIndex]
 
-    const currentQuestion = useMemo(() => {
-        return quiz[currentQuestionIndex]
-    }, [currentQuestionIndex])
-
-    const [submitted, setSubmitted] = useState(isAlreadyAnswered(currentQuestion.id))
+    const [submitted, setSubmitted] = useState(false)
     const isLastQuestion = currentQuestionIndex === quiz.length - 1
 
     const nextQuestionHandler = () => {
         const nextQuestionIndex = currentQuestionIndex + 1
         setCurrentQuestionIndex(nextQuestionIndex)
 
-        if (nextQuestionIndex < quiz.length) {
-            const nextQuestion = quiz[nextQuestionIndex]
-            setSubmitted(isAlreadyAnswered(nextQuestion.id))
-        }
+        if (nextQuestionIndex < quiz.length) setSubmitted(false)
     }
 
     const [, setQuestionResults] = useState<QuestionResult[]>([])
     const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] })
 
-    const onSubmitted = () => {
-        setSubmitted(true)
-    }
+    const onSubmitted = () => setSubmitted(true)
+
     const resolveAnswers = (question: QuizQuestion, lastAnswers: number[], answerIndex: number, selected: boolean) => {
         const isMultiple = question.correctAnswers.length > 1
         if (!isMultiple) {
