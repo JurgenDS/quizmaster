@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test'
 import { Given, Then, When } from './fixture.ts'
-import type { DataTable } from '@cucumber/cucumber'
 import type { QuizResult } from '../../src/model/quiz-question'
 
 Given('I finish the quiz', async function () {
@@ -26,20 +25,23 @@ When('I answer 2 questions correctly from 2 total questions', async function () 
         ],
     }
     this.quizResult = quizResult
+    this.percentageResult = 100
+    this.correctAnswersCount = 2
+    this.quizScoreResult = 'passed'
 })
 
 Then('I see the result passed', async function () {
     // Step: Then I see the result passed
     // From: specs/QuizScore.feature:11:5
     const correctAnswers = await this.quizScorePage.correctAnswers()
-    expect(correctAnswers).toBe(this.quizResult.questions.length)
+    expect(correctAnswers).toBe(this.correctAnswersCount)
 
     const totalQuestions = await this.quizScorePage.totalQuestions()
     expect(totalQuestions).toBe(this.quizResult.questions.length)
 
     const result = await this.quizScorePage.percentageResult()
-    expect(result).toBe('100.00')
+    expect(result).toBe(this.percentageResult)
 
     const textResult = await this.quizScorePage.textResult()
-    expect(textResult).toBe('passed')
+    expect(textResult).toBe(this.quizScoreResult)
 })
