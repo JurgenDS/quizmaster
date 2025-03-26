@@ -2,7 +2,6 @@ import type { Page, TestInfo } from '@playwright/test'
 
 import { CreateQuestionPage, QuizPage, TakeQuestionPage, QuizScorePage } from '../../pages'
 import type { Question } from './question'
-import type { QuizResult } from '../../../src/model/quiz-question'
 
 export class QuizmasterWorld {
     constructor(
@@ -24,10 +23,6 @@ export class QuizmasterWorld {
     nextAnswerIdx = 0
     bookmarks: Record<string, Question> = {}
     activeBookmark = ''
-    quizResult: QuizResult = { questions: [] }
-    percentageResult = 0
-    correctAnswersCount = 0
-    quizScoreResult = 'passed'
     get activeQuestion() {
         return this.bookmarks[this.activeBookmark]
     }
