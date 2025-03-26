@@ -16,7 +16,7 @@ export interface Answers {
 
 export interface QuestionResult {
     readonly question: number
-    readonly answer: string[]
+    readonly answer: number[]
     readonly result: boolean
 }
 

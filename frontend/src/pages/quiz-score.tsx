@@ -14,12 +14,27 @@ const getQuizResult = (questionResult: number): string => {
     return 'failed'
 }
 
-export const QuizScore = (props: QuizResult) => {
-    const [correctAnswerCount, countAll, quizPercentage] = getQuizStatistic(props.questions)
-    ;<>
-        <span id="correct-answers">{correctAnswerCount}</span>
-        <span id="total-questions">{countAll}</span>
-        <span id="percentage-result">{quizPercentage}</span>
-        <span id="text-result">{getQuizResult(quizPercentage)}</span>
-    </>
+interface QuizScoreProps {
+    readonly quizResult: QuizResult
+}
+
+export const QuizScore = (props: QuizScoreProps) => {
+    const [correctAnswerCount, countAll, quizPercentage] = getQuizStatistic(props.quizResult.questions)
+    return (
+        <>
+            <h1>Výsledok testu</h1>
+            <p>
+                Správne odpovede: <span id="correct-answers">{correctAnswerCount}</span>
+            </p>
+            <p>
+                Celkový počet otázok: <span id="total-questions">{countAll}</span>
+            </p>
+            <p>
+                Úspešnosť: <span id="percentage-result">{quizPercentage.toFixed(2)}</span>
+            </p>
+            <p>
+                Stav: <span id="text-result">{getQuizResult(quizPercentage)}</span>
+            </p>
+        </>
+    )
 }
