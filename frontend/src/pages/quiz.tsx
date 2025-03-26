@@ -128,7 +128,7 @@ export const Quiz = () => {
     }
 
     const [questionResults, setQuestionResults] = useState<QuestionResult[]>([])
-    const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] });
+    const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] })
 
     const onSubmitted = () => {
         setSubmitted(true)
@@ -164,7 +164,7 @@ export const Quiz = () => {
                     answer: res.answer,
                     result: res.result,
                 })),
-            });
+            })
 
             return updatedResults
         })
