@@ -3,6 +3,7 @@ import { QuestionForm } from './question-take'
 import { useMemo, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import { QuizScore } from './quiz-score'
+import { ProgressBar } from './quiz/progress-bar'
 
 interface QuizQuestionProps {
     readonly currentQuestionIndex: number
@@ -19,15 +20,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     return (
         <div>
             <h2>Quiz</h2>
-            {
-                <>
-                    <span>
-                        You are on a question {props.currentQuestionIndex + 1} / {quiz.length}
-                    </span>
-                    <br />
-                    <progress id="progress-bar" value={props.currentQuestionIndex + 1} max={quiz.length} />
-                </>
-            }
+            <ProgressBar current={props.currentQuestionIndex + 1} total={quiz.length} />
             <QuestionForm
                 key={props.currentQuestion.id}
                 question={props.currentQuestion}
