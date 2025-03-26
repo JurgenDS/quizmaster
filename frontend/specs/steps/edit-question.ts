@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import { Then, When } from './fixture.ts'
 
 When('I start editing question {string}', async function (bookmark: string) {
-    await this.createQuestionPage.gotoEdit(this.bookmarks[bookmark].url)
+    await this.createQuestionPage.gotoEdit(this.bookmarks[bookmark].editUrl)
     this.activeBookmark = bookmark
 })
 

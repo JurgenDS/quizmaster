@@ -34,6 +34,7 @@ const enterAnswer = async (
 const saveQuestion = async (world: QuizmasterWorld, bookmark: string) => {
     await world.createQuestionPage.submit()
     world.questionWip.url = (await world.createQuestionPage.questionUrl()) || ''
+    world.questionWip.editUrl = (await world.createQuestionPage.questionEditUrl()) || ''
     world.bookmarks[bookmark] = world.questionWip
 }
 

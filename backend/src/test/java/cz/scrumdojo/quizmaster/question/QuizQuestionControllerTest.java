@@ -52,6 +52,20 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
+    public void updateQuestion() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+        var updatedQuestion = createMultipleChoiceQuestion();
+        quizQuestionController.updateQuestion(updatedQuestion, questionCreateResponse.getHash());
+
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(result);
+        assertEquals(updatedQuestion.getQuestion(), result.getQuestion());
+        assertArrayEquals(updatedQuestion.getAnswers(), result.getAnswers());
+    }
+
+    @Test
     public void getQuestionByHash() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);

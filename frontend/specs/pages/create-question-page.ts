@@ -4,7 +4,7 @@ export class CreateQuestionPage {
     constructor(private page: Page) {}
 
     gotoNew = () => this.page.goto('/question/new')
-    gotoEdit = (url: string) => this.page.goto(`${url}/edit`, { waitUntil: 'networkidle' })
+    gotoEdit = (url: string) => this.page.goto(url, { waitUntil: 'networkidle' })
 
     waitForLoaded = () => this.page.isHidden('#is-loaded[value="loaded"]')
 

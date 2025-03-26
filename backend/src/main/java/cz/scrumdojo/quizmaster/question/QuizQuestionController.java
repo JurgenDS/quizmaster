@@ -53,8 +53,10 @@ public class QuizQuestionController {
     }
 
     @Transactional
-    @PatchMapping("/quiz-question/{id}")
-    public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable Integer id) {
+    @PatchMapping("/quiz-question/{hash}")
+    public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String hash) {
+        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
+        var id = Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - SALT_STRING.length()));
         question.setId(id);
         System.out.println("Updating question: " + question);
         quizQuestionRepository.save(question);

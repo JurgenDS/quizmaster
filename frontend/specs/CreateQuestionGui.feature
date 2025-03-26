@@ -18,8 +18,10 @@ Feature: Create question GUI
     * I save the question
     Then I see a link to take the question
     * I see a link to edit the question
-    # When I edit the question
-    # Then I can edit the question and the answers
+    When I edit the question
+    Then I see the answers
+    | 4     | * |
+    | 5     |   |
 
   Scenario: Add a single-choice question with 3 answers
     Given I start creating a question
