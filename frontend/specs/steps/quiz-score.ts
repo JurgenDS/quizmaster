@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 import { Given, Then, When } from './fixture.ts'
-import { DataTable } from '@cucumber/cucumber'
+import type { DataTable } from '@cucumber/cucumber'
 
 Given('a quiz with 10 questions', async () => {
     // Step: Given a quiz with 10 questions
@@ -21,8 +21,7 @@ Then('I see the score', async function (dataTable: DataTable) {
     await this.page.goto('/quiz-score')
     const rows = dataTable.hashes()
     for (const row of rows) {
-
-        const {correct_answers, total_questions, percentage_result, text_result } = row
+        const { correct_answers, total_questions, percentage_result, text_result } = row
         const correctAnswers = await this.quizScorePage.correctAnswers()
         expect(correctAnswers).toBe(Number(correct_answers))
 
