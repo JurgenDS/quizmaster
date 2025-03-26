@@ -38,11 +38,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     )
 }
 
-const sessionKey = 'quizState'
-
-// Clear session storage on page load or refresh
-sessionStorage.removeItem(sessionKey)
-
 const quizQuestion1: QuizQuestion = {
     id: 1,
     question: 'What is the standard colour of sky?',
@@ -61,26 +56,11 @@ const quizQuestion2: QuizQuestion = {
 }
 
 const quiz = [quizQuestion1, quizQuestion2]
-const getSessionQuizState = (): Record<string, number[]> => {
-    const sessionStorageValue = sessionStorage.getItem(sessionKey)
-    const quizState = sessionStorageValue ? JSON.parse(sessionStorageValue) : {}
-    return quizState
-}
 
-const useQuizState = () => {
-    const [quizState, setQuizState] = useState(() => getSessionQuizState())
-
-    return [
-        quizState,
-        (state: Record<string, number[]>) => {
-            setQuizState(state)
-            sessionStorage.setItem(sessionKey, JSON.stringify(state))
-        },
-    ] as const
-}
+type QuizState = Record<string, number[]>
 
 export const Quiz = () => {
-    const [quizState, setQuizState] = useQuizState()
+    const [quizState, setQuizState] = useState<QuizState>({})
 
     const isAlreadyAnswered = (questionId: number) => {
         return Boolean(quizState[questionId]?.length)
