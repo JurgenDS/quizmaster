@@ -18,9 +18,7 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => (
         )}
         &nbsp;
         <span className="explanation">
-            {(!props.isMultipleChoice || (props.isMultipleChoice && !props.correct)) && (
-                <Explanation text={props.explanation} />
-            )}
+            {<Explanation text={props.explanation} />}
         </span>
     </span>
 )

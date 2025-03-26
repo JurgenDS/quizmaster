@@ -3,10 +3,10 @@ Feature: Answering a quiz question with multiple choice
   Background:
     Given a question "What countries are in Europe?"
     * with answers:
-      | Italy   | * | And where is it? |
-      | France  | * | You wish!        |
-      | Morocco |   | Almost :D        |
-      | Spain   | * | Manana!          |
+      | Italy   | * | Although it lies beyond the Alps, in the middle of its capital city lies the Vatican, the cradle of European Christianity. |
+      | France  | * | This country is one of the founders of the European Union.        |
+      | Morocco |   | Is on Afrika     |
+      | Spain   | * | This country is located on the Iberian Peninsula, which is part of the European continent.          |
     * with explanation "Italy, France, and Spain are in Europe. Morocco is in Africa."
     * saved and bookmarked as "Europe"
 
@@ -40,19 +40,9 @@ Feature: Answering a quiz question with multiple choice
     And I answer "France, Morocco, Spain"
     Then I see the answer explanations for answers
       | answer  | explanation      |
-      | Italy   | And where is it? |
-      | France  |                  |
-      | Morocco | Almost :D        |
-      | Spain   |                  |
+      | Italy   | Although it lies beyond the Alps, in the middle of its capital city lies the Vatican, the cradle of European Christianity. |
+      | France  | This country is one of the founders of the European Union.        |
+      | Morocco | Is on Afrika      |
+      | Spain   | This country is located on the Iberian Peninsula, which is part of the European continent.         |
     And I see the question explanation
 
-  Scenario: Explanations for all answers are displayed after answering the question other look
-    When I take question "Europe"
-    And I answer "Italy, France"
-    Then I see the answer explanations for answers
-      | answer  | explanation      |
-      | Italy   |                  |
-      | France  |                  |
-      | Morocco |                  |
-      | Spain   | Manana!          |
-    And I see the question explanation
