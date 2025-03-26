@@ -5,6 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Optional;
 import question.QuestionCreateResponse;
@@ -14,7 +18,9 @@ import question.QuestionCreateResponse;
 public class QuizQuestionController {
 
     private final QuizQuestionRepository quizQuestionRepository;
-    public static final String SALT_STRING = "ALKMDNEQ";
+    public static final String KEY = "UMNBKJHUMNASDGIUASDKJHVIYWKJASGS";
+    private static final String ALGORITHM = "AES";
+    private static final String TRANSFORM = "AES/ECB/PKCS5Padding";
 
     @Autowired
     public QuizQuestionController(
@@ -85,12 +91,27 @@ public class QuizQuestionController {
     }
 
     private String getHashFromQuestionId(Integer questionId) {
-        var idWithSalt = questionId + QuizQuestionController.SALT_STRING;
-        return Base64.getUrlEncoder().encodeToString(idWithSalt.getBytes());
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORM);
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+            byte[] encrypted = cipher.doFinal(questionId.toString().getBytes());
+            return Base64.getUrlEncoder().encodeToString(encrypted);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while encrypting", e);
+        }
     }
 
     private Integer getQuestionIdFromHash(String hash) {
-        var idWithSalt = new String(Base64.getUrlDecoder().decode(hash.getBytes()));
-        return Integer.parseInt(idWithSalt.substring(0, idWithSalt.length() - QuizQuestionController.SALT_STRING.length()));
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORM);
+            cipher.init(Cipher.DECRYPT_MODE, keySpec);
+            byte[] decodedBytes = Base64.getUrlDecoder().decode(hash);
+            byte[] decrypted = cipher.doFinal(decodedBytes);
+            return Integer.parseInt(new String(decrypted));
+        } catch (Exception e) {
+            throw new RuntimeException("Error while decrypting", e);
+        }
     }
 }
