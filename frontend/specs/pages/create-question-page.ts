@@ -51,6 +51,7 @@ export class CreateQuestionPage {
 
     private questionUrlLocator = () => this.page.locator('#question-link')
     questionUrl = () => this.questionUrlLocator().textContent()
+    followQuestionUrl = () => this.page.locator('#question-link a').click()
 
     private questionEditUrlLocator = () => this.page.locator('#question-edit-link')
     questionEditUrl = () => this.questionEditUrlLocator().textContent()
