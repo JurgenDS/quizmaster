@@ -11,9 +11,8 @@ interface QuizQuestionProps {
     readonly currentQuestion: QuizQuestion
     readonly submitted: boolean
     readonly isLastQuestion: boolean
-    readonly onSubmitted: () => void
+    readonly onSubmitted: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly nextQuestionHandler: () => void
-    readonly handleStateChanged: (answerIndex: number, selected: boolean) => void
 }
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
@@ -25,7 +24,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 key={props.currentQuestion.id}
                 question={props.currentQuestion}
                 onSubmitted={props.onSubmitted}
-                onAnswerChange={props.handleStateChanged}
             />
             {props.submitted &&
                 (!props.isLastQuestion ? (
@@ -86,28 +84,9 @@ export const Quiz = () => {
         if (nextQuestionIndex < quiz.length) setSubmitted(false)
     }
 
-    const onSubmitted = () => setSubmitted(true)
-
-    const resolveAnswers = (
-        question: QuizQuestion,
-        lastAnswers: AnswerIdxs,
-        answerIndex: number,
-        selected: boolean,
-    ) => {
-        const isMultiple = question.correctAnswers.length > 1
-        if (!isMultiple) {
-            return [answerIndex]
-        }
-        const answers = Array.from(new Set([...lastAnswers, answerIndex]))
-        const removingAnswers = !selected ? [answerIndex] : []
-        return answers.filter(i => !removingAnswers.includes(i))
-    }
-
-    const handleStateChanged = (answerIndex: number, selected: boolean) => {
-        const questionId = currentQuestion.id
-        const lastAnswers = quizState[questionId] ?? []
-        const currentAnswers = resolveAnswers(currentQuestion, lastAnswers, answerIndex, selected)
-        setQuizState({ ...quizState, [questionId]: currentAnswers })
+    const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
+        setQuizState({ ...quizState, [currentQuestion.id]: selectedAnswerIdxs })
+        setSubmitted(true)
     }
 
     return (
@@ -124,7 +103,6 @@ export const Quiz = () => {
                         isLastQuestion={isLastQuestion}
                         onSubmitted={onSubmitted}
                         nextQuestionHandler={nextQuestionHandler}
-                        handleStateChanged={handleStateChanged}
                     />
                 }
             />

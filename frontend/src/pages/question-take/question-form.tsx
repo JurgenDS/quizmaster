@@ -1,4 +1,4 @@
-import type { QuizQuestion } from 'model/quiz-question.ts'
+import type { AnswerIdxs, QuizQuestion } from 'model/quiz-question.ts'
 import {
     Answer,
     useQuestionFeedbackState,
@@ -9,8 +9,7 @@ import {
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
-    readonly onSubmitted?: () => void
-    readonly onAnswerChange?: (answerIndex: number, selected: boolean) => void
+    readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
@@ -21,7 +20,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
         e.preventDefault()
         if (state.selectedAnswerIdxs.length > 0) {
             state.submit()
-            props.onSubmitted?.()
+            props.onSubmitted?.(state.selectedAnswerIdxs)
         }
     }
     return (
@@ -37,10 +36,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                         isCorrect={feedback.isAnswerCorrect(idx)}
                         explanation={props.question.explanations ? props.question.explanations[idx] : 'not defined'}
                         showFeedback={state.submitted && feedback.showFeedback(idx)}
-                        onAnswerChange={(answerIndex, selected) => {
-                            state.onSelectedAnswerChange(answerIndex, selected)
-                            props.onAnswerChange?.(answerIndex, selected)
-                        }}
+                        onAnswerChange={state.onSelectedAnswerChange}
                     />
                 ))}
             </ul>
