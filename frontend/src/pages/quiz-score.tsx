@@ -1,39 +1,31 @@
-import type { QuizResult, QuestionResult } from 'model/quiz-question'
-
-const getQuizStatistic = (questionResult: QuestionResult[]): number[] => {
-    const countCorrect = questionResult.filter(i => i.result === true).length
-    const countAll = questionResult.length
-    const percentage = (countCorrect / countAll) * 100
-    return [countCorrect, countAll, percentage]
-}
-
-const getQuizResult = (questionResult: number): string => {
-    if (questionResult >= 85) {
-        return 'passed'
-    }
-    return 'failed'
+export interface QuizScore {
+    readonly correct: number
+    readonly total: number
 }
 
 interface QuizScoreProps {
-    readonly quizResult: QuizResult
+    readonly score: QuizScore
 }
 
-export const QuizScore = (props: QuizScoreProps) => {
-    const [correctAnswerCount, countAll, quizPercentage] = getQuizStatistic(props.quizResult.questions)
+export const QuizScore = ({ score }: QuizScoreProps) => {
+    const { correct, total } = score
+    const percentage = (correct / total) * 100
+    const result = percentage >= 85 ? 'passed' : 'failed'
+
     return (
         <>
             <h1>Výsledok testu</h1>
             <p>
-                Správne odpovede: <span id="correct-answers">{correctAnswerCount}</span>
+                Správne odpovede: <span id="correct-answers">{correct}</span>
             </p>
             <p>
-                Celkový počet otázok: <span id="total-questions">{countAll}</span>
+                Celkový počet otázok: <span id="total-questions">{total}</span>
             </p>
             <p>
-                Úspešnosť(%): <span id="percentage-result">{quizPercentage.toFixed(2)}</span>
+                Úspešnosť(%): <span id="percentage-result">{percentage.toFixed(2)}</span>
             </p>
             <p>
-                Stav: <span id="text-result">{getQuizResult(quizPercentage)}</span>
+                Stav: <span id="text-result">{result}</span>
             </p>
         </>
     )

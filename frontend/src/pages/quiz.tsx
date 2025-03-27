@@ -1,4 +1,4 @@
-import type { QuizQuestion, QuizResult, QuestionResult, AnswerIdxs } from 'model/quiz-question'
+import type { QuizQuestion, AnswerIdxs } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -61,6 +61,18 @@ type QuizState = Record<string, AnswerIdxs>
 export const Quiz = () => {
     const [quizState, setQuizState] = useState<QuizState>({})
 
+    const quizScore = {
+        correct: quiz.filter(question => {
+            const selectedAnswerIdxs = quizState[question.id]
+            return (
+                selectedAnswerIdxs !== undefined &&
+                selectedAnswerIdxs.length === question.correctAnswers.length &&
+                selectedAnswerIdxs.every(answerIndex => question.correctAnswers.includes(answerIndex))
+            )
+        }).length,
+        total: quiz.length,
+    }
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const currentQuestion = quiz[currentQuestionIndex]
 
@@ -73,9 +85,6 @@ export const Quiz = () => {
 
         if (nextQuestionIndex < quiz.length) setSubmitted(false)
     }
-
-    const [, setQuestionResults] = useState<QuestionResult[]>([])
-    const [quizResult, setQuizResult] = useState<QuizResult>({ questions: [] })
 
     const onSubmitted = () => setSubmitted(true)
 
@@ -94,46 +103,16 @@ export const Quiz = () => {
         return answers.filter(i => !removingAnswers.includes(i))
     }
 
-    const saveResults = (id: string, answer: AnswerIdxs, result: boolean) => {
-        setQuestionResults(prevResults => {
-            const existingIndex = prevResults.findIndex(res => res.question === Number(id))
-            let updatedResults: QuestionResult[] // Explicitly typed as QuestionResult[]
-            if (existingIndex !== -1) {
-                // Update existing result
-                updatedResults = [...prevResults]
-                updatedResults[existingIndex] = { question: Number(id), answer, result }
-            } else {
-                // Insert new result
-                updatedResults = [...prevResults, { question: Number(id), answer, result }]
-            }
-
-            // Update quizResult
-            setQuizResult({
-                questions: updatedResults.map(res => ({
-                    question: res.question,
-                    answer: res.answer,
-                    result: res.result,
-                })),
-            })
-
-            return updatedResults
-        })
-    }
-
     const handleStateChanged = (answerIndex: number, selected: boolean) => {
         const questionId = currentQuestion.id
         const lastAnswers = quizState[questionId] ?? []
         const currentAnswers = resolveAnswers(currentQuestion, lastAnswers, answerIndex, selected)
-        const isCorrect =
-            currentAnswers.length === currentQuestion.correctAnswers.length &&
-            currentAnswers.every(answerIndex => currentQuestion.correctAnswers.includes(answerIndex))
-        saveResults(questionId.toString(), currentAnswers, isCorrect)
         setQuizState({ ...quizState, [questionId]: currentAnswers })
     }
 
     return (
         <Routes>
-            <Route path="/score" element={<QuizScore quizResult={quizResult} />} />
+            <Route path="/score" element={<QuizScore score={quizScore} />} />
             <Route
                 index
                 path=""
