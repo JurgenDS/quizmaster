@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import type { AnswerIdxs } from 'model/quiz-question'
 import type { QuestionFormProps } from './question-form'
 
 export interface QuestionTakeState {
     readonly isMultipleChoice: boolean
-    readonly selectedAnswerIdxs: number[]
+    readonly selectedAnswerIdxs: AnswerIdxs
     readonly submitted: boolean
     readonly submit: () => void
     readonly onSelectedAnswerChange: (idx: number, selected: boolean) => void
@@ -13,7 +14,7 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
     const question = props.question
     const isMultipleChoice = question.correctAnswers.length > 1
 
-    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<number[]>([])
+    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<AnswerIdxs>([])
 
     const setSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs([idx])
     const addSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => [...prev, idx])

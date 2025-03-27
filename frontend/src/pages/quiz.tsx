@@ -1,4 +1,4 @@
-import type { QuizQuestion, QuizResult, QuestionResult } from 'model/quiz-question'
+import type { QuizQuestion, QuizResult, QuestionResult, AnswerIdxs } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -56,7 +56,7 @@ const quizQuestion2: QuizQuestion = {
 
 const quiz = [quizQuestion1, quizQuestion2]
 
-type QuizState = Record<string, number[]>
+type QuizState = Record<string, AnswerIdxs>
 
 export const Quiz = () => {
     const [quizState, setQuizState] = useState<QuizState>({})
@@ -79,7 +79,12 @@ export const Quiz = () => {
 
     const onSubmitted = () => setSubmitted(true)
 
-    const resolveAnswers = (question: QuizQuestion, lastAnswers: number[], answerIndex: number, selected: boolean) => {
+    const resolveAnswers = (
+        question: QuizQuestion,
+        lastAnswers: AnswerIdxs,
+        answerIndex: number,
+        selected: boolean,
+    ) => {
         const isMultiple = question.correctAnswers.length > 1
         if (!isMultiple) {
             return [answerIndex]
@@ -89,7 +94,7 @@ export const Quiz = () => {
         return answers.filter(i => !removingAnswers.includes(i))
     }
 
-    const saveResults = (id: string, answer: number[], result: boolean) => {
+    const saveResults = (id: string, answer: AnswerIdxs, result: boolean) => {
         setQuestionResults(prevResults => {
             const existingIndex = prevResults.findIndex(res => res.question === Number(id))
             let updatedResults: QuestionResult[] // Explicitly typed as QuestionResult[]

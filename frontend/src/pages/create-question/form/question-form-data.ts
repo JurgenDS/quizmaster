@@ -1,3 +1,4 @@
+import type { AnswerIdxs } from 'model/quiz-question'
 import type { QuestionApiData } from 'api/quiz-question'
 
 export interface AnswerData {
@@ -41,7 +42,7 @@ export const toQuestionApiData = (questionData: QuestionFormData): QuestionApiDa
     const answers = questionData.answers.map(answer => answer.answer)
     const correctAnswers = questionData.answers.reduce(
         (acc, answer, index) => (answer.isCorrect ? acc.concat([index]) : acc),
-        [] as number[],
+        [] as AnswerIdxs,
     )
     const explanations = questionData.answers.map(answer => answer.explanation)
 
