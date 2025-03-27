@@ -19,7 +19,7 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
     const addSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => [...prev, idx])
     const removeSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => prev.filter(i => i !== idx))
 
-    const [submitted, setSubmitted] = useState(props.isSubmitted ?? false)
+    const [submitted, setSubmitted] = useState(false)
 
     const submit = () => setSubmitted(true)
 

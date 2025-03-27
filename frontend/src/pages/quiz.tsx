@@ -24,7 +24,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <QuestionForm
                 key={props.currentQuestion.id}
                 question={props.currentQuestion}
-                isSubmitted={props.submitted}
                 onSubmitted={props.onSubmitted}
                 onAnswerChange={props.handleStateChanged}
             />

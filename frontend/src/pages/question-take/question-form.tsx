@@ -9,7 +9,6 @@ import {
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
-    readonly isSubmitted?: boolean
     readonly onSubmitted?: () => void
     readonly onAnswerChange?: (answerIndex: number, selected: boolean) => void
 }
