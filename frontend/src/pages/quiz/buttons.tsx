@@ -1,17 +1,13 @@
-interface NextQuestionButtonProps {
-    readonly onClick: () => void
-}
+import { Button, type WithOnClick } from 'pages/components/button'
 
-export const NextQuestionButton = ({ onClick }: NextQuestionButtonProps) => (
-    <div>
-        <button id="next-question" type="button" className="submit-btn" onClick={onClick}>
-            Next Question
-        </button>
-    </div>
+export const NextQuestionButton = ({ onClick }: WithOnClick) => (
+    <Button id="next-question" onClick={onClick}>
+        Next Question
+    </Button>
 )
 
-export const EvaluateButton = ({ onClick }: NextQuestionButtonProps) => (
-    <button id="evaluate-button" type="button" className="submit-btn submit-btn-evaluate" onClick={onClick}>
+export const EvaluateButton = ({ onClick }: WithOnClick) => (
+    <Button id="evaluate-button" className="submit-btn-evaluate" onClick={onClick}>
         Evaluate
-    </button>
+    </Button>
 )
