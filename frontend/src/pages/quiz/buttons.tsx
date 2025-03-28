@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 interface NextQuestionButtonProps {
     readonly onClick: () => void
 }
@@ -12,8 +10,8 @@ export const NextQuestionButton = ({ onClick }: NextQuestionButtonProps) => (
     </div>
 )
 
-export const EvaluateButton = () => (
-    <Link to="score" id="evaluate-button" className="submit-btn submit-btn-evaluate">
+export const EvaluateButton = ({ onClick }: NextQuestionButtonProps) => (
+    <button id="evaluate-button" type="button" className="submit-btn submit-btn-evaluate" onClick={onClick}>
         Evaluate
-    </Link>
+    </button>
 )

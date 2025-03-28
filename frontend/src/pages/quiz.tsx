@@ -1,7 +1,6 @@
 import type { QuizQuestion, AnswerIdxs } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
 import { EvaluateButton, NextQuestionButton } from './quiz/buttons'
@@ -13,6 +12,7 @@ interface QuizQuestionProps {
     readonly isLastQuestion: boolean
     readonly onSubmitted: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly nextQuestionHandler: () => void
+    readonly onEvaluate: () => void
 }
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
@@ -29,7 +29,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 (!props.isLastQuestion ? (
                     <NextQuestionButton onClick={props.nextQuestionHandler} />
                 ) : (
-                    <EvaluateButton />
+                    <EvaluateButton onClick={props.onEvaluate} />
                 ))}
         </div>
     )
@@ -89,23 +89,20 @@ export const Quiz = () => {
         setSubmitted(true)
     }
 
-    return (
-        <Routes>
-            <Route path="/score" element={<QuizScore score={quizScore} />} />
-            <Route
-                index
-                path=""
-                element={
-                    <QuizQuestionForm
-                        currentQuestion={currentQuestion}
-                        currentQuestionIndex={currentQuestionIndex}
-                        submitted={submitted}
-                        isLastQuestion={isLastQuestion}
-                        onSubmitted={onSubmitted}
-                        nextQuestionHandler={nextQuestionHandler}
-                    />
-                }
-            />
-        </Routes>
+    const [isEvaluated, setIsEvaluated] = useState(false)
+    const onEvaluate = () => setIsEvaluated(true)
+
+    return isEvaluated ? (
+        <QuizScore score={quizScore} />
+    ) : (
+        <QuizQuestionForm
+            currentQuestion={currentQuestion}
+            currentQuestionIndex={currentQuestionIndex}
+            submitted={submitted}
+            isLastQuestion={isLastQuestion}
+            onSubmitted={onSubmitted}
+            nextQuestionHandler={nextQuestionHandler}
+            onEvaluate={onEvaluate}
+        />
     )
 }
