@@ -1,5 +1,4 @@
-import { useMemo } from 'react'
-import type { Answers } from 'model/quiz-question'
+import { isAnsweredCorrectly, type Answers } from 'model/quiz-question'
 import type { QuestionTakeState } from 'pages/question-take'
 
 export interface QuestionFeedbackState {
@@ -9,12 +8,7 @@ export interface QuestionFeedbackState {
 }
 
 export const useQuestionFeedbackState = (state: QuestionTakeState, answers: Answers): QuestionFeedbackState => {
-    const isQuestionCorrect = useMemo(
-        () =>
-            state.selectedAnswerIdxs.length === answers.correctAnswers.length &&
-            state.selectedAnswerIdxs.every(idx => answers.correctAnswers.includes(idx)),
-        [state.selectedAnswerIdxs, answers.correctAnswers],
-    )
+    const isQuestionCorrect = isAnsweredCorrectly(state.selectedAnswerIdxs, answers.correctAnswers)
 
     const isAnswerCorrect = (idx: number) =>
         (answers.correctAnswers.includes(idx) && state.selectedAnswerIdxs.includes(idx)) ||

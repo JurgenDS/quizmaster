@@ -1,4 +1,4 @@
-import type { QuizQuestion, AnswerIdxs } from 'model/quiz-question'
+import { type QuizQuestion, type AnswerIdxs, isAnsweredCorrectly } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { QuizScore } from './quiz-score'
@@ -28,14 +28,8 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
     const onEvaluate = () =>
         props.onEvaluate({
-            correct: quiz.filter((question, idx) => {
-                const answerIdxs = quizState[idx]
-                return (
-                    answerIdxs !== undefined &&
-                    answerIdxs.length === question.correctAnswers.length &&
-                    answerIdxs.every(answerIndex => question.correctAnswers.includes(answerIndex))
-                )
-            }).length,
+            correct: quiz.filter((question, idx) => isAnsweredCorrectly(quizState[idx], question.correctAnswers))
+                .length,
             total: quiz.length,
         })
 

@@ -14,3 +14,7 @@ export interface Answers {
     readonly explanations: readonly string[]
     readonly questionExplanation: string
 }
+
+export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean =>
+    selectedAnswerIdxs.length === correctAnswers.length &&
+    selectedAnswerIdxs.every(answerIndex => correctAnswers.includes(answerIndex))
