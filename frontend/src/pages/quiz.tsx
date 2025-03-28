@@ -9,52 +9,43 @@ interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
 }
 
+type QuizState = readonly AnswerIdxs[]
+
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
-    const [quizState, setQuizState] = useState<QuizState>({})
+    const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
+    const currentQuestion = quiz[currentQuestionIdx]
+    const isLastQuestion = currentQuestionIdx === quiz.length - 1
 
-    const quizScore = {
-        correct: quiz.filter(question => {
-            const selectedAnswerIdxs = quizState[question.id]
-            return (
-                selectedAnswerIdxs !== undefined &&
-                selectedAnswerIdxs.length === question.correctAnswers.length &&
-                selectedAnswerIdxs.every(answerIndex => question.correctAnswers.includes(answerIndex))
-            )
-        }).length,
-        total: quiz.length,
-    }
-
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const currentQuestion = quiz[currentQuestionIndex]
-
-    const [submitted, setSubmitted] = useState(false)
-    const isLastQuestion = currentQuestionIndex === quiz.length - 1
-
-    const nextQuestionHandler = () => {
-        const nextQuestionIndex = currentQuestionIndex + 1
-        setCurrentQuestionIndex(nextQuestionIndex)
-
-        if (nextQuestionIndex < quiz.length) setSubmitted(false)
-    }
+    const [quizState, setQuizState] = useState<QuizState>([])
+    const isAnswered = quizState[currentQuestionIdx] !== undefined
 
     const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
-        setQuizState({ ...quizState, [currentQuestion.id]: selectedAnswerIdxs })
-        setSubmitted(true)
+        const newQuizState = Array.from(quizState)
+        newQuizState[currentQuestionIdx] = selectedAnswerIdxs
+        setQuizState(newQuizState)
     }
 
-    const onEvaluate = () => props.onEvaluate(quizScore)
+    const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
+    const onEvaluate = () =>
+        props.onEvaluate({
+            correct: quiz.filter((question, idx) => {
+                const answerIdxs = quizState[idx]
+                return (
+                    answerIdxs !== undefined &&
+                    answerIdxs.length === question.correctAnswers.length &&
+                    answerIdxs.every(answerIndex => question.correctAnswers.includes(answerIndex))
+                )
+            }).length,
+            total: quiz.length,
+        })
 
     return (
         <div>
             <h2>Quiz</h2>
-            <ProgressBar current={currentQuestionIndex + 1} total={quiz.length} />
+            <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
             <QuestionForm key={currentQuestion.id} question={currentQuestion} onSubmitted={onSubmitted} />
-            {submitted &&
-                (!isLastQuestion ? (
-                    <NextQuestionButton onClick={nextQuestionHandler} />
-                ) : (
-                    <EvaluateButton onClick={onEvaluate} />
-                ))}
+            {isAnswered &&
+                (!isLastQuestion ? <NextQuestionButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
         </div>
     )
 }
@@ -77,8 +68,6 @@ const quizQuestion2: QuizQuestion = {
 }
 
 const quiz = [quizQuestion1, quizQuestion2]
-
-type QuizState = Record<string, AnswerIdxs>
 
 export const Quiz = () => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
