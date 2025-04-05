@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/scrumdojo/quizmaster-dev:v1
+      options: --user vscode
 
     steps:
       - name: Checkout code
