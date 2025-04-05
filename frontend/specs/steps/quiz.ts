@@ -16,11 +16,11 @@ Then('I see the first question', async function () {
 })
 
 Then('I should see the next button', async function () {
-    await expect(this.quizPage.nextQuestionButtonLocator()).toBeVisible()
+    await expect(this.quizPage.nextButtonLocator()).toBeVisible()
 })
 
 Then('I should not see the next button', async function () {
-    await expect(this.quizPage.nextQuestionButtonLocator()).not.toBeVisible()
+    await expect(this.quizPage.nextButtonLocator()).not.toBeVisible()
 })
 
 When('I click the next button', async function () {
@@ -32,15 +32,15 @@ Then('I should see the next question', async function () {
 })
 
 Then('I should see the evaluate button', async function () {
-    await expect(this.quizPage.evaluationButtonLocator()).toBeVisible()
+    await expect(this.quizPage.evaluateButtonLocator()).toBeVisible()
 })
 
 Then('I should not see the evaluate button', async function () {
-    await expect(this.quizPage.evaluationButtonLocator()).not.toBeVisible()
+    await expect(this.quizPage.evaluateButtonLocator()).not.toBeVisible()
 })
 
 Then('I click the evaluate button', async function () {
-    await this.quizPage.evaluationButtonLocator().click()
+    await this.quizPage.evaluate()
 })
 
 Given('I refresh page', async function () {

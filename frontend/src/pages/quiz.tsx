@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextQuestionButton } from './quiz/buttons'
+import { EvaluateButton, NextButton } from './quiz/buttons'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -39,7 +39,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
             <QuestionForm key={currentQuestion.id} question={currentQuestion} onSubmitted={onSubmitted} />
             {isAnswered &&
-                (!isLastQuestion ? <NextQuestionButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
+                (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
         </div>
     )
 }
