@@ -1,13 +1,11 @@
 import java.io.BufferedReader
 
-import org.siouan.frontendgradleplugin.infrastructure.gradle.RunPnpmTaskType
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.siouan.frontend-jdk21") version "10.0.0"
 }
 
 group = "cz.scrumdojo"
@@ -17,16 +15,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-}
-
-frontend {
-    cacheDirectory.set(project.layout.projectDirectory.dir(".gradle/org.siouan.frontend-jdk21"))
-    nodeVersion.set("22.13.1")
-    corepackVersion.set("0.31.0")
-    nodeInstallDirectory.set(project.layout.projectDirectory.dir("../frontend/node"))
-    packageJsonDirectory.set(project.layout.projectDirectory.dir("../frontend"))
-    assembleScript.set("run build")
-    checkScript.set("check")
 }
 
 configurations {
@@ -70,52 +58,8 @@ tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 
-tasks.named("installFrontend") {
-    finalizedBy("installPlaywright")
-}
-
-tasks.register<RunPnpmTaskType>("installPlaywright") {
-    args.set("playwright:install")
-}
-
 fun jarFile(): String {
     return tasks.named<BootJar>("bootJar").get().archiveFile.get().asFile.relativeTo(projectDir).path
-}
-
-var backendProcess: Process? = null
-var backendThread: Thread? = null
-
-fun redirectIO(reader: BufferedReader?) {
-    reader?.lines()?.forEach { line -> println(line) }
-}
-
-tasks.register("runBackend") {
-    dependsOn("build")
-    doLast {
-        backendProcess = ProcessBuilder("java", "-jar", jarFile()).start()
-
-        backendThread = Thread {
-            redirectIO(backendProcess?.inputReader())
-            redirectIO(backendProcess?.errorReader())
-        }
-        backendThread?.start()
-    }
-}
-
-tasks.register<RunPnpmTaskType>("runE2ETests") {
-    args.set("run test:e2e")
-    finalizedBy("killBackend")
-}
-
-tasks.register("killBackend") {
-    doLast {
-        backendProcess?.destroy()
-        backendThread?.join()
-    }
-}
-
-tasks.register("testE2E") {
-    dependsOn("runBackend", "runE2ETests")
 }
 
 tasks.register<Exec>("buildDockerImage") {
