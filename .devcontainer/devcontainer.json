@@ -1,6 +1,7 @@
 {
     "name": "Quizmaster Java Dev Environment",
     "image": "ghcr.io/scrumdojo/quizmaster-dev:v1",
+    "postStartCommand": "/usr/local/bin/services.sh",
     "forwardPorts": [
         2222,  // SSH
         3333,  // Playwright UI
