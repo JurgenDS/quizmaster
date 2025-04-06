@@ -120,8 +120,7 @@ class QuizQuestionController extends AbstractController
 
             $this->entityManager->flush();
 
-            // Return the hash of the updated question
-            return $this->json(['hash' => $question->getHash()]);
+            return $this->json($question->getId());
 
         } catch (\Symfony\Component\Serializer\Exception\ExceptionInterface $e) {
             $this->logger->error('Deserialization failed during update: ' . $e->getMessage());
