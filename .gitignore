@@ -1,7 +1,8 @@
 .idea/
 
-backend-java/
-
+backend/.phpunit.cache/
+backend/var/
+backend/vendor/
 backend/public/index.html
 backend/public/assets
 
