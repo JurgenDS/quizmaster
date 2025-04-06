@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/scrumdojo/quizmaster-dev:v1
+      image: ghcr.io/scrumdojo/quizmaster-java-devenv:v1
       options: --user vscode
 
     steps:
