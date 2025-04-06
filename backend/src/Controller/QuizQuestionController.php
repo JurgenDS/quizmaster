@@ -7,6 +7,7 @@ use App\Entity\QuizQuestion;
 use App\Model\QuizQuestionApiModel;
 use App\Repository\QuizQuestionRepository;
 use App\Service\IdObfuscatorService;
+use App\Service\QuizQuestionMapper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +27,8 @@ class QuizQuestionController extends AbstractController
         private readonly IdObfuscatorService $idObfuscator,
         private readonly SerializerInterface $serializer,
         private readonly LoggerInterface $logger,
-        private readonly ValidatorInterface $validator
+        private readonly ValidatorInterface $validator,
+        private readonly QuizQuestionMapper $quizQuestionMapper
     ) {}
 
     #[Route('/quiz-question/{id<\d+>}', methods: ['GET'])]
@@ -37,7 +39,7 @@ class QuizQuestionController extends AbstractController
             return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $apiModel = $this->mapEntityToApiModel($question);
+        $apiModel = $this->quizQuestionMapper->mapEntityToApiModel($question);
         return $this->json($apiModel);
     }
 
@@ -63,7 +65,7 @@ class QuizQuestionController extends AbstractController
                  return $this->json(['error' => 'Invalid data: question and answers are required.'], Response::HTTP_BAD_REQUEST);
             }
 
-            $question = $this->mapApiModelToEntity($apiModel, new QuizQuestion());
+            $question = $this->quizQuestionMapper->mapApiModelToEntity($apiModel, new QuizQuestion());
 
             $this->entityManager->persist($question);
             $this->entityManager->flush();
@@ -107,7 +109,7 @@ class QuizQuestionController extends AbstractController
             }
 
             // Use the mapper, providing the existing entity to update
-            $this->mapApiModelToEntity($apiModel, $question);
+            $this->quizQuestionMapper->mapApiModelToEntity($apiModel, $question);
 
             // Note: Validation on the updated entity can be added here using $this->validator
 
@@ -135,71 +137,5 @@ class QuizQuestionController extends AbstractController
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
-    }
-
-    // Helper to map Entity -> API Model
-    private function mapEntityToApiModel(QuizQuestion $question): QuizQuestionApiModel
-    {
-        $model = new QuizQuestionApiModel();
-        $model->id = $question->getId();
-        $model->question = $question->getQuestion();
-        $model->questionExplanation = $question->getQuestionExplanation();
-
-        $answers = [];
-        $explanations = [];
-        $correctAnswers = [];
-
-        // Note: Ensure answers are sorted if order matters (e.g., by ID)
-        // $orderedAnswers = $question->getAnswers()->toArray();
-        // usort($orderedAnswers, fn($a, $b) => $a->getId() <=> $b->getId());
-
-        $answerIndex = 0;
-        foreach ($question->getAnswers() as $answer) { // Use getAnswers() collection
-            $answers[] = $answer->getText();
-            $explanations[] = $answer->getExplanation() ?? ''; // Provide default if null
-            if ($answer->isIsCorrect()) {
-                // Frontend expects 1-based index
-                $correctAnswers[] = $answerIndex + 1;
-            }
-            $answerIndex++;
-        }
-
-        $model->answers = $answers;
-        $model->explanations = $explanations;
-        $model->correctAnswers = $correctAnswers;
-
-        return $model;
-    }
-
-    // Helper to map API Model -> Entity (for create/update)
-    private function mapApiModelToEntity(QuizQuestionApiModel $model, QuizQuestion $entity): QuizQuestion
-    {
-        $entity->setQuestion($model->question);
-        $entity->setQuestionExplanation($model->questionExplanation);
-
-        // Manage the Answer collection
-        // Strategy: Remove existing answers, then add new ones based on the API model.
-        // This is simpler than trying to match/update existing answers by index.
-        // Could be optimized if necessary, but usually fine for moderate numbers of answers.
-        foreach ($entity->getAnswers() as $existingAnswer) {
-            $entity->removeAnswer($existingAnswer);
-            // Since orphanRemoval=true, Doctrine will schedule these for deletion
-            // If not using orphanRemoval, you'd need $this->entityManager->remove($existingAnswer);
-        }
-
-        $correctIndices = array_flip($model->correctAnswers); // Flip for easy 0-based index lookup
-
-        foreach ($model->answers as $index => $text) {
-            $answer = new Answer();
-            $answer->setText($text);
-            $answer->setExplanation($model->explanations[$index] ?? null);
-            // Check if the current 0-based index corresponds to a 1-based correct answer index
-            $answer->setIsCorrect(isset($correctIndices[$index + 1]));
-
-            // Associate with the question (will be persisted via cascade)
-            $entity->addAnswer($answer);
-        }
-
-        return $entity;
     }
 }
