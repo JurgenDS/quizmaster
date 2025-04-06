@@ -6,12 +6,11 @@ Quizmaster follows a traditional client-server architecture.
 Frontend is a Single-Page Application (SPA) in [React 19](https://react.dev/). It uses [react-router](https://reactrouter.com/) for routing.
 
 ## Backend
-Backend is a Spring Boot application, serving both frontend as a SPA (Single-Page Application) at URL `\`, and REST APIs for the frontend at URLs starting with `\api\`.
-- Uses [Lombok](https://projectlombok.org/) to reduce boilerplate code.
+Backend is a PHP application, serving both frontend as a SPA (Single-Page Application) at URL `/`, and REST APIs for the frontend at URLs starting with `/api/`.
 
 Data are stored in PostgreSQL dabatase.
-- DB is accessed using JPA/Hibernate,
-- data scheme versioned and migrated using Flyway.
+- DB is accessed using Doctrine,
+- data scheme versioned and migrated using Doctrine.
 
 ## Component Diagram
 ```mermaid
@@ -26,8 +25,7 @@ columns 1
         fe["Frontend assets"]
         api["REST API"]
         app[" "]:2
-        jpa["JPA/Hibernate"]
-        mig["Flyway"]
+        jpa["Doctrine"]
     end
 
     db[("PostgreSQL")]

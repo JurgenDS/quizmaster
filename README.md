@@ -8,10 +8,10 @@ training with [ScrumDojo.cz](https://scrumdojo.cz).
 
 Prior to the class ge yourself familiar with the tech stack:
 
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [Gradle](https://gradle.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Flyway](https://flywaydb.org/)
+- [PHP](https://php.net)
+- [Symfony](https://gradle.org/)
+- [PostgreSQL](https://symfony.com/)
+- [Doctrine](https://www.doctrine-project.org/)
 - [React](https://react.dev/)
 - [Vite](https://vitejs.dev/)
 - [Cucumber.js](https://cucumber.io/docs/guides/)
@@ -19,13 +19,10 @@ Prior to the class ge yourself familiar with the tech stack:
 
 # Getting started
 
-1. **Create your development environment**. You have three options:
+1. **Create your development environment**. You have two options:
 
     - [GitHub Codespaces](docs/dev-environment/dev-env-codespaces.md) ⭐ recommended
-    - [Local Docker/Podman container](https://github.com/scrumdojo/quizmaster-devcontainer)
-    - [Local Environment](docs/dev-environment/dev-env-local.md)
-
-    See more for [comparison](docs/dev-environment/dev-env-comparison.md).
+    - Local Docker/Podman container (TODO)
 
 2. **Setup your IDE**
 
@@ -33,4 +30,3 @@ Prior to the class ge yourself familiar with the tech stack:
     - Setup [VS Code](docs/dev-environment/setup-vscode.md)
 
 3. [How to run & develop Quizmaster](docs/dev-environment/how-to-develop.md)
-

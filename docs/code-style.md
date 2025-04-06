@@ -8,11 +8,7 @@
 - File names kebab-case
 
 ## Backend
-- Java 21 with default industry standard formatting
-- Spring Boot REST API controllers
-- JPA/Hibernate repositories
-- Service layer only where necessary (elaborate business logic)
-- Unit tests include running DB (no mocking)
+TODO
 
 ## BDD Specifications
 - All features are covered by user-centric Specifications by Example

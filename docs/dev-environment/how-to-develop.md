@@ -1,39 +1,50 @@
 # How to develop Quizmaster
 
+- [First-time setup](#🚀-first-time-setup)
 - [Running Quizmaster](#🚀-running-quizmaster)
 - [Running Vite dev server](#running-vite-development-server)
 - [Running end-to-end tests](#🧪-running-end-to-end-tests)
 - [Feature flag](#🚩-feature-flag)
 
+## ⚙️ First-time setup
+
+Before you start, run these commands. This is necessary only the first time.
+
+In the `frontend` directory:
+
+```sh
+pnpm ci:install
+pnpm build
+```
+
+In the `backend` directory:
+
+```sh
+composer update
+php bin/console doctrine:migrations:migrate --no-interaction
+```
+
 ## 🚀 Running Quizmaster
 
 ### Build the frontend
 
-To build the front end, run either of the following commands (they do the same thing, the former runs the latter):
-
-- `./gradlew assembleFrontend` in the `backend` directory
-- `pnpm run build` in the `frontend` directory
-
-The front end is built to the `backend/src/main/resources/static` directory
-and becomes part of the JAR assembly.
+To rebuild the front end, run `pnpm build` in the `frontend` directory. The front end is built to the `backend/public`.
 
 ### Run the backend
 
 To run the application, in the `backend` directory execute:
 
 ```
-./gradlew bootRun
+./devserver
 ```
-
-This command does not build the front end, so you need to run `assembleFrontend` or `pnpm run build` first.
 
 ## <img src="https://vitejs.dev/logo.svg" height="20"> Running Vite Development Server
 
-To avoid rebuilding frontend and backend every time you make a change, you can run the [Vite](https://vitejs.dev/guide/)
+To avoid rebuilding frontend every time you make a change, you can run the [Vite](https://vitejs.dev/guide/)
 development server in the `frontend` directory:
 
 ```
-pnpm vite
+pnpm dev
 ```
 
 Vite starts a development server on `http://localhost:5173` and proxies requests to the backend server
