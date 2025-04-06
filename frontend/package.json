@@ -3,20 +3,24 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "packageManager": "pnpm@10.0.0",
     "scripts": {
-        "playwright:install": "playwright install --with-deps",
-        "dev": "vite",
-        "build": "tsc -b && vite build",
-        "check": "tsc -b && biome ci",
-        "format": "biome format --write",
-        "lint": "biome lint",
-        "lint:fix": "biome lint --fix",
-        "style": "pnpm run lint:fix && pnpm run format",
-        "preview": "vite preview",
+        "dev": "vite --host",
+        "build": "vite build",
+
+        "code:tsc": "tsc --noEmit",
+        "code:lint": "biome lint --fix",
+        "code:format": "biome format --write",
+        "code": "pnpm code:tsc && pnpm code:lint && pnpm code:format",
+
         "test:e2e": "bddgen && wait-on tcp:8080 && playwright test",
         "test:e2e:vite": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test",
-        "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=0.0.0.0 --ui-port=3333"
+        "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=0.0.0.0 --ui-port=3333",
+
+        "ci:install": "pnpm install && playwright install --with-deps",
+        "ci:code": "tsc -b && biome ci",
+        "ci:build": "pnpm build && cd ../backend && ./gradlew build",
+        "ci:bootrun": "cd ../backend && ./devserver",
+        "ci:test:e2e": "start-server-and-test ci:bootrun 8080 test:e2e"
     },
     "dependencies": {
         "react": "19.0.0",
@@ -35,6 +39,7 @@
         "esbuild-register": "3.6.0",
         "playwright-bdd": "8.2.0",
         "sass": "1.82.0",
+        "start-server-and-test": "2.0.11",
         "typescript": "5.7.2",
         "vite": "6.0.2",
         "vite-tsconfig-paths": "5.1.3",
