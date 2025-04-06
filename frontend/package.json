@@ -3,10 +3,8 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "packageManager": "pnpm@10.0.0",
     "scripts": {
-        "playwright:install": "playwright install --with-deps",
-        "dev": "vite",
+        "dev": "vite --host",
         "build": "vite build",
 
         "code:tsc": "tsc --noEmit",
@@ -18,7 +16,7 @@
         "test:e2e:vite": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test",
         "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=localhost --ui-port=3333",
 
-        "ci:install": "pnpm install && pnpm playwright:install",
+        "ci:install": "pnpm install && playwright install --with-deps",
         "ci:code": "tsc -b && biome ci",
         "ci:build": "pnpm build && cd ../backend && ./gradlew build",
         "ci:bootrun": "cd ../backend && ./gradlew bootRun",
