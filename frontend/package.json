@@ -18,9 +18,9 @@
 
         "ci:install": "pnpm install && playwright install --with-deps",
         "ci:code": "tsc -b && biome ci",
-        "ci:build": "pnpm build && cd ../backend && ./gradlew build",
-        "ci:bootrun": "cd ../backend && ./devserver",
-        "ci:test:e2e": "start-server-and-test ci:bootrun 8080 test:e2e"
+        "ci:build": "pnpm build && cd ../backend && ./dbmigration",
+        "ci:server": "cd ../backend && ./devserver",
+        "ci:test:e2e": "start-server-and-test ci:server 8080 test:e2e"
     },
     "dependencies": {
         "react": "19.0.0",

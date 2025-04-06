@@ -23,17 +23,21 @@ jobs:
         working-directory: frontend
         run: pnpm ci:install
 
+      - name: Install backend dependencies
+        working-directory: backend
+        run: compose update
+
       - name: Type check & lint & format frontend
         working-directory: frontend
         run: pnpm ci:code
 
-      - name: Build frontend
+      - name: Build frontend + DB migrations
         working-directory: frontend
         run: pnpm ci:build
 
       - name: Run backend tests
         working-directory: backend
-        run: ./devserver
+        run: ./vendor/bin/phpunit
 
       - name: Run end-to-end tests
         working-directory: frontend
