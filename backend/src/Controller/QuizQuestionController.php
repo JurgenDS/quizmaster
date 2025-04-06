@@ -33,24 +33,22 @@ class QuizQuestionController extends AbstractController
     public function getQuestion(int $id): Response
     {
         $question = $this->quizQuestionRepository->findById($id);
-        if (!$question) {
-            return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
-        }
-
-        $apiModel = $this->quizQuestionMapper->mapEntityToApiModel($question);
-        return $this->json($apiModel);
+        return $this->response($question);
     }
 
     #[Route('/quiz-question/{hash}/edit', methods: ['GET'])]
     public function getQuestionByHash(string $hash): Response
     {
-        // Find by the database hash directly
         $question = $this->quizQuestionRepository->findByHash($hash);
+        return $this->response($question);
+    }
+
+    private function response(?QuizQuestion $question): Response
+    {
         if (!$question) {
             return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
         }
 
-        // The original method returned getQuestion($id), let's inline the relevant part
         $apiModel = $this->quizQuestionMapper->mapEntityToApiModel($question);
         return $this->json($apiModel);
     }
@@ -108,16 +106,7 @@ class QuizQuestionController extends AbstractController
         try {
             $apiModel = $this->serializer->deserialize($request->getContent(), QuizQuestionApiModel::class, 'json');
 
-            // Basic validation example
-            if (empty($apiModel->question) || !is_array($apiModel->answers) || empty($apiModel->answers)) {
-                 return $this->json(['error' => 'Invalid data: question and answers are required.'], Response::HTTP_BAD_REQUEST);
-            }
-
-            // Use the mapper, providing the existing entity to update
             $this->quizQuestionMapper->mapApiModelToEntity($apiModel, $question);
-
-            // Note: Validation on the updated entity can be added here using $this->validator
-
             $this->entityManager->flush();
 
             return $this->json($question->getId());
