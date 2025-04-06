@@ -1,34 +1,18 @@
 {
-    "name": "Quizmaster Java Dev Environment",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
-    "features": {
-        "ghcr.io/devcontainers/features/sshd:1": {
-            "version": "latest"
-        },
-        "ghcr.io/devcontainers/features/java:1": {
-            "version": "21"
-        },
-        "ghcr.io/itsmechlark/features/postgresql:1": {
-            "version": "16"
-        }
-    },
-    // runs as user vscode on /workspaces/quizmaster
-    "postCreateCommand": "./.devcontainer/post_create.sh",
-    "postStartCommand": "sudo service postgresql start",
+    "name": "Quizmaster PHP Dev Environment",
+    "image": "ghcr.io/scrumdojo/quizmaster-php-devenv:v1",
+    "postStartCommand": "/usr/local/bin/services.sh",
     "forwardPorts": [
+        2222,  // SSH
         3333,  // Playwright UI
         5173,  // Vite dev server
-        5432   // PostgreSQL server
+        5432,  // PostgreSQL server
+        8080   // Spring Boot server
     ],
     "customizations": {
         "vscode": {
             "extensions": [
                 "EditorConfig.EditorConfig",
-
-                "GitHub.copilot",
-                "GitHub.copilot-chat",
-
-                "vscode.vscode-java-pack",
                 "ms-playwright.playwright",
                 "alexkrechik.cucumberautocomplete"
             ]
