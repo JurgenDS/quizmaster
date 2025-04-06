@@ -40,7 +40,7 @@ class QuizQuestionMapperTest extends TestCase
         $this->assertEquals('Test Explanation Text', $apiModel->questionExplanation);
         $this->assertEquals(['Answer 1', 'Answer 2', 'Answer 3'], $apiModel->answers);
         $this->assertEquals(['Expl 1', '', 'Expl 3'], $apiModel->explanations);
-        $this->assertEquals([2, 3], $apiModel->correctAnswers); // 1-based index
+        $this->assertEquals([1, 2], $apiModel->correctAnswers); // 0-based index
     }
 
     private function createAnswer(string $text, ?string $explanation, bool $isCorrect): Answer
@@ -61,7 +61,7 @@ class QuizQuestionMapperTest extends TestCase
         $apiModel->questionExplanation = 'New Explanation';
         $apiModel->answers = ['API Ans 1', 'API Ans 2 Correct', 'API Ans 3'];
         $apiModel->explanations = ['API Expl 1', 'API Expl 2', null];
-        $apiModel->correctAnswers = [2]; // 1-based index
+        $apiModel->correctAnswers = [1]; // 0-based index
 
         $newEntity = new QuizQuestion(); // Simulating creation
 
@@ -113,7 +113,7 @@ class QuizQuestionMapperTest extends TestCase
         $apiModel->questionExplanation = 'Updated Explanation';
         $apiModel->answers = ['New Ans 1', 'New Ans 2 Correct'];
         $apiModel->explanations = ['New Expl 1', null];
-        $apiModel->correctAnswers = [2]; // 1-based index
+        $apiModel->correctAnswers = [1]; // 0-based index
 
         // Act: Map the API model onto the existing entity
         $updatedEntity = $this->mapper->mapApiModelToEntity($apiModel, $existingEntity);

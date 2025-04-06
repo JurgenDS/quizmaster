@@ -26,7 +26,7 @@ class QuizQuestionMapper
             $answers[] = $answer->getText();
             $explanations[] = $answer->getExplanation() ?? ''; // Provide default if null
             if ($answer->isIsCorrect()) {
-                $correctAnswers[] = $answerIndex + 1;
+                $correctAnswers[] = $answerIndex;
             }
             $answerIndex++;
         }
@@ -54,7 +54,7 @@ class QuizQuestionMapper
             $answer = new Answer();
             $answer->setText($text);
             $answer->setExplanation($model->explanations[$index] ?? null);
-            $answer->setIsCorrect(isset($correctIndices[$index + 1]));
+            $answer->setIsCorrect(isset($correctIndices[$index]));
             $entity->addAnswer($answer);
         }
 
