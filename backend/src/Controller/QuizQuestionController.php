@@ -32,7 +32,7 @@ class QuizQuestionController extends AbstractController
     #[Route('/quiz-question/{id<\d+>}', methods: ['GET'])]
     public function getQuestion(int $id): Response
     {
-        $question = $this->findQuestionEntity($id);
+        $question = $this->quizQuestionRepository->findById($id);
         if (!$question) {
             return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
         }
@@ -45,7 +45,7 @@ class QuizQuestionController extends AbstractController
     public function getQuestionByHash(string $hash): Response
     {
         // Find by the database hash directly
-        $question = $this->findQuestionEntityByHash($hash);
+        $question = $this->quizQuestionRepository->findByHash($hash);
         if (!$question) {
             return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
         }
@@ -100,7 +100,7 @@ class QuizQuestionController extends AbstractController
     public function updateQuestion(string $hash, Request $request): Response
     {
         // Find by the database hash directly
-        $question = $this->findQuestionEntityByHash($hash);
+        $question = $this->quizQuestionRepository->findByHash($hash);
         if (!$question) {
             return $this->json(['error' => 'Question not found'], Response::HTTP_NOT_FOUND);
         }
@@ -130,30 +130,5 @@ class QuizQuestionController extends AbstractController
             $this->logger->error('Error updating question: ' . $e->getMessage());
             return $this->json(['error' => 'An unexpected error occurred during update.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    // Helper to find question by hash and eagerly load answers
-    private function findQuestionEntityByHash(string $hash): ?QuizQuestion
-    {
-        return $this->quizQuestionRepository->createQueryBuilder('q')
-            ->addSelect('a') // Select related answers
-            ->leftJoin('q.answers', 'a') // Join answers
-            ->where('q.hash = :hash') // Query by hash
-            ->setParameter('hash', $hash)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    // Helper to find question and eagerly load answers
-    private function findQuestionEntity(int $id): ?QuizQuestion
-    {
-        // Use QueryBuilder to fetch the question and join/select its answers in one query
-        return $this->quizQuestionRepository->createQueryBuilder('q')
-            ->addSelect('a') // Select related answers
-            ->leftJoin('q.answers', 'a') // Join answers
-            ->where('q.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getOneOrNullResult();
     }
 }
