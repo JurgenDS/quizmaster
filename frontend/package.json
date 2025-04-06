@@ -16,7 +16,7 @@
         "preview": "vite preview",
         "test:e2e": "bddgen && wait-on tcp:8080 && playwright test",
         "test:e2e:vite": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test",
-        "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=localhost --ui-port=3333"
+        "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=0.0.0.0 --ui-port=3333"
     },
     "dependencies": {
         "react": "19.0.0",
