@@ -20,8 +20,9 @@
 
         "ci:install": "pnpm install && pnpm playwright:install",
         "ci:code": "tsc -b && biome ci",
-        "ci:build": "pnpm build",
-        "ci:test:e2e": "concurrently \"../backend/gradlew bootRun\" \"pnpm test:e2e\""
+        "ci:build": "pnpm build && cd ../backend && ./gradlew build",
+        "ci:bootrun": "cd ../backend && ./gradlew bootRun",
+        "ci:test:e2e": "start-server-and-test ci:bootrun 8080 test:e2e"
     },
     "dependencies": {
         "react": "19.0.0",
@@ -40,6 +41,7 @@
         "esbuild-register": "3.6.0",
         "playwright-bdd": "8.2.0",
         "sass": "1.82.0",
+        "start-server-and-test": "2.0.11",
         "typescript": "5.7.2",
         "vite": "6.0.2",
         "vite-tsconfig-paths": "5.1.3",
