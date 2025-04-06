@@ -2,6 +2,9 @@
 
 backend-java/
 
+backend/public/index.html
+backend/public/assets
+
 frontend/.features-gen
 frontend/node/
 frontend/node_modules/

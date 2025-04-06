@@ -8,8 +8,8 @@ export default defineConfig({
         FEATURE_FLAG_ENABLED: process.env.FEATURE_FLAG === 'true',
     },
     build: {
-        outDir: '../backend/src/main/resources/static',
-        emptyOutDir: true,
+        outDir: '../backend/public',
+        emptyOutDir: false,
     },
     server: {
         proxy: {
