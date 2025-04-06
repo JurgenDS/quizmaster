@@ -18,8 +18,8 @@
 
         "ci:install": "pnpm install && playwright install --with-deps",
         "ci:code": "tsc -b && biome ci",
-        "ci:build": "pnpm build && cd ../backend && ./dbmigration",
-        "ci:server": "cd ../backend && ./devserver",
+        "ci:build": "pnpm build && cd ../backend && ./dbmigration.sh",
+        "ci:server": "cd ../backend && ./devserver.sh",
         "ci:test:e2e": "start-server-and-test ci:server 8080 test:e2e"
     },
     "dependencies": {
