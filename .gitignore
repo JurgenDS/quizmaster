@@ -1,8 +1,6 @@
 .idea/
 
-backend/.gradle/
-backend/build/
-backend/src/main/resources/static/
+backend-java/
 
 frontend/.features-gen
 frontend/node/
