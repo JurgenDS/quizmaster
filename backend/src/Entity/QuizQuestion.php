@@ -21,6 +21,9 @@ class QuizQuestion
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $questionExplanation = null;
 
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
+    private ?string $hash = null;
+
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $answers;
 
@@ -54,6 +57,18 @@ class QuizQuestion
     public function setQuestionExplanation(?string $questionExplanation): static
     {
         $this->questionExplanation = $questionExplanation;
+
+        return $this;
+    }
+
+    public function getHash(): ?string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): static
+    {
+        $this->hash = $hash;
 
         return $this;
     }
