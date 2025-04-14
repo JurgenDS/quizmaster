@@ -6,12 +6,12 @@
 
     ![Create a codespace in GitHub](img/create-codespace.png)
 
-2. Select Machine type with 4 cores / 16GB.
+2. Depending on what IDE you want to use, select corresponding machine type:
 
-3. The codespace opens a web version of VS Code in a new browser tab. In a few moments,
-a Terminal tab appears running `postCreateCommand` (creating DB and installing frontend dependencies). ⚠️ Wait until it successfully finishes (a few minutes)!
+- VS Code - 2 cores / 8GB
+- IntelliJ - 4 cores / 16GB
 
-    ![Post-create command](img/post-create-command.png)
+3. The codespace opens a web version of VS Code in a new browser tab.
 
 Congratulations, you're good to go! You can either work from the browser window,
 or open the codespace from your VS Code.

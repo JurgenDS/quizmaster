@@ -5,14 +5,23 @@
 - [Running end-to-end tests](#🧪-running-end-to-end-tests)
 - [Feature flag](#🚩-feature-flag)
 
+## First-time setup
+
+To install frontend dependencies and Playwright, run the following command in the `frontend` directory:
+
+```sh
+pnpm ci:install
+```
+
 ## 🚀 Running Quizmaster
 
 ### Build the frontend
 
-To build the front end, run either of the following commands (they do the same thing, the former runs the latter):
+To build the front end, run the following command in the `frontend` directory:
 
-- `./gradlew assembleFrontend` in the `backend` directory
-- `pnpm run build` in the `frontend` directory
+```sh
+pnpm run build
+```
 
 The front end is built to the `backend/src/main/resources/static` directory
 and becomes part of the JAR assembly.
@@ -25,7 +34,7 @@ To run the application, in the `backend` directory execute:
 ./gradlew bootRun
 ```
 
-This command does not build the front end, so you need to run `assembleFrontend` or `pnpm run build` first.
+This command does not build the front end, so you need to run `pnpm run build` first.
 
 ## <img src="https://vitejs.dev/logo.svg" height="20"> Running Vite Development Server
 
@@ -33,7 +42,7 @@ To avoid rebuilding frontend and backend every time you make a change, you can r
 development server in the `frontend` directory:
 
 ```
-pnpm vite
+pnpm dev
 ```
 
 Vite starts a development server on `http://localhost:5173` and proxies requests to the backend server
