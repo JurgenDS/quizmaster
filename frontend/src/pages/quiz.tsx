@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton, BackButton } from './quiz/buttons'
+import { EvaluateButton, NextButton } from './quiz/buttons'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -38,27 +38,15 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     return (
         <div>
             <h2>Quiz</h2>
-<<<<<<< Updated upstream
             <ProgressBar current={currentQuestionIdx + 1} total={quiz.questions.length} />
-=======
-            <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
->>>>>>> Stashed changes
             <QuestionForm
                 key={currentQuestion.id}
                 question={currentQuestion}
                 onSubmitted={onSubmitted}
                 afterEach={props.afterEach}
             />
-<<<<<<< Updated upstream
             {isAnswered &&
                 (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
-=======
-            <div>
-                <BackButton onClick={() => {}} />
-                {isAnswered &&
-                    (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
-            </div>
->>>>>>> Stashed changes
         </div>
     )
 }
@@ -93,7 +81,6 @@ export const Quiz = (props: QuizProps) => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
-<<<<<<< Updated upstream
     //TODO
     quiz.afterEach = props.afterEach
 
@@ -101,11 +88,5 @@ export const Quiz = (props: QuizProps) => {
         <QuizScore score={quizScore} questions={quiz.questions} />
     ) : (
         <QuizQuestionForm onEvaluate={setQuizScore} afterEach={quiz.afterEach} />
-=======
-    return isEvaluated ? (
-        <QuizScore score={quizScore} />
-    ) : (
-        <QuizQuestionForm onEvaluate={setQuizScore} afterEach={props.afterEach} />
->>>>>>> Stashed changes
     )
 }

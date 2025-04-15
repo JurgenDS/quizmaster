@@ -27,13 +27,7 @@ Then(
     },
 )
 
-<<<<<<< Updated upstream
 Then('I see the question {string}', async function (question: string) {
     const questions: string[] = await this.quizScorePage.questions()
     expect(questions).toContain(question)
-=======
-Then('I see the question {string}', async function (questionName: string) {
-    const question = await this.quizScorePage.question()
-    expect(question).toBe(questionName)
->>>>>>> Stashed changes
 })
