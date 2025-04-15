@@ -14,8 +14,8 @@ type QuizState = readonly AnswerIdxs[]
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
-    const currentQuestion = quiz[currentQuestionIdx]
-    const isLastQuestion = currentQuestionIdx === quiz.length - 1
+    const currentQuestion = quiz.questions[currentQuestionIdx]
+    const isLastQuestion = currentQuestionIdx === quiz.questions.length - 1
 
     const [quizState, setQuizState] = useState<QuizState>([])
     const isAnswered = quizState[currentQuestionIdx] !== undefined
@@ -29,15 +29,16 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
     const onEvaluate = () =>
         props.onEvaluate({
-            correct: quiz.filter((question, idx) => isAnsweredCorrectly(quizState[idx], question.correctAnswers))
-                .length,
-            total: quiz.length,
+            correct: quiz.questions.filter((question, idx) =>
+                isAnsweredCorrectly(quizState[idx], question.correctAnswers),
+            ).length,
+            total: quiz.questions.length,
         })
 
     return (
         <div>
             <h2>Quiz</h2>
-            <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
+            <ProgressBar current={currentQuestionIdx + 1} total={quiz.questions.length} />
             <QuestionForm
                 key={currentQuestion.id}
                 question={currentQuestion}
@@ -67,7 +68,10 @@ const quizQuestion2: QuizQuestion = {
     correctAnswers: [2],
 }
 
-const quiz = [quizQuestion1, quizQuestion2]
+const quiz = {
+    afterEach: false,
+    questions: [quizQuestion1, quizQuestion2],
+}
 
 interface QuizProps {
     readonly afterEach: boolean
@@ -77,9 +81,12 @@ export const Quiz = (props: QuizProps) => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
+    //TODO
+    quiz.afterEach = props.afterEach
+
     return isEvaluated ? (
         <QuizScore score={quizScore} />
     ) : (
-        <QuizQuestionForm onEvaluate={setQuizScore} afterEach={props.afterEach} />
+        <QuizQuestionForm onEvaluate={setQuizScore} afterEach={quiz.afterEach} />
     )
 }
