@@ -82,3 +82,7 @@ Then(
         expect(progressBarMaxValue).toBe(maxValue.toString())
     },
 )
+
+Then('I should see the back button', async function () {
+    await expect(this.quizPage.backButtonLocator()).toBeVisible()
+})
