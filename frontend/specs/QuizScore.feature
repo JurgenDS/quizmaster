@@ -39,5 +39,6 @@ Scenario: Show question on score page
   * I answer "Marseille"
   * I click the evaluate button
   Then I see the question "What is the standard colour of sky?"
+  * I see the question "What is capital of France?"
 
 

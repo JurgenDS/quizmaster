@@ -85,7 +85,7 @@ export const Quiz = (props: QuizProps) => {
     quiz.afterEach = props.afterEach
 
     return isEvaluated ? (
-        <QuizScore score={quizScore} />
+        <QuizScore score={quizScore} questions={quiz.questions} />
     ) : (
         <QuizQuestionForm onEvaluate={setQuizScore} afterEach={quiz.afterEach} />
     )
