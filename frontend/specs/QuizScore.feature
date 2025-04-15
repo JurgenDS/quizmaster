@@ -33,7 +33,7 @@ Scenario: Quiz score one question is inccorect
   Then I see the result 1 correct out of 2, 50%, failed
 
 Scenario Outline: Show question on score page
-  Given I visit the quiz page
+  Given I visit the quiz page "a"
   When I answer "Blue"
   * I click the next button
   * I answer "Marseille"
