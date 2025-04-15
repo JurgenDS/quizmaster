@@ -31,3 +31,14 @@ Then('I see the question {string}', async function (question: string) {
     const questions: string[] = await this.quizScorePage.questions()
     expect(questions).toContain(question)
 })
+
+Then('I see all options for question {string}', async function (question: string) {
+    const answers = this.bookmarks[question].answers
+
+    const options: string[] = await this.quizScorePage.options(question)
+
+    expect(options.length).toBe(answers.length)
+    for (const answer of answers) {
+        expect(options).toContain(answer.answer)
+    }
+})

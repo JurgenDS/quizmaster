@@ -32,13 +32,22 @@ Scenario: Quiz score one question is inccorect
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, failed
 
+Scenario Outline: Show question on score page
+  Given I visit the quiz page
+  When I answer "Blue"
+  * I click the next button
+  * I answer "Marseille"
+  * I click the evaluate button
+  Then I see the question "<question>"
+  Examples:
+      | question                            |
+      | What is the standard colour of sky? |
+      | What is capital of France?          |
+
 Scenario: Show question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
   * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
-  Then I see the question "What is the standard colour of sky?"
-  * I see the question "What is capital of France?"
-
-
+  Then I see all options for question "Sky"
