@@ -28,8 +28,6 @@ Then(
 )
 
 Then('I see the question {string}', async function (questionName: string) {
-        const question = await this.quizScorePage.question()
-        expect(question).toBe(questionName)
-    },
-)
-
+    const question = await this.quizScorePage.question()
+    expect(question).toBe(questionName)
+})
