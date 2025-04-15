@@ -5,6 +5,8 @@
         "GitHub.copilot",
         "GitHub.copilot-chat",
 
+        "ritwickdey.LiveServer",
+
         "vscode.vscode-java-pack",
         "ms-playwright.playwright",
         "alexkrechik.cucumberautocomplete"

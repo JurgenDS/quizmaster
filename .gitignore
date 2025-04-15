@@ -5,6 +5,7 @@ backend/build/
 backend/src/main/resources/static/
 
 frontend/.features-gen
+frontend/coverage/
 frontend/node/
 frontend/node_modules/
 frontend/test-results
