@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test'
-import {expectTextToBe, expectThatIsNotVisible, expectThatIsVisible} from './common.ts'
+import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
 import { Given, When, Then } from './fixture.ts'
 
 Given('I visit the quiz page', async function () {

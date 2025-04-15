@@ -23,5 +23,5 @@ export const QuestionTakePage = () => {
         fetchQuestion()
     }, [questionId])
 
-    return quizQuestion ? <QuestionForm question={quizQuestion} afterEach={true}/> : null
+    return quizQuestion ? <QuestionForm question={quizQuestion} afterEach={true} /> : null
 }

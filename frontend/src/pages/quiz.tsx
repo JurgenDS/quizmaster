@@ -38,7 +38,12 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         <div>
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
-            <QuestionForm key={currentQuestion.id} question={currentQuestion} onSubmitted={onSubmitted} afterEach={props.afterEach} />
+            <QuestionForm
+                key={currentQuestion.id}
+                question={currentQuestion}
+                onSubmitted={onSubmitted}
+                afterEach={props.afterEach}
+            />
             {isAnswered &&
                 (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
         </div>
@@ -72,5 +77,9 @@ export const Quiz = (props: QuizProps) => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
-    return isEvaluated ? <QuizScore score={quizScore} /> : <QuizQuestionForm onEvaluate={setQuizScore} afterEach={props.afterEach} />
+    return isEvaluated ? (
+        <QuizScore score={quizScore} />
+    ) : (
+        <QuizQuestionForm onEvaluate={setQuizScore} afterEach={props.afterEach} />
+    )
 }

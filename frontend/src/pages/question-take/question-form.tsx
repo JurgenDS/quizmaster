@@ -36,7 +36,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                         answer={answer}
                         isCorrect={feedback.isAnswerCorrect(idx)}
                         explanation={props.question.explanations ? props.question.explanations[idx] : 'not defined'}
-                        showFeedback={(state.submitted && feedback.showFeedback(idx)) && props.afterEach}
+                        showFeedback={state.submitted && feedback.showFeedback(idx) && props.afterEach}
                         onAnswerChange={state.onSelectedAnswerChange}
                     />
                 ))}
