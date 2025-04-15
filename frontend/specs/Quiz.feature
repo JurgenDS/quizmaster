@@ -25,9 +25,16 @@ Feature: Take a quiz
     Given I visit the quiz page
     Then I see the first question
 
-  Scenario: Quiz question is answered
+  Scenario: Quiz question is not answered afterEach
     Given I visit the quiz page
     When I answer "Green"
+    Then I should not see the answer
+    Then I should see the next button
+
+  Scenario: Quiz question is answered afterEach
+    Given I visit the afterEach quiz page
+    When I answer "Green"
+    Then I should see the answer
     Then I should see the next button
 
   Scenario: Quiz question is answered and the next button is clicked

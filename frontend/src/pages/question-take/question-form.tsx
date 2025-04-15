@@ -10,6 +10,7 @@ import {
 export interface QuestionFormProps {
     readonly question: QuizQuestion
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
+    readonly afterEach: boolean
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
@@ -35,14 +36,14 @@ export const QuestionForm = (props: QuestionFormProps) => {
                         answer={answer}
                         isCorrect={feedback.isAnswerCorrect(idx)}
                         explanation={props.question.explanations ? props.question.explanations[idx] : 'not defined'}
-                        showFeedback={state.submitted && feedback.showFeedback(idx)}
+                        showFeedback={(state.submitted && feedback.showFeedback(idx)) && props.afterEach}
                         onAnswerChange={state.onSelectedAnswerChange}
                     />
                 ))}
             </ul>
             {!state.submitted && <input type="submit" value="Submit" className="submit-btn" />}
-            {state.submitted && <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />}
-            {state.submitted && <QuestionExplanation text={props.question.questionExplanation} />}
+            {state.submitted && props.afterEach && <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />}
+            {state.submitted && props.afterEach && <QuestionExplanation text={props.question.questionExplanation} />}
         </form>
     )
 }

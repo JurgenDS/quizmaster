@@ -1,9 +1,13 @@
 import { expect } from '@playwright/test'
-import { expectTextToBe } from './common.ts'
+import {expectTextToBe, expectThatIsNotVisible, expectThatIsVisible} from './common.ts'
 import { Given, When, Then } from './fixture.ts'
 
 Given('I visit the quiz page', async function () {
-    await this.page.goto('/quiz')
+    await this.page.goto('/quiz/')
+})
+
+Given('I visit the afterEach quiz page', async function () {
+    await this.page.goto('/quiz/aftereach')
 })
 
 Then('I should see heading "Quiz"', async function () {
@@ -59,6 +63,14 @@ Then('I should see answer {string} is unchecked', async function (answerList: st
     for (const element of answers) {
         await expect(this.takeQuestionPage.answerLocator(element)).not.toBeChecked()
     }
+})
+
+Then('I should not see the answer', async function () {
+    await expectThatIsNotVisible(this.takeQuestionPage.feedbackLocator())
+})
+
+Then('I should see the answer', async function () {
+    await expectThatIsVisible(this.takeQuestionPage.feedbackLocator())
 })
 
 Then(

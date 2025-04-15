@@ -7,6 +7,7 @@ import { EvaluateButton, NextButton } from './quiz/buttons'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
+    readonly afterEach: boolean
 }
 
 type QuizState = readonly AnswerIdxs[]
@@ -37,7 +38,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         <div>
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={quiz.length} />
-            <QuestionForm key={currentQuestion.id} question={currentQuestion} onSubmitted={onSubmitted} />
+            <QuestionForm key={currentQuestion.id} question={currentQuestion} onSubmitted={onSubmitted} afterEach={props.afterEach} />
             {isAnswered &&
                 (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
         </div>
@@ -63,9 +64,13 @@ const quizQuestion2: QuizQuestion = {
 
 const quiz = [quizQuestion1, quizQuestion2]
 
-export const Quiz = () => {
+interface QuizProps {
+    readonly afterEach: boolean
+}
+
+export const Quiz = (props: QuizProps) => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
-    return isEvaluated ? <QuizScore score={quizScore} /> : <QuizQuestionForm onEvaluate={setQuizScore} />
+    return isEvaluated ? <QuizScore score={quizScore} /> : <QuizQuestionForm onEvaluate={setQuizScore} afterEach={props.afterEach} />
 }
