@@ -35,7 +35,7 @@ export const QuizScore = ({ score, questions }: QuizScoreProps) => {
 
             {questions.map(question => (
                 <div key={question.id}>
-                    <p id={'question-' + question.id}>{question.question}</p>
+                    <p id={`question-${question.id}`}>{question.question}</p>
                 </div>
             ))}
         </>
