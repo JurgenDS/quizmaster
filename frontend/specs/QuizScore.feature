@@ -17,7 +17,7 @@ Feature: Evaluate quiz score
     * saved and bookmarked as "France"
 
 Scenario: Quiz score all question are correct
-  Given I visit the quiz page
+  Given I visit the quiz page "a"
   When I answer "Blue"
   * I click the next button
   * I answer "Paris"
@@ -25,7 +25,7 @@ Scenario: Quiz score all question are correct
   Then I see the result 2 correct out of 2, 100%, passed
 
 Scenario: Quiz score one question is inccorect
-  Given I visit the quiz page
+  Given I visit the quiz page "a"
   When I answer "Green"
   * I click the next button
   * I answer "Paris"
@@ -33,7 +33,7 @@ Scenario: Quiz score one question is inccorect
   Then I see the result 1 correct out of 2, 50%, failed
 
 Scenario: Show question on score page
-  Given I visit the quiz page
+  Given I visit the quiz page "a"
   When I answer "Blue"
   * I click the next button
   * I answer "Marseille"

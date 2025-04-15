@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
 import { EvaluateButton, NextButton } from './quiz/buttons'
+import { useParams } from 'react-router-dom'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -68,19 +69,36 @@ const quizQuestion2: QuizQuestion = {
     correctAnswers: [2],
 }
 
-const quiz = {
+const quizQuestionB1: QuizQuestion = {
+    id: 2,
+    question: 'Is this the B quiz?',
+    answers: ['Yes', 'No', 'Idk', 'Not'],
+    explanations: [],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizA = {
     afterEach: false,
     questions: [quizQuestion1, quizQuestion2],
 }
+const quizB = {
+    afterEach: false,
+    questions: [quizQuestionB1],
+}
+let quiz = quizA
 
 interface QuizProps {
     readonly afterEach: boolean
 }
 
 export const Quiz = (props: QuizProps) => {
+    const params = useParams()
+    const quizId = params.id
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
+    quiz = quizId === 'b' ? quizB : quizA
     //TODO
     quiz.afterEach = props.afterEach
 

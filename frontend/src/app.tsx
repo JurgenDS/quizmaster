@@ -10,7 +10,7 @@ export const App = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/question/new" element={<CreateQuestionContainer />} />
-            <Route path="/quiz/" element={<Quiz afterEach={false} />} />
+            <Route path="/quiz/:id" element={<Quiz afterEach={false} />} />
             <Route path="/quiz/aftereach" element={<Quiz afterEach={true} />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />
             <Route path="/question/:id" element={<QuestionTakePage />} />

@@ -2,8 +2,8 @@ import { expect } from '@playwright/test'
 import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
 import { Given, When, Then } from './fixture.ts'
 
-Given('I visit the quiz page', async function () {
-    await this.page.goto('/quiz/')
+Given('I visit the quiz page {string}', async function (quizName: string) {
+    await this.page.goto(`/quiz/${quizName}`)
 })
 
 Given('I visit the afterEach quiz page', async function () {
@@ -16,6 +16,11 @@ Then('I should see heading "Quiz"', async function () {
 
 Then('I see the first question', async function () {
     const firstQuestion = this.bookmarks.Sky
+    await expectTextToBe(this.takeQuestionPage.questionLocator(), firstQuestion.question)
+})
+
+Then('I see the b question', async function () {
+    const firstQuestion = this.bookmarks.BQuestion
     await expectTextToBe(this.takeQuestionPage.questionLocator(), firstQuestion.question)
 })
 
