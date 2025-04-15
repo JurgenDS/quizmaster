@@ -4,6 +4,7 @@ import { HomePage } from 'pages/home'
 import { Quiz } from 'pages/quiz'
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
+import { QuestionListPage } from 'pages/question-list'
 
 export const App = () => (
     <BrowserRouter>
@@ -13,6 +14,7 @@ export const App = () => (
             <Route path="/quiz/aftereach" element={<Quiz afterEach={true} />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />
             <Route path="/question/:id" element={<QuestionTakePage />} />
+            <Route path="/question-list/*" element={<QuestionListPage />} />
             <Route path="/" element={<HomePage />} />
         </Routes>
     </BrowserRouter>
