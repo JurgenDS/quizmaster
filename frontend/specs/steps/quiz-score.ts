@@ -26,3 +26,10 @@ Then(
         expect(textResult).toBe(expectedTextResult)
     },
 )
+
+Then('I see the question {string}', async function (questionName: string) {
+        const question = await this.quizScorePage.question()
+        expect(question).toBe(questionName)
+    },
+)
+

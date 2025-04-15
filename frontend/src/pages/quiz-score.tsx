@@ -27,6 +27,9 @@ export const QuizScore = ({ score }: QuizScoreProps) => {
             <p>
                 Stav: <span id="text-result">{result}</span>
             </p>
+            <hr />
+            <h2>Přehled odpovědí</h2>
+            <p id="question">What is the standard colour of sky?</p>
         </>
     )
 }

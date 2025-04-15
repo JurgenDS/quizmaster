@@ -14,4 +14,7 @@ export class QuizScorePage {
 
     private textResultLocator = () => this.page.locator('#text-result')
     textResult = () => this.textResultLocator().textContent()
+
+    private questionLocator = () => this.page.locator('#question')
+    question = () => this.questionLocator().textContent()
 }
