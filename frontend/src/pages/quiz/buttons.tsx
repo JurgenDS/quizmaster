@@ -11,3 +11,8 @@ export const EvaluateButton = ({ onClick }: WithOnClick) => (
         Evaluate
     </Button>
 )
+export const BackButton = ({ onClick }: WithOnClick) => (
+    <Button id="back" onClick={onClick}>
+        Back
+    </Button>
+)

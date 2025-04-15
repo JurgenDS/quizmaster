@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton } from './quiz/buttons'
+import { EvaluateButton, NextButton, BackButton } from './quiz/buttons'
 import { useParams } from 'react-router-dom'
 
 interface QuizQuestionProps {
@@ -46,6 +46,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 onSubmitted={onSubmitted}
                 afterEach={props.afterEach}
             />
+            <BackButton onClick={() => {}} />
             {isAnswered &&
                 (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
         </div>
