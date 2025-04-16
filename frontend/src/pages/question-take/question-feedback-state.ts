@@ -4,6 +4,7 @@ import type { QuestionTakeState } from 'pages/question-take'
 export interface QuestionFeedbackState {
     readonly isQuestionCorrect: boolean
     readonly isAnswerCorrect: (idx: number) => boolean
+    readonly isUserSelected: (idx: number) => boolean
     readonly showFeedback: (idx: number) => boolean
 }
 
@@ -14,7 +15,10 @@ export const useQuestionFeedbackState = (state: QuestionTakeState, answers: Answ
         (answers.correctAnswers.includes(idx) && state.selectedAnswerIdxs.includes(idx)) ||
         (!answers.correctAnswers.includes(idx) && !state.selectedAnswerIdxs.includes(idx))
 
+    const isUserSelected = (idx: number) =>
+        (state.selectedAnswerIdxs.includes(idx))
+
     const showFeedback = (idx: number) => (state.isMultipleChoice ? true : state.selectedAnswerIdxs[0] === idx)
 
-    return { isQuestionCorrect, isAnswerCorrect, showFeedback }
+    return { isQuestionCorrect, isAnswerCorrect, showFeedback, isUserSelected }
 }
