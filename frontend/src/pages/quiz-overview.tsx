@@ -24,7 +24,6 @@ export default function QuizOverview() {
 
     async function saveQuiz() {
         if (!quiz || !id) return
-        console.log(quiz)
         await putQuiz(quiz, id)
     }
 

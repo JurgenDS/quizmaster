@@ -17,9 +17,9 @@ export interface Answers {
 }
 
 export interface Quiz {
-    readonly id: string
-    readonly questions: readonly QuizQuestion[]
-    readonly afterEach: boolean
+    id: string
+    questions: QuizQuestion[]
+    afterEach: boolean
 }
 
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean =>
