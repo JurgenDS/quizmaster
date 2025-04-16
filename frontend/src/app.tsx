@@ -5,7 +5,7 @@ import { Quiz } from 'pages/quiz'
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
 import { QuestionListPage } from 'pages/question-list'
-import QuizOverview from "./pages/quiz-overview.tsx";
+import QuizOverview from './pages/quiz-overview.tsx'
 
 export const App = () => (
     <BrowserRouter>

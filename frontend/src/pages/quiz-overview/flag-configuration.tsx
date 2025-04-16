@@ -5,7 +5,7 @@ interface FlagConfigurationProps {
 }
 
 export default function FlagConfiguration(props: FlagConfigurationProps) {
-    return(
+    return (
         <div className="flag-configuration">
             <input type="checkbox"></input>
             <p>{props.children}</p>
