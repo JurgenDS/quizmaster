@@ -1,18 +1,22 @@
 import './quiz-overview.scss'
-import { Quiz } from '../../model/quiz-question.ts'
+import type { Quiz } from '../../model/quiz-question.ts'
 
 interface FlagConfigurationProps {
     children: string
-    updateQuiz: (updater: (prev: Quiz) => Quiz) => void
+    updateQuiz: React.Dispatch<React.SetStateAction<Quiz | undefined>>
     value: boolean
 }
 
 export default function FlagConfiguration(props: FlagConfigurationProps) {
     function changeConfiguration(e: React.ChangeEvent<HTMLInputElement>) {
-        props.updateQuiz(prevState => ({
-            ...prevState,
-            afterEach: e.target.checked,
-        }))
+        props.updateQuiz(prevState => {
+            if (!prevState) return prevState
+
+            return {
+                ...prevState,
+                afterEach: e.target.checked,
+            }
+        })
     }
 
     return (

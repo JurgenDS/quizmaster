@@ -1,5 +1,5 @@
 import { fetchJson, putJson } from './helpers.ts'
-import { Quiz } from '../model/quiz-question.ts'
+import type { Quiz } from '../model/quiz-question.ts'
 
 export const getQuiz = async (quizId: string) => await fetchJson<Quiz>(`/api/quiz/${quizId}`)
 

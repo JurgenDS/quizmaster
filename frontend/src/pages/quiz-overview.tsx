@@ -34,12 +34,12 @@ export default function QuizOverview() {
             <h2>{id}</h2>
             <p>{JSON.stringify(quiz)}</p>
             {quiz && (
-                <FlagConfiguration value={quiz.afterEach} updateQuiz={updater => setQuiz(prev => updater(prev!))}>
+                <FlagConfiguration value={quiz.afterEach} updateQuiz={setQuiz}>
                     Show feedback after each question
                 </FlagConfiguration>
             )}
 
-            <button id="save" onClick={saveQuiz}>
+            <button type="button" id="save" onClick={saveQuiz}>
                 save
             </button>
         </>
