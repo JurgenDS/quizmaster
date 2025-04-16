@@ -107,3 +107,7 @@ Then('I should see the back button', async function () {
 Then('I should not see the back button', async function () {
     await expect(this.quizPage.backButtonLocator()).not.toBeVisible()
 })
+
+When('I click the back button', async function () {
+    await this.quizPage.back()
+})

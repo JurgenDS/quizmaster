@@ -97,3 +97,20 @@ Feature: Take a quiz
     Then I should see heading "Quiz overview"
     Then I should see question feedback configuration
 
+   Scenario: Back button is not visible on the quiz page
+     Given I visit the quiz page "a"
+     Then I should not see the back button
+
+  Scenario: Back button is visible
+    Given I visit the quiz page "a"
+    When I answer "Green"
+    And I click the next button
+    Then I should see the back button
+
+  Scenario: Back button is clicked
+    Given I visit the quiz page "a"
+    When I answer "Green"
+    And I click the next button
+    And I click the back button
+    Then I see the first question
+
