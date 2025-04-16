@@ -92,6 +92,60 @@ const quizQuestionB1: QuizQuestion = {
     correctAnswers: [0],
 }
 
+const quizQuestionC1: QuizQuestion = {
+    id: 3,
+    question: 'Co je DevOps: ',
+    answers: ['Integrace vývoje a provozu pro rychlejší a spolehlivější nasazení.', 'Spolupráce dvou programátorů na jednom úkolu pro zlepšení kvality kódu.'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizQuestionC2: QuizQuestion = {
+    id: 4,
+    question: 'Continuous Integration/Continuous Deployment (CI/CD) je: ',
+    answers: ['Automatizace testování a nasazení kódu.', 'Automobilizace testování a nasazení kódu.'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizQuestionC3: QuizQuestion = {
+    id: 5,
+    question: 'Test-Driven Development (TDD): ',
+    answers: ['Psaní testů před samotným kódem pro zajištění kvality.', 'Rozdělení aplikace na menší, nezávislé služby.'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizQuestionC4: QuizQuestion = {
+    id: 6,
+    question: 'Code Review: ',
+    answers: ['Pravidelné kontroly kódu pro zajištění kvality a sdílení znalostí. Drunk based development Proč má komplexita zadání vliv na rychlost dodávky? ', 'Využití kódových služeb pro škálovatelnost a flexibilitu.'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizQuestionC5: QuizQuestion = {
+    id: 7,
+    question: 'Drunk based development: ',
+    answers: ['humoristický nebo satirický termín, který naznačuje, že vývoj probíhá v neformálním nebo chaotickém prostředí', 'metodologie vývoje softwaru, která se zaměřuje na práci s jednou hlavní větví (trunk) v systému pro správu verzí'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
+const quizQuestionC6: QuizQuestion = {
+    id: 8,
+    question: 'Proč má komplexita zadání vliv na rychlost dodávky?',
+    answers: ['Komplexní zadání vyžaduje důkladnější analýzu, aby se plně pochopily všechny požadavky a souvislosti.', 'Žádné změny a úpravy', 'S rostoucí komplexitou neroste i riziko chyb, které mohou zpomalit vývoj kvůli potřebě oprav a úprav.'],
+    explanations: ['', ''],
+    questionExplanation: '',
+    correctAnswers: [0],
+}
+
 const quizA = {
     afterEach: false,
     questions: [quizQuestion1, quizQuestion2],
@@ -99,6 +153,11 @@ const quizA = {
 const quizB = {
     afterEach: true,
     questions: [quizQuestionB1, quizQuestionB1],
+}
+
+const quizC = {
+    afterEach: true,
+    questions: [quizQuestionC1, quizQuestionC2, quizQuestionC3, quizQuestionC4, quizQuestionC5, quizQuestionC6],
 }
 let quiz = quizA
 
@@ -108,7 +167,13 @@ export const Quiz = () => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
-    quiz = quizId === 'b' ? quizB : quizA
+    if (quizId === 'a') {
+        quiz = quizA
+    } else if (quizId === 'b') {
+        quiz = quizB
+    } else if (quizId === 'c') {
+        quiz = quizC
+    }
 
     return isEvaluated ? (
         <QuizScore score={quizScore} questions={quiz.questions} />
