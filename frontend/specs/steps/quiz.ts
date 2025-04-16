@@ -103,3 +103,7 @@ Then('I should see question feedback configuration', async function () {
 Then('I should see the back button', async function () {
     await expect(this.quizPage.backButtonLocator()).toBeVisible()
 })
+
+Then('I should not see the back button', async function () {
+    await expect(this.quizPage.backButtonLocator()).not.toBeVisible()
+})

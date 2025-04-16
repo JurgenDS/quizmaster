@@ -17,6 +17,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
     const currentQuestion = quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === quiz.questions.length - 1
+    const isFirstQuestion = currentQuestionIdx === 0
 
     const [quizState, setQuizState] = useState<QuizState>([])
     const isAnswered = quizState[currentQuestionIdx] !== undefined
@@ -28,6 +29,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     }
 
     const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
+    const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
     const onEvaluate = () =>
         props.onEvaluate({
             correct: quiz.questions.filter((question, idx) =>
@@ -46,9 +48,11 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 onSubmitted={onSubmitted}
                 afterEach={props.afterEach}
             />
-            <BackButton onClick={() => {}} />
-            {isAnswered &&
-                (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
+            <div>
+                {!isFirstQuestion && <BackButton onClick={onBack} />}
+                {isAnswered &&
+                    (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
+            </div>
         </div>
     )
 }
