@@ -16,10 +16,10 @@ export class QuizScorePage {
     textResult = () => this.textResultLocator().textContent()
 
     private questionsLocator = () => this.page.locator('[id^=question-]')
-    questions = () => this.questionsLocator().locator('p[id^=question-]').allTextContents()
+    questions = () => this.questionsLocator().locator('strong[id^=question-]').allTextContents()
 
     private questionLocator = (question: string) =>
-        this.questionsLocator().locator('p[id^=question-]').filter({ hasText: question }).locator('..')
+        this.questionsLocator().locator('strong[id^=question-]').filter({ hasText: question }).locator('..')
     private answertAndExplanationLocator = (question: string) =>
         this.questionLocator(question).locator('li[id^=answers-]')
     answers = (question: string) =>

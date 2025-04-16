@@ -1,3 +1,5 @@
+import './question.scss'
+
 import type { QuizQuestion } from 'model/quiz-question'
 import { AnswerFeedback, QuestionExplanation } from 'pages/question-take'
 import type { FC } from 'react'
@@ -15,7 +17,7 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
 
     return (
         <div key={question.id} id={`question-${question.id}`}>
-            <p id={`question-${question.id}-name`}>{question.question}</p>
+            <strong id={`question-${question.id}-name`}>{question.question}</strong>
             <ul id={`question-${question.id}-answers`}>
                 {question.answers.map((answer, idx) => (
                     <li key={`answer-${answer}`} id={`answers-${idx}-question-${question.id}`}>
@@ -40,9 +42,10 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
                 ))}
             </ul>
             {question.questionExplanation && (
-                <>
-                    Question explanation: <QuestionExplanation text={question.questionExplanation} />
-                </>
+                <div className="row">
+                    Question explanation:{'\u00A0'}
+                    <QuestionExplanation text={question.questionExplanation} />
+                </div>
             )}
             <br />
         </div>

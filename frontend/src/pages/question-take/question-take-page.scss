@@ -79,3 +79,31 @@ ul li input[type="radio"]:checked::after {
     display: inline-block;
     text-decoration: none;
 }
+
+// Neodstranovat ̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿
+ul li input[type="checkbox"],
+ul li input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+
+    &:disabled {
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: white;
+            border-color: black;
+        }
+        &:checked:hover {
+            background-color: black;
+            border-color: black;
+        }
+    }
+}

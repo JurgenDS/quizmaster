@@ -18,23 +18,23 @@ export const QuizScore = ({ score, questions }: QuizScoreProps) => {
 
     return (
         <>
-            <h1>Výsledok testu</h1>
+            <h1>Test result</h1>
             <p>
-                Správne odpovede: <span id="correct-answers">{correct}</span>
+                Correct answers: <span id="correct-answers">{correct}</span>
             </p>
             <p>
-                Celkový počet otázok: <span id="total-questions">{total}</span>
+                Total answers: <span id="total-questions">{total}</span>
             </p>
             <p>
-                Úspešnosť(%): <span id="percentage-result">{percentage.toFixed(2)}</span>
+                Rate(%): <span id="percentage-result">{percentage.toFixed(2)}</span>
             </p>
             <p>
-                Stav: <span id="text-result">{result}</span>
+                State: <span id="text-result">{result}</span>
             </p>
 
             <hr />
 
-            <h2>Přehled odpovědí</h2>
+            <h2>Answer overview</h2>
             {questions.map(question => (
                 <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
             ))}
