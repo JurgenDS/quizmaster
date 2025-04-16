@@ -44,7 +44,7 @@ Feature: Take a quiz
 
   Scenario: Quiz question is answered afterEach
     Given I visit the quiz page "b"
-    When I answer "Green"
+    When I answer "Yes"
     Then I should see the answer
     Then I should see the next button
 

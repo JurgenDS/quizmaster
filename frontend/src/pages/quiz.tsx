@@ -84,7 +84,7 @@ const quizA = {
 }
 const quizB = {
     afterEach: true,
-    questions: [quizQuestionB1],
+    questions: [quizQuestionB1, quizQuestionB1],
 }
 let quiz = quizA
 
