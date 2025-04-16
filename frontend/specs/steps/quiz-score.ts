@@ -33,23 +33,42 @@ Then('I see the question {string}', async function (question: string) {
 })
 
 Then('I see all options for question {string}', async function (question: string) {
-    const answers = this.bookmarks[question].answers
+    const answersOrig = this.bookmarks[question].answers
 
-    const options: string[] = await this.quizScorePage.options(question)
+    const answers: string[] = await this.quizScorePage.answers(question)
 
-    expect(options.length).toBe(answers.length)
-    for (const answer of answers) {
-        expect(options).toContain(answer.answer)
+    expect(answers.length).toBe(answersOrig.length)
+    for (const answer of answersOrig) {
+        expect(answers).toContain(answer.answer)
     }
 })
 
-Then('I see all explanations for question {string}', async function (question: string) {
-    const explanationsOrig = this.bookmarks[question].explanation
-
+Then('I see explanation {string} for question {string}', async function (explanation: string, question: string) {
     const explanations: string[] = await this.quizScorePage.explanations(question)
 
-    expect(explanations.length).toBe(explanationsOrig.length)
-    for (const explanation of explanationsOrig) {
-        expect(explanations).toContain(explanation)
-    }
+    expect(explanations).toContain(explanation)
 })
+
+Then(
+    'I see question explanation {string} for question {string}',
+    async function (explanationOrig: string, question: string) {
+        const explanation = await this.quizScorePage.questionExplanation(question)
+
+        expect(explanation).toBe(explanationOrig)
+    },
+)
+
+Then('I see user select {string} for question {string}', async function (userSelect: string, question: string) {
+    const answerLabel = await this.quizScorePage.checkedAnswerLabel(question)
+
+    expect(answerLabel).toBe(userSelect)
+})
+
+Then(
+    'I see corresponding response {string} for answer {string} for question {string}',
+    async function (response: string, answer: string, question: string) {
+        const answerResponse = await this.quizScorePage.answerCorrespondingResponse(question, answer)
+
+        expect(answerResponse).toBe(response)
+    },
+)

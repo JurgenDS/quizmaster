@@ -20,6 +20,23 @@ export class QuizScorePage {
 
     private questionLocator = (question: string) =>
         this.questionsLocator().locator('p[id^=question-]').filter({ hasText: question }).locator('..')
-    options = (question: string) => this.questionLocator(question).locator('li[id^=answer-]').allTextContents()
-    explanations = (question: string) => this.questionLocator(question).locator('li[id^=explanations-]').allTextContents()
+    private answertAndExplanationLocator = (question: string) =>
+        this.questionLocator(question).locator('li[id^=answers-]')
+    answers = (question: string) =>
+        this.answertAndExplanationLocator(question).locator('span[id$="-label"]').allTextContents()
+    explanations = (question: string) =>
+        this.answertAndExplanationLocator(question).locator('.explanationText').allTextContents()
+    questionExplanation = (question: string) =>
+        this.questionLocator(question).locator('.question-explanation').textContent()
+
+    private checkedUserSelectLocator = (question: string) => this.questionLocator(question).locator('input:checked')
+    checkedAnswerLabel = (question: string) =>
+        this.checkedUserSelectLocator(question).locator('..').locator('span[id$="-label"]').textContent()
+
+    private questionAnswerLocator = (question: string, answer: string) =>
+        this.answertAndExplanationLocator(question).getByText(answer)
+    private answerCorrespondingResponseLocator = (question: string, answer: string) =>
+        this.questionAnswerLocator(question, answer).locator('..').locator('..').locator('.feedback')
+    answerCorrespondingResponse = (question: string, answer: string) =>
+        this.answerCorrespondingResponseLocator(question, answer).textContent()
 }

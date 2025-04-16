@@ -30,13 +30,17 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
 
     const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
     const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
-    const onEvaluate = () =>
+    const onEvaluate = () => {
         props.onEvaluate({
             correct: quiz.questions.filter((question, idx) =>
                 isAnsweredCorrectly(quizState[idx], question.correctAnswers),
             ).length,
             total: quiz.questions.length,
         })
+        quiz.questions.forEach((question, idx) => {
+            question.userInput = quizState[idx]
+        })
+    }
 
     return (
         <div>
@@ -61,8 +65,13 @@ const quizQuestion1: QuizQuestion = {
     id: 1,
     question: 'What is the standard colour of sky?',
     answers: ['Red', 'Blue', 'Green', 'Black'],
-    explanations: [],
-    questionExplanation: '',
+    explanations: [
+        'Red is not the standard colour of sky',
+        'Blue is the standard colour of sky',
+        'Green is not the standard colour of sky',
+        'Black is not the standard colour of sky',
+    ],
+    questionExplanation: 'Sky is blue because of Rayleigh scattering',
     correctAnswers: [1],
 }
 const quizQuestion2: QuizQuestion = {

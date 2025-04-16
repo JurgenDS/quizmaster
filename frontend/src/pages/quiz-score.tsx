@@ -1,4 +1,6 @@
 import type { QuizQuestion } from 'model/quiz-question'
+import { Answer } from './question-take'
+import { Question } from './quiz/question'
 
 export interface QuizScore {
     readonly correct: number
@@ -30,21 +32,12 @@ export const QuizScore = ({ score, questions }: QuizScoreProps) => {
             <p>
                 Stav: <span id="text-result">{result}</span>
             </p>
-            <hr />
-            <h2>Přehled odpovědí</h2>
 
+            <hr />
+
+            <h2>Přehled odpovědí</h2>
             {questions.map(question => (
-                <div key={question.id} id={`question-${question.id}`}>
-                    <p id={`question-${question.id}-name`}>{question.question}</p>
-                    <ul id={`question-${question.id}-answers`}>
-                        {question.answers.map((answer, idx) => (
-                            <>
-                                <li id={`answer-${answer}-question-${question.id}`}>{answer}</li>
-                                <li id={`explanation-${idx}-question-${question.id}`}>Vysvětlení: {question.explanations.at(idx)}</li>
-                            </>
-                        ))}
-                    </ul>
-                </div>
+                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
             ))}
         </>
     )
