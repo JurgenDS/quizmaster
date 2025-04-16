@@ -22,7 +22,6 @@ export const Answer = (props: AnswerProps) => {
         props.onAnswerChange(props.idx, event.target.checked)
     }
 
-
     return (
         <li data-test-id={`answer-row-${props.answer}`} key={props.idx}>
             <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} />

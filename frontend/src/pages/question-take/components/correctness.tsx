@@ -5,7 +5,7 @@ interface CorrectnessProps {
 }
 
 export const Correctness = (props: CorrectnessProps) => {
-   const label = props.isCorrect ? 'Correct!' : 'Incorrect!'
+    const label = props.isCorrect ? 'Correct!' : 'Incorrect!'
 
     const className = props.isCorrect ? 'correct' : 'incorrect'
 

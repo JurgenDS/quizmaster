@@ -15,8 +15,7 @@ export const useQuestionFeedbackState = (state: QuestionTakeState, answers: Answ
         (answers.correctAnswers.includes(idx) && state.selectedAnswerIdxs.includes(idx)) ||
         (!answers.correctAnswers.includes(idx) && !state.selectedAnswerIdxs.includes(idx))
 
-    const isUserSelected = (idx: number) =>
-        (state.selectedAnswerIdxs.includes(idx))
+    const isUserSelected = (idx: number) => state.selectedAnswerIdxs.includes(idx)
 
     const showFeedback = (idx: number) => (state.isMultipleChoice ? true : state.selectedAnswerIdxs[0] === idx)
 
