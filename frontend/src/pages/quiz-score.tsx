@@ -1,5 +1,4 @@
 import type { QuizQuestion } from 'model/quiz-question'
-import { Answer } from './question-take'
 import { Question } from './quiz/question'
 
 export interface QuizScore {
