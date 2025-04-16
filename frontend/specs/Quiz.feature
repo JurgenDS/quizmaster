@@ -43,7 +43,7 @@ Feature: Take a quiz
     Then I should see the next button
 
   Scenario: Quiz question is answered afterEach
-    Given I visit the afterEach quiz page
+    Given I visit the quiz page "b"
     When I answer "Green"
     Then I should see the answer
     Then I should see the next button
@@ -91,4 +91,9 @@ Feature: Take a quiz
     When I answer "Green"
     And I click the next button
     Then I should see the progress bar showing page 2 of 2
+
+  Scenario: Users goes to quiz overview
+    Given I visit the quiz overview page 1
+    Then I should see heading "Quiz overview"
+    Then I should see question feedback configuration
 

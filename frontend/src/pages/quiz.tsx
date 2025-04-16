@@ -83,24 +83,18 @@ const quizA = {
     questions: [quizQuestion1, quizQuestion2],
 }
 const quizB = {
-    afterEach: false,
+    afterEach: true,
     questions: [quizQuestionB1],
 }
 let quiz = quizA
 
-interface QuizProps {
-    readonly afterEach: boolean
-}
-
-export const Quiz = (props: QuizProps) => {
+export const Quiz = () => {
     const params = useParams()
     const quizId = params.id
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
 
     quiz = quizId === 'b' ? quizB : quizA
-    //TODO
-    quiz.afterEach = props.afterEach
 
     return isEvaluated ? (
         <QuizScore score={quizScore} questions={quiz.questions} />

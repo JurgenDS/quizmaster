@@ -6,6 +6,10 @@ Given('I visit the quiz page {string}', async function (quizName: string) {
     await this.page.goto(`/quiz/${quizName}`)
 })
 
+Given('I visit the quiz overview page {int}', async function (id: number) {
+    await this.page.goto(`/quiz/${id}/overview`)
+})
+
 Given('I visit the afterEach quiz page', async function () {
     await this.page.goto('/quiz/aftereach')
 })
@@ -87,3 +91,11 @@ Then(
         expect(progressBarMaxValue).toBe(maxValue.toString())
     },
 )
+
+Then('I should see heading "Quiz overview"', async function () {
+    await expectTextToBe(this.page.locator('h1'), 'Quiz overview')
+})
+
+Then('I should see question feedback configuration', async function () {
+    await expectTextToBe(this.page.locator('p'), 'Show feedback after each question')
+})
