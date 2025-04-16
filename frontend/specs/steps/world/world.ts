@@ -2,6 +2,7 @@ import type { Page, TestInfo } from '@playwright/test'
 
 import { CreateQuestionPage, QuizPage, TakeQuestionPage, QuizScorePage } from '../../pages'
 import type { Question } from './question'
+import { QuizOverviewPage } from '../../pages/quiz-overview-page.ts'
 
 export class QuizmasterWorld {
     constructor(
@@ -12,12 +13,14 @@ export class QuizmasterWorld {
         this.takeQuestionPage = new TakeQuestionPage(this.page)
         this.quizPage = new QuizPage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
+        this.quizOverviewPage = new QuizOverviewPage(this.page)
     }
 
     readonly createQuestionPage: CreateQuestionPage
     readonly takeQuestionPage: TakeQuestionPage
     readonly quizPage: QuizPage
     readonly quizScorePage: QuizScorePage
+    readonly quizOverviewPage: QuizOverviewPage
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
     nextAnswerIdx = 0

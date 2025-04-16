@@ -16,6 +16,12 @@ export interface Answers {
     readonly questionExplanation: string
 }
 
+export interface Quiz {
+    readonly id: string
+    readonly questions: readonly QuizQuestion[]
+    readonly afterEach: boolean
+}
+
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean =>
     selectedAnswerIdxs.length === correctAnswers.length &&
     selectedAnswerIdxs.every(answerIndex => correctAnswers.includes(answerIndex))

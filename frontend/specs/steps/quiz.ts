@@ -6,8 +6,24 @@ Given('I visit the quiz page {string}', async function (quizName: string) {
     await this.page.goto(`/quiz/${quizName}`)
 })
 
-Given('I visit the quiz overview page {int}', async function (id: number) {
+Given('I visit the quiz overview page {string}', async function (id: string) {
     await this.page.goto(`/quiz/${id}/overview`)
+})
+
+When('I changed the "Show feedback after each question" checkbox {string}', async function (value: string) {
+    const booleanValue = value.toLowerCase() === 'true'
+    await this.quizOverviewPage.setCheckboxValue(booleanValue)
+    await this.quizOverviewPage.saveButtonLocator().click()
+})
+
+Then('I should see checkbox {string}', async function (value: string) {
+    const expectedValue = value.toLowerCase() === 'true'
+    const isChecked = await this.quizOverviewPage.checkboxLocator().isChecked()
+    expect(isChecked).toBe(expectedValue)
+})
+
+When('I reload page', async function () {
+    await this.page.reload()
 })
 
 Given('I visit the afterEach quiz page', async function () {
@@ -94,10 +110,6 @@ Then(
 
 Then('I should see heading "Quiz overview"', async function () {
     await expectTextToBe(this.page.locator('h1'), 'Quiz overview')
-})
-
-Then('I should see question feedback configuration', async function () {
-    await expectTextToBe(this.page.locator('p'), 'Show feedback after each question')
 })
 
 Then('I should see the back button', async function () {

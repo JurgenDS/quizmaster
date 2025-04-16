@@ -92,11 +92,15 @@ Feature: Take a quiz
     And I click the next button
     Then I should see the progress bar showing page 2 of 2
 
-  Scenario: Users goes to quiz overview
-    Given I visit the quiz overview page 1
-    Then I should see heading "Quiz overview"
-    Then I should see question feedback configuration
-
+  Scenario Outline: Config saved after reload - check
+    Given I visit the quiz overview page "a"
+    When I changed the "Show feedback after each question" checkbox "<checkboxState>"
+    And I reload page
+    Then I should see checkbox "<checkboxState>"
+    Examples:
+      | checkboxState |
+      | true          |
+      | false         |
    Scenario: Back button is not visible on the quiz page
      Given I visit the quiz page "a"
      Then I should not see the back button
