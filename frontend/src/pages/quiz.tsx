@@ -95,7 +95,10 @@ const quizQuestionB1: QuizQuestion = {
 const quizQuestionC1: QuizQuestion = {
     id: 3,
     question: 'Co je DevOps: ',
-    answers: ['Integrace vývoje a provozu pro rychlejší a spolehlivější nasazení.', 'Spolupráce dvou programátorů na jednom úkolu pro zlepšení kvality kódu.'],
+    answers: [
+        'Integrace vývoje a provozu pro rychlejší a spolehlivější nasazení.',
+        'Spolupráce dvou programátorů na jednom úkolu pro zlepšení kvality kódu.',
+    ],
     explanations: ['', ''],
     questionExplanation: '',
     correctAnswers: [0],
@@ -113,7 +116,10 @@ const quizQuestionC2: QuizQuestion = {
 const quizQuestionC3: QuizQuestion = {
     id: 5,
     question: 'Test-Driven Development (TDD): ',
-    answers: ['Psaní testů před samotným kódem pro zajištění kvality.', 'Rozdělení aplikace na menší, nezávislé služby.'],
+    answers: [
+        'Psaní testů před samotným kódem pro zajištění kvality.',
+        'Rozdělení aplikace na menší, nezávislé služby.',
+    ],
     explanations: ['', ''],
     questionExplanation: '',
     correctAnswers: [0],
@@ -122,7 +128,10 @@ const quizQuestionC3: QuizQuestion = {
 const quizQuestionC4: QuizQuestion = {
     id: 6,
     question: 'Code Review: ',
-    answers: ['Pravidelné kontroly kódu pro zajištění kvality a sdílení znalostí. Drunk based development Proč má komplexita zadání vliv na rychlost dodávky? ', 'Využití kódových služeb pro škálovatelnost a flexibilitu.'],
+    answers: [
+        'Pravidelné kontroly kódu pro zajištění kvality a sdílení znalostí. Drunk based development Proč má komplexita zadání vliv na rychlost dodávky? ',
+        'Využití kódových služeb pro škálovatelnost a flexibilitu.',
+    ],
     explanations: ['', ''],
     questionExplanation: '',
     correctAnswers: [0],
@@ -131,7 +140,10 @@ const quizQuestionC4: QuizQuestion = {
 const quizQuestionC5: QuizQuestion = {
     id: 7,
     question: 'Drunk based development: ',
-    answers: ['humoristický nebo satirický termín, který naznačuje, že vývoj probíhá v neformálním nebo chaotickém prostředí', 'metodologie vývoje softwaru, která se zaměřuje na práci s jednou hlavní větví (trunk) v systému pro správu verzí'],
+    answers: [
+        'humoristický nebo satirický termín, který naznačuje, že vývoj probíhá v neformálním nebo chaotickém prostředí',
+        'metodologie vývoje softwaru, která se zaměřuje na práci s jednou hlavní větví (trunk) v systému pro správu verzí',
+    ],
     explanations: ['', ''],
     questionExplanation: '',
     correctAnswers: [0],
@@ -140,8 +152,12 @@ const quizQuestionC5: QuizQuestion = {
 const quizQuestionC6: QuizQuestion = {
     id: 8,
     question: 'Proč má komplexita zadání vliv na rychlost dodávky?',
-    answers: ['Komplexní zadání vyžaduje důkladnější analýzu, aby se plně pochopily všechny požadavky a souvislosti.', 'Žádné změny a úpravy', 'S rostoucí komplexitou neroste i riziko chyb, které mohou zpomalit vývoj kvůli potřebě oprav a úprav.'],
-    explanations: ['', ''],
+    answers: [
+        'Komplexní zadání vyžaduje důkladnější analýzu, aby se plně pochopily všechny požadavky a souvislosti.',
+        'Žádné změny a úpravy',
+        'S rostoucí komplexitou neroste i riziko chyb, které mohou zpomalit vývoj kvůli potřebě oprav a úprav.',
+    ],
+    explanations: ['', '', ''],
     questionExplanation: '',
     correctAnswers: [0],
 }
