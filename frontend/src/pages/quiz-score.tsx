@@ -37,8 +37,11 @@ export const QuizScore = ({ score, questions }: QuizScoreProps) => {
                 <div key={question.id} id={`question-${question.id}`}>
                     <p id={`question-${question.id}-name`}>{question.question}</p>
                     <ul id={`question-${question.id}-answers`}>
-                        {question.answers.map(answer => (
-                            <li id={`question-${question.id}-answer-${answer}`}>{answer}</li>
+                        {question.answers.map((answer, idx) => (
+                            <>
+                                <li id={`answer-${answer}-question-${question.id}`}>{answer}</li>
+                                <li id={`explanation-${idx}-question-${question.id}`}>Vysvětlení: {question.explanations.at(idx)}</li>
+                            </>
                         ))}
                     </ul>
                 </div>

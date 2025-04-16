@@ -20,5 +20,6 @@ export class QuizScorePage {
 
     private questionLocator = (question: string) =>
         this.questionsLocator().locator('p[id^=question-]').filter({ hasText: question }).locator('..')
-    options = (question: string) => this.questionLocator(question).locator('li').allTextContents()
+    options = (question: string) => this.questionLocator(question).locator('li[id^=answer-]').allTextContents()
+    explanations = (question: string) => this.questionLocator(question).locator('li[id^=explanations-]').allTextContents()
 }

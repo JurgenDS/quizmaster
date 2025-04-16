@@ -42,3 +42,14 @@ Then('I see all options for question {string}', async function (question: string
         expect(options).toContain(answer.answer)
     }
 })
+
+Then('I see all explanations for question {string}', async function (question: string) {
+    const explanationsOrig = this.bookmarks[question].explanation
+
+    const explanations: string[] = await this.quizScorePage.explanations(question)
+
+    expect(explanations.length).toBe(explanationsOrig.length)
+    for (const explanation of explanationsOrig) {
+        expect(explanations).toContain(explanation)
+    }
+})

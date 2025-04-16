@@ -44,10 +44,18 @@ Scenario Outline: Show question on score page
       | What is the standard colour of sky? |
       | What is capital of France?          |
 
-Scenario: Show question on score page
+Scenario: Show options of question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
   * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
   Then I see all options for question "Sky"
+
+Scenario: Show explanations of question on score page
+  Given I visit the quiz page "a"
+  When I answer "Blue"
+  * I click the next button
+  * I answer "Marseille"
+  * I click the evaluate button
+  Then I see all explanations for question "Sky"
