@@ -16,6 +16,6 @@ Content-Type: application/json
         "Often cited as Europe’s eastern gateway, it actually lies just east of the Ural Mountains, squarely in Asia.",
         "Located on the western shore of the Caspian Sea, it is entirely in Asia."
     ],
-    "questionExplanation": "Light scattering causes this effect.",
-    "correctAnswers": [0]
+    "questionExplanation": "",
+    "correctAnswers": [1]
 }
