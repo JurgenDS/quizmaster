@@ -3,14 +3,18 @@ Content-Type: application/json
 
 {
     "id": 4,
-    "question": "Why is the sky blue?",
+    "question": "Which city is built on two continents?",
     "answers": [
-        "Because of Rayleigh scattering",
-        "Because of the ocean's reflection"
+        "Suez",
+        "Istanbul",
+        "Yekaterinburg",
+        "Baku"
     ],
     "explanations": [
-        "This is the scientific reason.",
-        "This is a common misconception."
+        "Though perched on the Suez Canal at the Africa–Asia divide, Suez lies wholly on the African side of the isthmus.",
+        "Straddles the Bosporus Strait, linking Europe and Asia across its city limits.",
+        "Often cited as Europe’s eastern gateway, it actually lies just east of the Ural Mountains, squarely in Asia.",
+        "Located on the western shore of the Caspian Sea, it is entirely in Asia."
     ],
     "questionExplanation": "Light scattering causes this effect.",
     "correctAnswers": [0]
