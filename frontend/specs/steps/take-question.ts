@@ -84,12 +84,12 @@ Then('I see individual feedback:', async function (dataTable: DataTable) {
 
     for (const row of rows) {
         const { answer, evaluation, feedback } = row
-        const answerRow = this.page.locator(`[data-test-id="answer-row-${answer}"]`)
+        const answerRow = this.page.getByTestId(`answer-row-${answer}`)
         await expect(answerRow).toContainText(evaluation)
         await expect(answerRow).toContainText(feedback)
     }
 })
 
 Then('no explanation answer is displayed', async function () {
-    await expect(await this.takeQuestionPage.answerExplanationLocator().count()).toBe(0)
+    expect(await this.takeQuestionPage.answerExplanationLocator().count()).toBe(0)
 })
