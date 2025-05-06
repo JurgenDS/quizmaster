@@ -81,7 +81,7 @@ export const QuizPage = () => {
         fetchQuiz()
     }, [quizId])
 
-    if(quiz) {
+    if (quiz) {
         return  isEvaluated ? (
             <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
         ) : (
