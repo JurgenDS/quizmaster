@@ -82,7 +82,7 @@ export const QuizPage = () => {
     }, [quizId])
 
     if (quiz) {
-        return  isEvaluated ? (
+        return isEvaluated ? (
             <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
         ) : (
             <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
