@@ -129,4 +129,8 @@ Feature: Take a quiz
     And I click the next button
     And I click the back button
     Then I see the first question
+@skip
+  Scenario: Display countdown timer
+    Given I visit the quiz page "a"
+    Then I should see the countdown timer "2:00"
 
