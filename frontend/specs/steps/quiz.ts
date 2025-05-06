@@ -52,6 +52,10 @@ Then('I should see the skip button', async function () {
     await expect(this.quizPage.skipButtonLocator()).toBeVisible()
 })
 
+Then('I should not see the skip button', async function () {
+    await expect(this.quizPage.skipButtonLocator()).not.toBeVisible()
+})
+
 Then('I should not see the next button', async function () {
     await expect(this.quizPage.nextButtonLocator()).not.toBeVisible()
 })

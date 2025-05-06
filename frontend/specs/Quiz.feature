@@ -45,6 +45,7 @@ Feature: Take a quiz
     When I answer "Green"
     Then I should not see the answer
     Then I should see the next button
+    Then I should not see the skip button
 
   Scenario: Quiz question is answered afterEach
     Given I visit the quiz page "b"
