@@ -81,13 +81,11 @@ export const QuizPage = () => {
         fetchQuiz()
     }, [quizId])
 
-    if (!quiz) {
-        return <h1>quiz doesnt exist</h1>
+    if(quiz) {
+        return  isEvaluated ? (
+            <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
+        ) : (
+            <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
+        )
     }
-
-    return isEvaluated ? (
-        <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
-    ) : (
-        <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
-    )
 }
