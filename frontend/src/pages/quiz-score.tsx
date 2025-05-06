@@ -7,12 +7,12 @@ export interface QuizScore {
 }
 
 interface QuizScoreProps {
-    readonly score: QuizScore,
-    readonly questions: QuizQuestion[],
+    readonly score: QuizScore
+    readonly questions: QuizQuestion[]
     readonly passScore: number
 }
 
-export const QuizScore = ({score, questions, passScore}: QuizScoreProps) => {
+export const QuizScore = ({ score, questions, passScore }: QuizScoreProps) => {
     const {correct, total} = score
     const percentage = (correct / total) * 100
     const result = percentage >= passScore ? 'passed' : 'failed'
@@ -33,11 +33,11 @@ export const QuizScore = ({score, questions, passScore}: QuizScoreProps) => {
                 State: <span id="text-result">{result}</span>
             </p>
 
-            <hr/>
+            <hr />
 
             <h2>Answer overview</h2>
             {questions.map(question => (
-                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1}/>
+                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
             ))}
         </>
     )
