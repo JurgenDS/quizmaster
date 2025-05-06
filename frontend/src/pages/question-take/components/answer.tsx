@@ -1,7 +1,5 @@
 import type React from 'react'
 
-import { AnswerFeedback } from 'pages/question-take'
-
 export type AnswerProps = {
     readonly isMultipleChoice: boolean
     readonly idx: number
@@ -27,14 +25,6 @@ export const Answer = (props: AnswerProps) => {
             <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} />
             <label htmlFor={answerId}>
                 {props.answer}
-                {props.showFeedback && (
-                    <AnswerFeedback
-                        correct={props.isCorrect}
-                        explanation={props.explanation}
-                        isMultipleChoice={props.isMultipleChoice}
-                        isUserSelected={props.isUserSelected}
-                    />
-                )}
             </label>
             <br />
             <br />

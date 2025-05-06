@@ -32,14 +32,9 @@ Feature: Create a quiz question
     * with explanation "Rome is the capital city of Italy. It is also the capital of the Lazio region"
     * saved and bookmarked as "Italy"
     When I take question "Italy"
-    * I answer "<answer>"
-    Then I see feedback "<feedback>"
-    * I see the answer explanation "<explanation>"
-    * I see the question explanation
-    Examples:
-      | answer | feedback   | explanation                              |
-      | Rome   | Correct!   | Rome is the capital of Italy             |
-      | Naples | Incorrect! | Naples is the capital of Campania region |
+    * I answer "Naples"
+    Then I see the question explanation
+
   @focus
   Scenario: Question is answered and the next button is not displayed
     Given a question "What is capital of Italy?"

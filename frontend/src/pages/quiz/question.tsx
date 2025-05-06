@@ -1,7 +1,7 @@
 import './question.scss'
 
 import type { QuizQuestion } from 'model/quiz-question'
-import { AnswerFeedback, QuestionExplanation } from 'pages/question-take'
+import { QuestionExplanation } from 'pages/question-take'
 import type { FC } from 'react'
 
 interface QuestionProps {
@@ -32,11 +32,6 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
                                 />
                                 <span id={`answers-${idx}-question-${question.id}-label`}>{answer}</span>
                             </span>
-                            <AnswerFeedback
-                                correct={isAnswerCorrect(idx)}
-                                explanation={question.explanations[idx]}
-                                isMultipleChoice={isMultipleChoice}
-                            />
                         </div>
                     </li>
                 ))}

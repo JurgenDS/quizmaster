@@ -52,14 +52,6 @@ Scenario: Show options of question on score page
   * I click the evaluate button
   Then I see all options for question "Sky"
 
-Scenario: Show explanation of question on score page
-  Given I visit the quiz page "a"
-  When I answer "Blue"
-  * I click the next button
-  * I answer "Marseille"
-  * I click the evaluate button
-  Then I see explanation "Red is not the standard colour of sky" for question "Sky"
-
 Scenario: Show question explanation of question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
@@ -75,15 +67,6 @@ Scenario: Show user select
   * I answer "Marseille"
   * I click the evaluate button
   Then I see user select "Blue" for question "Sky"
-
-Scenario: Show corresponding response
- Given I visit the quiz page "a"
-  When I answer "Blue"
-  * I click the next button
-  * I answer "Marseille"
-  * I click the evaluate button
-  Then I see corresponding response "Correct!" for answer "Blue" for question "Sky"
-  * I see corresponding response "Incorrect!" for answer "Marseille" for question "France"
 
 Scenario: Quiz with 85% pass score will fail
   Given I visit the quiz page "a"

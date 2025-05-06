@@ -10,20 +10,14 @@ Feature: Answering a quiz question with multiple choice
     * with explanation "Italy, France, and Spain are in Europe. Morocco is in Africa."
     * saved and bookmarked as "Europe"
 
-  Scenario Outline: Detailed feedback is displayed for each selected answer
+  Scenario Outline: Feedback is displayed after answering the question
     Answer is considered correct if and only if:
     - All correct answers are selected.
     - No incorrect answer is selected.
 
     When I take question "Europe"
     And I answer "<answer>"
-    Then I see individual feedback:
-      | answer  | evaluation | feedback           |
-      | Italy   | <italy>    | <italy_feedback>   |
-      | France  | <france>   | <france_feedback>  |gitz 
-      | Morocco | <morocco>  | <morocco_feedback> |
-      | Spain   | <spain>    | <spain_feedback>   |
-    And I see the question explanation
+    Then I see the question explanation
 
     Examples:
       | answer                        | italy | italy_feedback | france | france_feedback | morocco | morocco_feedback | spain | spain_feedback | final_feedback                                            |
@@ -33,16 +27,4 @@ Feature: Answering a quiz question with multiple choice
       | Italy, France, Spain          | ✅     |               | ✅    |                  |✅      |                |✅    |             | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | Italy, France, Morocco, Spain | ✅     |               | ✅    |                 | ❌      | Incorrect!      |✅    |            | Italy, France, and Spain are in Europe. Morocco is in Africa. |
       | France, Morocco, Spain        |    | Incorrect!     |  ✅    |                 | ❌      | Incorrect!      |✅    |             | Italy, France, and Spain are in Europe. Morocco is in Africa. |
-
-
-  Scenario: Explanations for all answers are displayed after answering the question
-    When I take question "Europe"
-    And I answer "France, Morocco, Spain"
-    Then I see the answer explanations for answers
-      | answer  | explanation      |
-      | Italy   | Although it lies beyond the Alps, in the middle of its capital city lies the Vatican, the cradle of European Christianity. |
-      | France  | This country is one of the founders of the European Union.        |
-      | Morocco | Is on Afrika      |
-      | Spain   | This country is located on the Iberian Peninsula, which is part of the European continent.         |
-    And I see the question explanation
 
