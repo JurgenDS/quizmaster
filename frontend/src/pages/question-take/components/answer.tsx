@@ -23,9 +23,7 @@ export const Answer = (props: AnswerProps) => {
     return (
         <li data-testid={`answer-row-${props.answer}`} key={props.idx}>
             <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} />
-            <label htmlFor={answerId}>
-                {props.answer}
-            </label>
+            <label htmlFor={answerId}>{props.answer}</label>
             <br />
             <br />
         </li>
