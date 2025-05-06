@@ -64,6 +64,7 @@ Feature: Take a quiz
     When I answer "Green"
     And I click the next button
     Then I should see the next question
+    Then I should not see the skip button
     Then I should not see the evaluate button
     When I answer "Lyon"
     Then I should see the evaluate button
@@ -74,6 +75,7 @@ Feature: Take a quiz
     When I answer "Green"
     And I click the next button
     Then I should see the next question
+    Then I should not see the skip button
     Then I should not see the evaluate button
     When I answer "Lyon"
     Then I click the evaluate button
