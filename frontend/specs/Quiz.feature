@@ -32,6 +32,10 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     Then I see the first question
 
+  Scenario: Quiz question A is skipable
+    Given I visit the quiz page "a"
+    Then I should see the skip button
+
   Scenario: Quiz question B is displayed
     Given I visit the quiz page "b"
     Then I see the b question

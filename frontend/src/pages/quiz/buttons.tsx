@@ -16,3 +16,9 @@ export const BackButton = ({ onClick }: WithOnClick) => (
         Back
     </Button>
 )
+
+export const SkipButton = ({ onClick }: WithOnClick) => (
+    <Button id="skip" onClick={onClick}>
+        Skip
+    </Button>
+)
