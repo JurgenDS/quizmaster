@@ -63,6 +63,9 @@ Then('I should not see the next button', async function () {
 When('I click the next button', async function () {
     await this.quizPage.next()
 })
+When('I click the skip button', async function () {
+    await this.quizPage.skip()
+})
 Then('I should see the next question', async function () {
     const secondQuestion = this.bookmarks.France
     await expectTextToBe(this.takeQuestionPage.questionLocator(), secondQuestion.question)

@@ -59,6 +59,11 @@ Feature: Take a quiz
     And I click the next button
     Then I should see the next question
 
+  Scenario: Quiz question is not answered and the skip button is clicked
+    Given I visit the quiz page "a"
+    When I click the skip button
+    Then I should see the next question
+
   Scenario: User proceed to last question
     Given I visit the quiz page "a"
     When I answer "Green"

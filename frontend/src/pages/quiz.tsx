@@ -59,7 +59,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 {isAnswered &&
                     (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
             </div>
-            <div>{isQuestionSkipable && <SkipButton onClick={() => {}} />}</div>
+            <div>{isQuestionSkipable && <SkipButton onClick={onNext} />}</div>
         </div>
     )
 }
