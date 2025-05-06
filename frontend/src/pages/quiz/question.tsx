@@ -11,9 +11,6 @@ interface QuestionProps {
 
 export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
     const checkType = isMultipleChoice ? 'checkbox' : 'radio'
-    const isAnswerCorrect = (idx: number) =>
-        (question.correctAnswers.includes(idx) && question.userInput?.includes(idx)) ||
-        (!question.correctAnswers.includes(idx) && !question.userInput?.includes(idx))
 
     return (
         <div key={question.id} id={`question-${question.id}`}>
