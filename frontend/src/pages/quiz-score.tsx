@@ -1,5 +1,5 @@
-import type {QuizQuestion} from 'model/quiz-question'
-import {Question} from './quiz/question'
+import type { QuizQuestion } from 'model/quiz-question'
+import { Question } from './quiz/question'
 
 export interface QuizScore {
     readonly correct: number
@@ -13,7 +13,7 @@ interface QuizScoreProps {
 }
 
 export const QuizScore = ({ score, questions, passScore }: QuizScoreProps) => {
-    const {correct, total} = score
+    const { correct, total } = score
     const percentage = (correct / total) * 100
     const result = percentage >= passScore ? 'passed' : 'failed'
 
