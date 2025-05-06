@@ -24,6 +24,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
             props.onSubmitted?.(state.selectedAnswerIdxs)
         }
     }
+
     return (
         <form onSubmit={handleSubmit} id="question-form">
             <h1>{props.question.question}</h1>
@@ -42,8 +43,17 @@ export const QuestionForm = (props: QuestionFormProps) => {
                     />
                 ))}
             </ul>
+
             {!state.submitted && <input type="submit" value="Submit" className="submit-btn" />}
-            {state.submitted && props.afterEach && <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />}
+            {state.submitted && props.afterEach && (
+                <QuestionCorrectness
+                    correctAnswers={props.question.answers.filter((_, idx) =>
+                        props.question.correctAnswers.includes(idx),
+                    )}
+                    isCorrect={feedback.isQuestionCorrect}
+                />
+            )}
+
             {state.submitted && props.afterEach && <QuestionExplanation text={props.question.questionExplanation} />}
         </form>
     )

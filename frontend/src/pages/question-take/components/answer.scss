@@ -1,0 +1,13 @@
+.answer-label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.answer-should-been-checked {
+    width: max-content;
+    display: flex;
+    justify-content: end;
+    font-weight: 800;
+}
