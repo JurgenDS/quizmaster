@@ -138,6 +138,6 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the skip button
     Then I should see the next question
-    When I check answer "Lyon,Paris"
+    When I answer "Paris"
     Then I should not see the evaluate button
-    Then I should not see the next button
+    Then I should see the next button

@@ -63,7 +63,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <div>
                 {!isFirstQuestion && <BackButton onClick={onBack} />}
                 {isAnswered &&
-                    (!isLastQuestion && !anySkippedQuestions ? (
+                    (!isLastQuestion || anySkippedQuestions ? (
                         <NextButton onClick={onNext} />
                     ) : (
                         <EvaluateButton onClick={onEvaluate} />
