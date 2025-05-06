@@ -3,8 +3,6 @@ import { expect } from '@playwright/test'
 import { Given, Then, When } from './fixture.ts'
 import type { QuizmasterWorld } from './world/world.ts'
 
-type AnswerRaw = [string, '*' | '', string]
-
 const openCreatePage = async (world: QuizmasterWorld) => {
     world.createQuizPage.gotoNew()
 }
