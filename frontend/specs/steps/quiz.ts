@@ -135,7 +135,7 @@ When('I click the back button', async function () {
     await this.quizPage.back()
 })
 
-Then('I should see the countdown timer {string}', async function (timer:string) {
-    const timerDiv = this.page.getByTestId('timerID');
+Then('I should see the countdown timer {string}', async function (timer: string) {
+    const timerDiv = this.page.getByTestId('timerID')
     await expectTextToBe(timerDiv, timer)
 })
