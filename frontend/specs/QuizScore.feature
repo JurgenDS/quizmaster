@@ -85,17 +85,15 @@ Scenario: Show corresponding response
   Then I see corresponding response "Correct!" for answer "Blue" for question "Sky"
   * I see corresponding response "Incorrect!" for answer "Marseille" for question "France"
 
-@skip
-Scenario: Quiz with 60% pass rate will fail
-  Given I visit the quiz page "b"
+Scenario: Quiz with 85% pass score will fail
+  Given I visit the quiz page "a"
   When I answer "Green"
   * I click the next button
   * I answer "Paris"
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, failed
 
-@skip
-Scenario: Quiz with 40% pass rate will pass
+Scenario: Quiz with 40% pass score will pass
   Given I visit the quiz page "c"
   When I answer "Green"
   * I click the next button

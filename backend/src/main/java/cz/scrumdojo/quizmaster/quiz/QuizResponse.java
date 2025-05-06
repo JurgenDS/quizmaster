@@ -15,4 +15,5 @@ public class QuizResponse {
     private String id;
     private QuizQuestion[] questions;
     private boolean afterEach;
+    private int passScore;
 }

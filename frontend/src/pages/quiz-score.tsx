@@ -1,5 +1,5 @@
-import type { QuizQuestion } from 'model/quiz-question'
-import { Question } from './quiz/question'
+import type {QuizQuestion} from 'model/quiz-question'
+import {Question} from './quiz/question'
 
 export interface QuizScore {
     readonly correct: number
@@ -7,14 +7,15 @@ export interface QuizScore {
 }
 
 interface QuizScoreProps {
-    readonly score: QuizScore
-    readonly questions: QuizQuestion[]
+    readonly score: QuizScore,
+    readonly questions: QuizQuestion[],
+    readonly passScore: number
 }
 
-export const QuizScore = ({ score, questions }: QuizScoreProps) => {
-    const { correct, total } = score
+export const QuizScore = ({score, questions, passScore}: QuizScoreProps) => {
+    const {correct, total} = score
     const percentage = (correct / total) * 100
-    const result = percentage >= 85 ? 'passed' : 'failed'
+    const result = percentage >= passScore ? 'passed' : 'failed'
 
     return (
         <>
@@ -32,11 +33,11 @@ export const QuizScore = ({ score, questions }: QuizScoreProps) => {
                 State: <span id="text-result">{result}</span>
             </p>
 
-            <hr />
+            <hr/>
 
             <h2>Answer overview</h2>
             {questions.map(question => (
-                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
+                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1}/>
             ))}
         </>
     )

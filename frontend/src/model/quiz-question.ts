@@ -20,6 +20,7 @@ export interface Quiz {
     id: string
     questions: QuizQuestion[]
     afterEach: boolean
+    passScore: number
 }
 
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean =>

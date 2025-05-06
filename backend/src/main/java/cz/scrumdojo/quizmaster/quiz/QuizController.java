@@ -20,6 +20,7 @@ public class QuizController {
 
     private static QuizResponse quiz1 = new QuizResponse();
     private static QuizResponse quiz2 = new QuizResponse();
+    private static QuizResponse quiz3 = new QuizResponse();
     private static List<QuizResponse> quizs = new ArrayList<>();
 
     @Autowired
@@ -67,13 +68,21 @@ public class QuizController {
         quiz1.setId("a");
         quiz1.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
         quiz1.setAfterEach(false);
+        quiz1.setPassScore(85);
 
         quiz2.setId("b");
         quiz2.setQuestions(new QuizQuestion[]{quizQuestion3, quizQuestion3});
         quiz2.setAfterEach(true);
+        quiz2.setPassScore(85);
+
+        quiz3.setId("c");
+        quiz3.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
+        quiz3.setAfterEach(true);
+        quiz3.setPassScore(40);
 
         quizs.add(quiz1);
         quizs.add(quiz2);
+        quizs.add(quiz3);
     }
 
     @Transactional
