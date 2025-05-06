@@ -134,3 +134,10 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     Then I should see the countdown timer "2:00"
 
+  Scenario: Last question is answered and there are any skipped questions
+    Given I visit the quiz page "a"
+    When I click the skip button
+    Then I should see the next question
+    When I check answer "Lyon,Paris"
+    Then I should not see the evaluate button
+    Then I should not see the next button

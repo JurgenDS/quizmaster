@@ -16,6 +16,7 @@ type QuizState = readonly AnswerIdxs[]
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
+    const [skippedQuestions, setSkippedQuestions] = useState<number[]>([])
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
@@ -30,6 +31,10 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     }
 
     const onNext = () => setCurrentQuestionIdx(prev => prev + 1)
+    const onSkip = () => {
+        setSkippedQuestions(prev => [...prev, currentQuestion.id])
+        setCurrentQuestionIdx(prev => prev + 1)
+    }
     const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
     const onEvaluate = () => {
         props.onEvaluate({
@@ -42,6 +47,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             question.userInput = quizState[idx]
         })
     }
+    const anySkippedQuestions = skippedQuestions.length > 0
     const isQuestionSkipable = !isAnswered && !isLastQuestion
 
     return (
@@ -57,9 +63,13 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <div>
                 {!isFirstQuestion && <BackButton onClick={onBack} />}
                 {isAnswered &&
-                    (!isLastQuestion ? <NextButton onClick={onNext} /> : <EvaluateButton onClick={onEvaluate} />)}
+                    (!isLastQuestion && !anySkippedQuestions ? (
+                        <NextButton onClick={onNext} />
+                    ) : (
+                        <EvaluateButton onClick={onEvaluate} />
+                    ))}
             </div>
-            <div>{isQuestionSkipable && <SkipButton onClick={onNext} />}</div>
+            <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
         </div>
     )
 }
