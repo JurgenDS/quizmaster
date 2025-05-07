@@ -54,7 +54,7 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
-                height: props.explanation ? '100%' : '65px',
+                height: '100%',
                 width: '100%',
                 backgroundColor: getBgColor(),
                 display: 'flex',
