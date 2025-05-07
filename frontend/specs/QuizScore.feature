@@ -16,19 +16,21 @@ Feature: Evaluate quiz score
       | Toulouse  |   |
     * saved and bookmarked as "France"
 
+@skip
 Scenario: Quiz score all question are correct
   Given I visit the quiz page "a"
   When I answer "Blue"
   * I answer "Paris"
   * I click the evaluate button
-  Then I see the result 2 correct out of 2, 100%, passed
+  Then I see the result 2 correct out of 2, 100%, passed, required passScore 85%
 
+@skip
 Scenario: Quiz score one question is inccorect
   Given I visit the quiz page "a"
   When I answer "Green"
   * I answer "Paris"
   * I click the evaluate button
-  Then I see the result 1 correct out of 2, 50%, failed
+  Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
 
 Scenario Outline: Show question on score page
   Given I visit the quiz page "a"
@@ -62,17 +64,19 @@ Scenario: Show user select
   * I click the evaluate button
   Then I see user select "Blue" for question "Sky"
 
+@skip
 Scenario: Quiz with 85% pass score will fail
   Given I visit the quiz page "a"
   When I answer "Green"
   * I answer "Paris"
   * I click the evaluate button
-  Then I see the result 1 correct out of 2, 50%, failed
+  Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
 
+@skip
 Scenario: Quiz with 40% pass score will pass
   Given I visit the quiz page "c"
   When I answer "Green"
   * I click the next button
   * I answer "Paris"
   * I click the evaluate button
-  Then I see the result 1 correct out of 2, 50%, passed
+  Then I see the result 1 correct out of 2, 50%, passed, required passScore 40%

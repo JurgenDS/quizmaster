@@ -6,12 +6,13 @@ Given('I finish the quiz', async function () {
 })
 
 Then(
-    /^I see the result (\d+) correct out of (\d+), (\d+)%, (passed|failed)/,
+    /^I see the result (\d+) correct out of (\d+), (\d+)%, (passed|failed), required passScore (\d+)%/,
     async function (
         expectedCorrectAnswers: number,
         expectedTotalQuestions: number,
         expectedPercentage: number,
         expectedTextResult: string,
+        expectedPassScore: number,
     ) {
         const correctAnswers = await this.quizScorePage.correctAnswers()
         expect(correctAnswers).toBe(expectedCorrectAnswers)
@@ -24,6 +25,9 @@ Then(
 
         const textResult = await this.quizScorePage.textResult()
         expect(textResult).toBe(expectedTextResult)
+
+        const passScore = await this.quizScorePage.passScore()
+        expect(passScore).toBe(expectedPassScore)
     },
 )
 
