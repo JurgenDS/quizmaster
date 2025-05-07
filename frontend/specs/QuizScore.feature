@@ -68,7 +68,7 @@ Scenario: Show user select
   * I click the evaluate button
   Then I see user select "Blue" for question "Sky"
 
-Scenario: Quiz with 85% pass score will fail
+Scenario: Quiz with passScore 85% and score 50% will pass
   Given I visit the quiz page "a"
   When I click the start button
   * I answer "Green"
@@ -76,7 +76,7 @@ Scenario: Quiz with 85% pass score will fail
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
 
-Scenario: Quiz with 40% pass score will pass
+Scenario: Quiz with passScore 40% and score 50% will pass
   Given I visit the quiz page "c"
   When I click the start button
   * I answer "Green"
