@@ -4,7 +4,6 @@ interface ExplanationProps {
 
 export const Explanation = (props: ExplanationProps) => (
     <>
-        <br />
         Explanation: <span className="explanationText">{props.text}</span>
     </>
 )

@@ -1,6 +1,7 @@
 import './question.scss'
 
 import type { QuizQuestion } from 'model/quiz-question'
+import { AnswerFeedback } from 'pages/question-take'
 import { QuestionExplanation } from 'pages/question-take'
 import type { FC } from 'react'
 
@@ -12,13 +13,29 @@ interface QuestionProps {
 export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
     const checkType = isMultipleChoice ? 'checkbox' : 'radio'
 
+    const isAnswerCorrect = (idx: number) =>
+        (question.correctAnswers.includes(idx) && question.userInput?.includes(idx)) ||
+        (!question.correctAnswers.includes(idx) && !question.userInput?.includes(idx))
+
     return (
-        <div key={question.id} id={`question-${question.id}`}>
+        <div key={question.id} id={`question-${question.id}`} className="">
             <strong id={`question-${question.id}-name`}>{question.question}</strong>
-            <ul id={`question-${question.id}-answers`}>
+            <ul id={`question-${question.id}-answers`} style={{ width: '100%' }}>
                 {question.answers.map((answer, idx) => (
-                    <li key={`answer-${answer}`} id={`answers-${idx}-question-${question.id}`}>
-                        <div>
+                    <li
+                        key={`answer-${answer}`}
+                        id={`answers-${idx}-question-${question.id}`}
+                        style={{ position: 'relative', width: '100%' }}
+                    >
+                        <div
+                            style={{
+                                position: 'relative',
+                                width: '100%',
+                                height: '50px',
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
                             <span>
                                 <input
                                     type={checkType}
@@ -29,6 +46,13 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
                                 />
                                 <span id={`answers-${idx}-question-${question.id}-label`}>{answer}</span>
                             </span>
+                            <AnswerFeedback
+                                isCorrect={isAnswerCorrect(idx)}
+                                explanation={question.explanations[idx]}
+                                isMultipleChoice={isMultipleChoice}
+                                showFeedback={question.userInput !== undefined}
+                                isUserSelected={question.userInput?.includes(idx) ?? false}
+                            />
                         </div>
                     </li>
                 ))}

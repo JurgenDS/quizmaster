@@ -1,0 +1,78 @@
+import { Explanation } from 'pages/question-take'
+import successIcon from 'assets/icons/checkmark.svg'
+import errorIcon from 'assets/icons/error.svg'
+
+interface AnswerFeedbackProps {
+    readonly isCorrect: boolean
+    readonly explanation: string
+    readonly isMultipleChoice: boolean
+    readonly isUserSelected?: boolean
+    readonly showFeedback: boolean
+}
+
+export const AnswerFeedback = (props: AnswerFeedbackProps) => {
+    console.log(props.isCorrect)
+
+    const isCorrectAnswer = props.isCorrect && props.isUserSelected
+    const isWrongAnswer = !props.isCorrect && props.isUserSelected
+    const wasNotAnswerd = !props.isUserSelected && !props.isCorrect
+
+    function getBorder() {
+        if (!props.showFeedback) {
+            return ''
+        }
+
+        if (wasNotAnswerd) {
+            return '2px solid #F2A91E'
+        }
+
+        return ''
+    }
+
+    function getBgColor() {
+        if (!props.showFeedback) {
+            return ''
+        }
+
+        if (isCorrectAnswer) {
+            return '#087F19'
+        }
+
+        if (isWrongAnswer) {
+            return '#F35757'
+        }
+        return ''
+    }
+
+    return (
+        <span
+            className="answer-feedback-wrapper"
+            style={{
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                height: '100%',
+                width: '100%',
+                backgroundColor: getBgColor(),
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderRadius: '8px',
+                color: props.showFeedback && props.isUserSelected ? 'white' : 'black',
+                border: getBorder(),
+                zIndex: -1,
+            }}
+        >
+            <span />
+            {props.explanation && (props.isUserSelected || wasNotAnswerd) && (
+                <span className="explanation">{<Explanation text={props.explanation} />}</span>
+            )}
+            <div style={{ marginRight: '15px' }}>
+                {isCorrectAnswer && <img src={successIcon} alt="success-icon" />}
+                {isWrongAnswer && <img src={errorIcon} alt="error-icon" />}
+                {wasNotAnswerd && <span className="answer-should-been-checked">Mžl(a) jsi ozna‹it</span>}
+            </div>
+        </span>
+    )
+}

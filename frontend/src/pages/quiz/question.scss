@@ -4,3 +4,12 @@
     justify-content: start;
     align-items: center;
 }
+
+.question-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100vw;
+    margin: 0 1rem;
+}
