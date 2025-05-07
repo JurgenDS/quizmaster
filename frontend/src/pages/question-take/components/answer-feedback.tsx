@@ -68,7 +68,9 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
         >
             <span />
             {props.explanation && (props.isUserSelected || wasNotAnswerd) && (
-                <span className="explanation">{<Explanation text={props.explanation} />}</span>
+                <span data-testid={`answer-row-${props.answer}-explanation`} className="explanation">
+                    {<Explanation text={props.explanation} />}
+                </span>
             )}
             <div style={{ marginRight: '15px' }}>
                 {isCorrectAnswer && (

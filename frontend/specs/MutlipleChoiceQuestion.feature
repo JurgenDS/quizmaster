@@ -35,7 +35,7 @@ Feature: Answering a quiz question with multiple choice
       | Italy, France, Morocco, Spain | GREEN       | GREEN         | RED           | GREEN       |
       | Italy, Spain                  | GREEN       | ORANGE        | NONE          | GREEN       |
       | France                        | ORANGE      | GREEN         | NONE          | ORANGE      |
-  @skip
+
   Scenario: Individual explanation per answer is displayed after answering
     When I take question "Europe"
     And I answer "France, Morocco, Spain"
