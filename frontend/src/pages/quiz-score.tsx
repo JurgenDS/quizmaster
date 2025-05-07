@@ -27,7 +27,10 @@ export const QuizScore = ({ score, questions, passScore }: QuizScoreProps) => {
                 Total answers: <span id="total-questions">{total}</span>
             </p>
             <p>
-                Rate(%): <span id="percentage-result">{percentage.toFixed(2)}</span>
+                Score(%): <span id="percentage-result">{percentage.toFixed(0)}</span>
+            </p>
+            <p>
+                Min pass score(%): <span id="pass-score">{passScore}</span>
             </p>
             <p>
                 State: <span id="text-result">{result}</span>
