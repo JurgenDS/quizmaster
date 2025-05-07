@@ -1,4 +1,5 @@
 import { Explanation } from 'pages/question-take'
+import './answer-feedback.scss'
 import successIcon from 'assets/icons/checkmark.svg'
 import errorIcon from 'assets/icons/error.svg'
 
@@ -53,7 +54,7 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
-                height: '100%',
+                height: props.explanation ? '100%' : '65px',
                 width: '100%',
                 backgroundColor: getBgColor(),
                 display: 'flex',
@@ -81,7 +82,7 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 )}
                 {wasNotAnswerd && (
                     <span data-testid={`answer-row-${props.answer}-result`} className="answer-should-been-checked">
-                        Should be checked
+                        SHOULD BE CHECKED
                     </span>
                 )}
             </div>

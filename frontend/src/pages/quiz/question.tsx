@@ -27,16 +27,8 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
                         id={`answers-${idx}-question-${question.id}`}
                         style={{ position: 'relative', width: '100%' }}
                     >
-                        <div
-                            style={{
-                                position: 'relative',
-                                width: '100%',
-                                height: '50px',
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <span>
+                        <div id={`answer-wrapper-${answer}`} className="answer-wrapper">
+                            <span className="answer-label">
                                 <input
                                     type={checkType}
                                     disabled
