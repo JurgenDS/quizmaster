@@ -8,6 +8,7 @@ interface AnswerFeedbackProps {
     readonly isMultipleChoice: boolean
     readonly isUserSelected?: boolean
     readonly showFeedback: boolean
+    readonly answer: string
 }
 
 export const AnswerFeedback = (props: AnswerFeedbackProps) => {
@@ -46,6 +47,7 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
 
     return (
         <span
+            data-testid={`answer-row-${props.answer}-color`}
             className="answer-feedback-wrapper"
             style={{
                 position: 'absolute',
@@ -69,9 +71,17 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 <span className="explanation">{<Explanation text={props.explanation} />}</span>
             )}
             <div style={{ marginRight: '15px' }}>
-                {isCorrectAnswer && <img src={successIcon} alt="success-icon" />}
-                {isWrongAnswer && <img src={errorIcon} alt="error-icon" />}
-                {wasNotAnswerd && <span className="answer-should-been-checked">Mžl(a) jsi ozna‹it</span>}
+                {isCorrectAnswer && (
+                    <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon" />
+                )}
+                {isWrongAnswer && (
+                    <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon" />
+                )}
+                {wasNotAnswerd && (
+                    <span data-testid={`answer-row-${props.answer}-result`} className="answer-should-been-checked">
+                        Should be checked
+                    </span>
+                )}
             </div>
         </span>
     )

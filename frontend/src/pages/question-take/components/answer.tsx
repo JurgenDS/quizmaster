@@ -39,6 +39,7 @@ export const Answer = (props: AnswerProps) => {
                     isMultipleChoice={props.isMultipleChoice}
                     isUserSelected={props.isUserSelected}
                     showFeedback={props.showFeedback}
+                    answer={props.answer}
                 />
             )}
         </li>

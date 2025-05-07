@@ -52,6 +52,7 @@ export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
                                 isMultipleChoice={isMultipleChoice}
                                 showFeedback={question.userInput !== undefined}
                                 isUserSelected={question.userInput?.includes(idx) ?? false}
+                                answer={answer}
                             />
                         </div>
                     </li>

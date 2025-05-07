@@ -1,8 +1,25 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
-
 import { expectTextToBe, expectTextToContain } from './common.ts'
 import { Then, When } from './fixture.ts'
+
+enum Color {
+    GREEN = 'GREEN',
+    ORANGE = 'ORANGE',
+    RED = 'RED',
+    NONE = 'NONE',
+}
+
+const colorCssValue: { [key in Color]: string } = {
+    [Color.GREEN]: 'rgb(8, 127, 25)',
+    [Color.ORANGE]: '2px solid rgb(242, 169, 30)',
+    [Color.RED]: 'rgb(243, 87, 87)',
+    [Color.NONE]: 'rgba(0, 0, 0, 0)',
+}
+
+function getColor(color: string): string {
+    return colorCssValue[color as Color] || ''
+}
 
 When('I take question {string}', async function (bookmark: string) {
     await this.page.goto(this.bookmarks[bookmark].url)
@@ -53,7 +70,7 @@ Then('I see feedback {string}', async function (feedback: string) {
 })
 
 Then('no answer is selected', async function () {
-    await expect(await this.takeQuestionPage.selectedAnswersLocator().count()).toBe(0)
+    expect(await this.takeQuestionPage.selectedAnswersLocator().count()).toBe(0)
 })
 
 Then('I see the answer explanation {string}', async function (answerExplanation: string) {
@@ -79,14 +96,31 @@ Then('I see the {string} question for the quiz', async function (questionName: s
     await expectTextToContain(this.takeQuestionPage.questionLocator(), questionName)
 })
 
-Then('I see individual feedback:', async function (dataTable: DataTable) {
+Then('I see individual color feedback per answer:', async function (dataTable: DataTable) {
     const rows = dataTable.hashes()
 
     for (const row of rows) {
-        const { answer, evaluation, feedback } = row
-        const answerRow = this.page.getByTestId(`answer-row-${answer}`)
-        await expect(answerRow).toContainText(evaluation)
-        await expect(answerRow).toContainText(feedback)
+        const { answer, color } = row
+        const answerRow = this.page.getByTestId(`answer-row-${answer}-color`)
+        const answerRowResult = this.page.getByTestId(`answer-row-${answer}-result`)
+        const answerRowResultIconSuccess = this.page.getByTestId(`answer-row-${answer}-icon-success`)
+        const answerRowResultTextFailure = this.page.getByTestId(`answer-row-${answer}-icon-failure`)
+        if (color === 'ORANGE') {
+            await expect(answerRow).toHaveCSS('border', getColor(color))
+            await expect(answerRowResult).toBeVisible()
+            await expect(answerRowResultIconSuccess).not.toBeVisible()
+            await expect(answerRowResultTextFailure).not.toBeVisible()
+        } else {
+            await expect(answerRow).toHaveCSS('background-color', getColor(color))
+            if (color === 'GREEN') {
+                await expect(answerRowResultIconSuccess).toBeVisible()
+                await expect(answerRowResultTextFailure).not.toBeVisible()
+            }
+            if (color === 'RED') {
+                await expect(answerRowResultTextFailure).toBeVisible()
+                await expect(answerRowResultIconSuccess).not.toBeVisible()
+            }
+        }
     }
 })
 
