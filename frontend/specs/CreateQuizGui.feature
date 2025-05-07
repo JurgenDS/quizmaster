@@ -2,6 +2,8 @@ Feature: Create quiz GUI
   Scenario: Quiz create is available
     Given I visit the Quiz create page
     Then I should see heading "Create quiz"
+    And I see title input
+    And I see create button
 
 @skip
   Scenario: Create new quiz with 2 questions

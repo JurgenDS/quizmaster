@@ -1,5 +1,4 @@
 import { expect } from '@playwright/test'
-
 import { Given, Then, When } from './fixture.ts'
 import type { QuizmasterWorld } from './world/world.ts'
 
@@ -47,4 +46,12 @@ When('I save the quiz', async function () {
 Then('I see a link to take the quiz', async function () {
     const url = await this.createQuizPage.quizUrl()
     expect(url).not.toBe('')
+})
+
+Then('I see title input', async function () {
+    await expect(this.createQuizPage.quizTitleInputLocator()).toBeVisible()
+})
+
+Then('I see create button', async function () {
+    await expect(this.createQuizPage.submitButtonLocator()).toBeVisible()
 })

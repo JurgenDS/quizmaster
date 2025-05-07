@@ -22,8 +22,9 @@ export class CreateQuizPage {
         await this.page.waitForSelector(`#question-text-${index}`)
     }
 
+    quizTitleInputLocator = () => this.page.locator('input[type="text"]#quiz-title')
+    submitButtonLocator = () => this.page.locator('button[type="submit"]')
     submit = () => this.page.locator('button[type="submit"]').click()
-
     quizUrl = () => this.quizUrlLocator().textContent()
     followQuizUrl = () => this.quizUrlLocator().click()
 
