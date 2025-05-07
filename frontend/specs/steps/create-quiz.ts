@@ -52,6 +52,18 @@ Then('I see title input', async function () {
     await expect(this.createQuizPage.quizTitleInputLocator()).toBeVisible()
 })
 
+Then('I see question input', async function () {
+    await expect(this.createQuizPage.questionInputLocator()).toBeVisible()
+})
+
 Then('I see create button', async function () {
     await expect(this.createQuizPage.submitButtonLocator()).toBeVisible()
+})
+
+Then('I see addQuestion button', async function () {
+    await expect(this.createQuizPage.addQuestionButtonLocator()).toBeVisible()
+})
+
+When('I click on addQuestion', async function () {
+    this.page.locator('button#add-question').click()
 })

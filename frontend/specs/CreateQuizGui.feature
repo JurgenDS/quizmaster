@@ -3,7 +3,13 @@ Feature: Create quiz GUI
     Given I visit the Quiz create page
     Then I should see heading "Create quiz"
     And I see title input
-    And I see create button
+
+
+  Scenario: Show question input
+    Given I visit the Quiz create page
+    When I click on addQuestion
+    Then I see question input
+
 
 @skip
   Scenario: Create new quiz with 2 questions

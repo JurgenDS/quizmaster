@@ -23,6 +23,8 @@ export class CreateQuizPage {
     }
 
     quizTitleInputLocator = () => this.page.locator('input[type="text"]#quiz-title')
+    questionInputLocator = () => this.page.locator('input[type="text"]#question-text-0')
+    addQuestionButtonLocator = () => this.page.locator('button[type="button"]')
     submitButtonLocator = () => this.page.locator('button[type="submit"]')
     submit = () => this.page.locator('button[type="submit"]').click()
     quizUrl = () => this.quizUrlLocator().textContent()
