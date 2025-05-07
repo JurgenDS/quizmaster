@@ -14,7 +14,9 @@
 
         "test:e2e": "bddgen && wait-on tcp:8080 && playwright test",
         "test:e2e:vite": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test",
-        "test:e2e:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=localhost --ui-port=3333",
+        "test:e2e:watch": "chokidar specs/**/*.feature -c bddgen",
+        "playwright:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=0.0.0.0 --ui-port=3333",
+        "test:e2e:ui": "concurrently 'pnpm test:e2e:watch' 'pnpm playwright:ui'",
 
         "coverage:build": "vite build --sourcemap",
         "coverage:test:e2e": "cross-env ENABLE_COVERAGE=1 pnpm test:e2e:vite",
@@ -39,6 +41,8 @@
         "@types/react": "19.0.8",
         "@types/react-dom": "19.0.3",
         "@vitejs/plugin-react": "4.3.4",
+        "chokidar-cli": "3.0.0",
+        "concurrently": "9.1.2",
         "cross-env": "7.0.3",
         "esbuild-register": "3.6.0",
         "nyc": "17.1.0",
