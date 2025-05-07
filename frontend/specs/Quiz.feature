@@ -1,12 +1,12 @@
 Feature: Take a quiz
 
-   Background:
+  Background:
     Given a question "What is the standard colour of sky?"
     * with answers:
-      | Red       |   |
-      | Blue      | * |
-      | Green     |   |
-      | Black     |   |
+      | Red   |   |
+      | Blue  | * |
+      | Green |   |
+      | Black |   |
     * saved and bookmarked as "Sky"
     Given a question "What is capital of France?"
     * with answers:
@@ -17,12 +17,12 @@ Feature: Take a quiz
     * saved and bookmarked as "France"
     Given a question "Is this the B quiz?"
     * with answers:
-      | Yes     | * |
-      | No      |   |
-      | Idk     |   |
-      | Not     |   |
+      | Yes | * |
+      | No  |   |
+      | Idk |   |
+      | Not |   |
     * saved and bookmarked as "BQuestion"
-    # Given a quiz containing questions "Sky" and "France"
+  # Given a quiz containing questions "Sky" and "France"
 
   Scenario: Quiz page is available
     Given I visit the quiz page "a"
@@ -108,9 +108,9 @@ Feature: Take a quiz
       | checkboxState |
       | true          |
       | false         |
-   Scenario: Back button is not visible on the quiz page
-     Given I visit the quiz page "a"
-     Then I should not see the back button
+  Scenario: Back button is not visible on the quiz page
+    Given I visit the quiz page "a"
+    Then I should not see the back button
 
   Scenario: Back button is visible
     Given I visit the quiz page "a"
@@ -126,6 +126,10 @@ Feature: Take a quiz
   Scenario: Display countdown timer
     Given I visit the quiz page "a"
     Then I should see the countdown timer "2:00"
+  @skip
+  Scenario: Display display timer after 30 seconds
+    Given I visit the quiz page "a"
+    Then I should see the countdown timer after delay "1:30"
 
   Scenario: Last question is not answered and there are any skipped questions
     Given I visit the quiz page "a"

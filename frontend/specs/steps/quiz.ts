@@ -147,3 +147,10 @@ Then('I should see the countdown timer {string}', async function (timer: string)
     const timerDiv = this.page.getByTestId('timerID')
     await expectTextToBe(timerDiv, timer)
 })
+
+Then('I should see the countdown timer after delay {string}', async function (timer: string) {
+    await this.page.clock.setFixedTime(new Date('2024-02-02T10:00:00'))
+    await this.page.clock.setFixedTime(new Date('2024-02-02T10:00:30'))
+    const timerDiv = this.page.getByTestId('timerID')
+    await expectTextToBe(timerDiv, timer)
+})
