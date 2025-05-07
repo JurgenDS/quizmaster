@@ -2,6 +2,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { QuestionTakePage } from 'pages/question-take'
 import { HomePage } from 'pages/home'
 import { QuizPage } from 'pages/quiz'
+import { QuizCreatePage } from 'pages/create-quiz'
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
 import { QuestionListPage } from 'pages/question-list'
@@ -12,6 +13,7 @@ export const App = () => (
         <Routes>
             <Route path="/question/new" element={<CreateQuestionContainer />} />
             <Route path="/quiz/" element={<QuizPage />} />
+            <Route path="/quiz/create" element={<QuizCreatePage />} />
             <Route path="/quiz/:id/overview" element={<QuizOverview />} />
             <Route path="/quiz/:id" element={<QuizPage />} />
             <Route path="/quiz/aftereach" element={<QuizPage />} />

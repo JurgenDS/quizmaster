@@ -1,4 +1,7 @@
 Feature: Create quiz GUI
+  Scenario: Quiz create is available
+    Given I visit the Quiz create page
+    Then I should see heading "Create quiz"
 
 @skip
   Scenario: Create new quiz with 2 questions
