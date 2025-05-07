@@ -26,10 +26,17 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [quizState, setQuizState] = useState<QuizState>([])
     const isAnswered = quizState[currentQuestionIdx] !== undefined
 
+    const removeCurrentQuestionFromSkippedQuestions = () => {
+        setSkippedQuestions(prev => {
+            return prev.filter(skippedQuestionIdx => skippedQuestionIdx !== currentQuestionIdx)
+        })
+    }
+
     const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
         const newQuizState = Array.from(quizState)
         newQuizState[currentQuestionIdx] = selectedAnswerIdxs
         setQuizState(newQuizState)
+        removeCurrentQuestionFromSkippedQuestions()
     }
 
     const onNext = () => {

@@ -164,3 +164,15 @@ Feature: Take a quiz
     When I click the skip button
     Then I should see the first question
 
+  Scenario: Do not show skipped question which was submited
+    Given I visit the quiz page "a"
+    When I click the skip button
+    Then I should see the next question
+    When I answer "Paris"
+    Then I should not see the evaluate button
+    Then I should see the next button
+    When I click the next button
+    Then I should see the first question
+    When I answer "Blue"
+    Then I should see the evaluate button
+
