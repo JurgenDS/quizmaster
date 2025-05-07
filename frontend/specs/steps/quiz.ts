@@ -79,6 +79,10 @@ Then('I should see the next question', async function () {
     await expectTextToBe(this.takeQuestionPage.questionLocator(), secondQuestion.question)
 })
 
+Then('I should see the first question', async function () {
+    await expectTextToBe(this.takeQuestionPage.questionLocator(), 'What is the standard colour of sky?')
+})
+
 Then('I should see the evaluate button', async function () {
     await expect(this.quizPage.evaluateButtonLocator()).toBeVisible()
 })

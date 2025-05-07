@@ -145,3 +145,11 @@ Feature: Take a quiz
     When I answer "Paris"
     Then I should not see the evaluate button
     Then I should see the next button
+
+  Scenario: Last question is skipped and there are any skipped questions
+    Given I visit the quiz page "a"
+    When I click the skip button
+    Then I should see the next question
+    Then I should see the skip button
+    When I click the skip button
+    Then I should see the first question
