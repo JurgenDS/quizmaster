@@ -56,7 +56,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         })
     }
     const anySkippedQuestions = skippedQuestions.length > 0
-    const isQuestionSkipable = !isAnswered && !isLastQuestion
+    const isQuestionSkipable = !isAnswered && (!isLastQuestion || anySkippedQuestions)
 
     return (
         <div>
