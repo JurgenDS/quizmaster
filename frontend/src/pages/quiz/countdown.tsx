@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: boolean) => void }) => {
     const now = new Date()
@@ -6,7 +6,7 @@ export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: bo
     const [time, setTime] = useState(new Date(endTime.getTime() - now.getTime()))
     useEffect(() => {
         const countdown = setInterval(() => {
-            setTime((prev) => {
+            setTime(prev => {
                 const newDate = new Date(prev.getTime() - 1000)
                 if (newDate.getTime() <= 0) {
                     clearInterval(countdown)
@@ -19,8 +19,6 @@ export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: bo
         return () => {
             clearInterval(countdown)
         }
-    }, [])
-    return <div data-testId="timerID">{`${time.getMinutes()}:${time.getSeconds().toString().padStart(2, "0")}`}</div>
+    }, [setTimeoutReached])
+    return <div data-testId="timerID">{`${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`}</div>
 }
-
-

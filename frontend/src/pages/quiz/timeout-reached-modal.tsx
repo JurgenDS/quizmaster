@@ -3,10 +3,9 @@ export const TimeOutReachedModal = ({
 }: {
     timeoutReached: boolean
 }) => {
-
     return (
-        <dialog
-            open={timeoutReached}
-        ><div data-testId="modal-timeout">Game over time</div></dialog>
+        <dialog open={timeoutReached}>
+            <div data-testId="modal-timeout">Game over time</div>
+        </dialog>
     )
 }
