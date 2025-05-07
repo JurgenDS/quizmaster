@@ -39,7 +39,7 @@ Feature: Answering a quiz question with multiple choice
   Scenario: Individual explanation per answer is displayed after answering
     When I take question "Europe"
     And I answer "France, Morocco, Spain"
-    Then I see the answer explanations for answers
+    Then I see individual explanations per answer:
       | answer  | explanation                                                                 |
       | Italy   | Located on the Apennine Peninsula, which is part of the European continent. |
       | France  | One of the founders of the European Union.                                  |

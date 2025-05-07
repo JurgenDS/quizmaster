@@ -81,11 +81,13 @@ Then('I see the question explanation', async function () {
     await expectTextToBe(this.takeQuestionPage.questionExplanationLocator(), this.activeQuestion.explanation)
 })
 
-Then(/^I see the answer explanations for answers$/, async function (dataTable: DataTable) {
+Then('I see individual explanations per answer:', async function (dataTable: DataTable) {
     const rows = dataTable.hashes()
     for (const row of rows) {
         const { answer, explanation } = row
-        await expect(this.takeQuestionPage.answerExplanationLocatorForAnswer(answer)).toHaveText(`Explanation: ${explanation}`)
+        await expect(this.takeQuestionPage.answerExplanationLocatorForAnswer(answer)).toHaveText(
+            `Explanation: ${explanation}`,
+        )
     }
 })
 
