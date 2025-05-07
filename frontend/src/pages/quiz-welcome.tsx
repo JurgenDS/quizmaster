@@ -7,7 +7,7 @@ const QuizWelcomePage = () => {
 
     const onStart = () => {
         console.log('Quiz started')
-        navigate('/quiz/'+params.id+'/questions') // Replace '/quiz' with your desired route
+        navigate(`/quiz/${params.id}/questions`)
     }
 
     return (

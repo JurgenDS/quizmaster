@@ -7,5 +7,4 @@ export class QuizWelcomePage {
     startButtonLocator = () => this.page.locator('button#start')
 
     start = () => this.startButtonLocator().click()
-
 }

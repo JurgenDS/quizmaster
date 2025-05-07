@@ -1,6 +1,13 @@
 import type { Page, TestInfo } from '@playwright/test'
 
-import { CreateQuestionPage, QuizQuestionPage as QuizQuestionPage, TakeQuestionPage, QuizScorePage, CreateQuizPage, QuizWelcomePage } from '../../pages'
+import {
+    CreateQuestionPage,
+    QuizQuestionPage,
+    TakeQuestionPage,
+    QuizScorePage,
+    CreateQuizPage,
+    QuizWelcomePage,
+} from '../../pages'
 import type { Question } from './question'
 import { QuizOverviewPage } from '../../pages/quiz-overview-page.ts'
 
