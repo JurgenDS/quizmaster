@@ -172,6 +172,10 @@ Then('I should see heading "Quiz overview"', async function () {
     await expectTextToBe(this.page.locator('h1'), 'Quiz overview')
 })
 
+Then('I should see the text "Game over time"', async function () {
+    await expectTextToBe(this.page.getByTestId('modal-timeout'), 'Game over time')
+})
+
 Then('I should see the back button', async function () {
     await expect(this.quizQuestionPage.backButtonLocator()).toBeVisible()
 })
@@ -189,9 +193,10 @@ Then('I should see the countdown timer {string}', async function (timer: string)
     await expectTextToBe(timerDiv, timer)
 })
 
-Then('I should see the countdown timer after delay {string}', async function (timer: string) {
-    await this.page.clock.setFixedTime(new Date('2024-02-02T10:00:00'))
-    await this.page.clock.setFixedTime(new Date('2024-02-02T10:00:30'))
-    const timerDiv = this.page.getByTestId('timerID')
-    await expectTextToBe(timerDiv, timer)
+Then('I should see the countdown timer after delay is less then {string}', async function (timer: string) {
+    await this.page.clock.install({ time: new Date('2023-10-01T00:01:30Z') })
+    await expectTextToBe(this.page.getByTestId('timerID'), timer)
+    // await this.page.clock.runFor(30000)
+    await this.page.clock.fastForward('02:00')
+    await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })

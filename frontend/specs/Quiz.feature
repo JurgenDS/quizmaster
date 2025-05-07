@@ -148,11 +148,13 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     Then I should see the countdown timer "2:00"
-  @skip
-  Scenario: Display display timer after 30 seconds
+
+  Scenario: Display modal after 2 minutes
     Given I visit the quiz page "a"
     When I click the start button
-    Then I should see the countdown timer after delay "1:30"
+    Then I should see the countdown timer after delay is less then "2:00"
+    And I should see the text "Game over time"
+
 
   Scenario: Last question is not answered and there are any skipped questions
     Given I visit the quiz page "a"

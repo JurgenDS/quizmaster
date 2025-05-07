@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
 import { Countdown } from './quiz/countdown.tsx'
+import { TimeOutReachedModal } from './quiz/timeout-reached-modal.tsx'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -106,6 +107,7 @@ export const QuizPage = () => {
     const quizId = params.id
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
+    const [timeoutReached, setTimeoutReached] = useState(false)
 
     const [quiz, setQuiz] = useState<Quiz>()
 
@@ -123,7 +125,8 @@ export const QuizPage = () => {
             <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
         ) : (
             <>
-                <Countdown />
+                <Countdown setTimeoutReached={setTimeoutReached} />
+                <TimeOutReachedModal timeoutReached={timeoutReached} />
                 <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
             </>
         )
