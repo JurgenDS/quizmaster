@@ -48,7 +48,12 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         }
     }
     const onSkip = () => {
-        setSkippedQuestions(prev => [...prev, currentQuestionIdx])
+        setSkippedQuestions(prev => {
+            if (!prev.includes(currentQuestionIdx)) {
+                return [...prev, currentQuestionIdx]
+            }
+            return prev
+        })
         onNext()
     }
     const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
