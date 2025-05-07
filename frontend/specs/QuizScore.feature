@@ -19,7 +19,6 @@ Feature: Evaluate quiz score
 Scenario: Quiz score all question are correct
   Given I visit the quiz page "a"
   When I answer "Blue"
-  * I click the next button
   * I answer "Paris"
   * I click the evaluate button
   Then I see the result 2 correct out of 2, 100%, passed
@@ -27,7 +26,6 @@ Scenario: Quiz score all question are correct
 Scenario: Quiz score one question is inccorect
   Given I visit the quiz page "a"
   When I answer "Green"
-  * I click the next button
   * I answer "Paris"
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, failed
@@ -35,7 +33,6 @@ Scenario: Quiz score one question is inccorect
 Scenario Outline: Show question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
-  * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
   Then I see the question "<question>"
@@ -47,7 +44,6 @@ Scenario Outline: Show question on score page
 Scenario: Show options of question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
-  * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
   Then I see all options for question "Sky"
@@ -55,7 +51,6 @@ Scenario: Show options of question on score page
 Scenario: Show question explanation of question on score page
   Given I visit the quiz page "a"
   When I answer "Blue"
-  * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
   Then I see question explanation "Sky is blue because of Rayleigh scattering" for question "Sky"
@@ -63,7 +58,6 @@ Scenario: Show question explanation of question on score page
 Scenario: Show user select
   Given I visit the quiz page "a"
   When I answer "Blue"
-  * I click the next button
   * I answer "Marseille"
   * I click the evaluate button
   Then I see user select "Blue" for question "Sky"
@@ -71,7 +65,6 @@ Scenario: Show user select
 Scenario: Quiz with 85% pass score will fail
   Given I visit the quiz page "a"
   When I answer "Green"
-  * I click the next button
   * I answer "Paris"
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, failed

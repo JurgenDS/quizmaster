@@ -31,6 +31,5 @@ Scenario: After page refresh no answer is selected
 Scenario: After next page is displayed, no answer and explanation is displayed
     Given I visit the quiz page "a"
     When I answer "Green"
-    And I click the next button
     Then no answer is selected
     And no explanation answer is displayed
