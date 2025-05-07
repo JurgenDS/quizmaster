@@ -146,6 +146,16 @@ Feature: Take a quiz
     Then I should not see the evaluate button
     Then I should see the next button
 
+  Scenario: Last question is answered and show skipped question
+    Given I visit the quiz page "a"
+    When I click the skip button
+    Then I should see the next question
+    When I answer "Paris"
+    Then I should not see the evaluate button
+    Then I should see the next button
+    When I click the next button
+    Then I should see the first question
+
   Scenario: Last question is skipped and there are any skipped questions
     Given I visit the quiz page "a"
     When I click the skip button
@@ -153,3 +163,4 @@ Feature: Take a quiz
     Then I should see the skip button
     When I click the skip button
     Then I should see the first question
+
