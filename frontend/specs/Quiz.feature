@@ -24,24 +24,29 @@ Feature: Take a quiz
     * saved and bookmarked as "BQuestion"
   # Given a quiz containing questions "Sky" and "France"
 
-  Scenario: Quiz page is available
-    Given I visit the quiz page "a"
-    Then I should see heading "Quiz"
-
   Scenario: Quiz question A is displayed
     Given I visit the quiz page "a"
+    When I click the start button
     Then I see the first question
+    Then I should see heading "Quiz"
+
+  Scenario: Quiz welcome page is available
+    Given I visit the quiz page "a"
+    Then I see the welcome page
 
   Scenario: Quiz question A is skipable
     Given I visit the quiz page "a"
+    When I click the start button
     Then I should see the skip button
 
   Scenario: Quiz question B is displayed
     Given I visit the quiz page "b"
+    When I click the start button
     Then I see the b question
 
   Scenario: Quiz question is not answered afterEach
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should not see the answer
     Then I should see the next question
@@ -49,22 +54,26 @@ Feature: Take a quiz
 
   Scenario: Quiz question is answered afterEach
     Given I visit the quiz page "b"
+    When I click the start button
     When I answer "Yes"
     Then I should see the answer
     Then I should see the next button
 
   Scenario: Quiz question is answered and the next button is clicked
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should see the next question
 
   Scenario: Quiz question is not answered and the skip button is clicked
     Given I visit the quiz page "a"
+    When I click the start button
     When I click the skip button
     Then I should see the next question
 
   Scenario: User proceed to last question
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should see the next question
     Then I should not see the skip button
@@ -75,6 +84,7 @@ Feature: Take a quiz
 
   Scenario: User navigate to evaluation page
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should see the next question
     Then I should not see the skip button
@@ -84,6 +94,7 @@ Feature: Take a quiz
 
   Scenario: User reloads page on answered question
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     * I check answer "Lyon,Paris"
     * I uncheck answer "Lyon"
@@ -92,10 +103,12 @@ Feature: Take a quiz
 
   Scenario: Progress bar is shown on first quiz page
     Given I visit the quiz page "a"
+    When I click the start button
     Then I should see the progress bar showing page 1 of 2
 
   Scenario: Progress bar is full on last quiz page
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should see the progress bar showing page 2 of 2
 
@@ -114,11 +127,13 @@ Feature: Take a quiz
 
   Scenario: Back button is visible
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     Then I should see the back button
 
   Scenario: Back button is clicked
     Given I visit the quiz page "a"
+    When I click the start button
     When I answer "Green"
     And I click the back button
     Then I see the first question
@@ -140,6 +155,7 @@ Feature: Take a quiz
 
   Scenario: Last question is answered and there are any skipped questions
     Given I visit the quiz page "a"
+    When I click the start button
     When I click the skip button
     Then I should see the next question
     When I answer "Paris"
