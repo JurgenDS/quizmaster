@@ -59,7 +59,10 @@ Then('I see quiz name', async function () {
 
 Then('I see quiz description', async function () {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.descriptionLocator(), 'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper pellentesque leo at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam eu massa a neque imperdiet convallis in vel erat.')
+    await expectTextToBe(
+        welcomePage.descriptionLocator(),
+        'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper pellentesque leo at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam eu massa a neque imperdiet convallis in vel erat.',
+    )
 })
 
 Then('I see question count', async function () {
