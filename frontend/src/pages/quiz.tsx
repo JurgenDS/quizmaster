@@ -6,7 +6,6 @@ import { ProgressBar } from './quiz/progress-bar'
 import { EvaluateButton, NextButton, BackButton, SkipButton } from './quiz/buttons'
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
-import { flushSync } from 'react-dom'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -38,7 +37,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     }
     const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
     const onSubmittedAndNext = (selectedAnswerIdxs: AnswerIdxs) => {
-        flushSync(() => onSubmitted(selectedAnswerIdxs))
+        onSubmitted(selectedAnswerIdxs)
         if (!isLastQuestion) {
             onNext()
         }
