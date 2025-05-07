@@ -122,7 +122,7 @@ Feature: Take a quiz
     When I answer "Green"
     And I click the back button
     Then I see the first question
-@skip
+
   Scenario: Display countdown timer
     Given I visit the quiz page "a"
     Then I should see the countdown timer "2:00"

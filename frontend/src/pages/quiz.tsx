@@ -7,6 +7,8 @@ import { EvaluateButton, NextButton, BackButton, SkipButton } from './quiz/butto
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
+import { Countdown } from './quiz/countdown.tsx'
+
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
     readonly quiz: Quiz
@@ -101,7 +103,10 @@ export const QuizPage = () => {
         return isEvaluated ? (
             <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
         ) : (
-            <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
+            <>
+                <Countdown />
+                <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
+            </>
         )
     }
 }
