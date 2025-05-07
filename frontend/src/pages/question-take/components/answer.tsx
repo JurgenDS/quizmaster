@@ -26,7 +26,7 @@ export const Answer = (props: AnswerProps) => {
         <li
             data-testid={`answer-row-${props.answer}`}
             key={props.idx}
-            style={{ position: 'relative', height: props.showFeedback ? "90px" : "45px", width: '100%' }}
+            style={{ position: 'relative', height: props.showFeedback ? '90px' : '45px', width: '100%' }}
         >
             <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} />
             <label htmlFor={answerId} className="">
