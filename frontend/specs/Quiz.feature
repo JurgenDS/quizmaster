@@ -140,15 +140,18 @@ Feature: Take a quiz
 
   Scenario: Display countdown timer
     Given I visit the quiz page "a"
+    When I click the start button
     Then I should see the countdown timer "2:00"
   @skip
   Scenario: Display display timer after 30 seconds
     Given I visit the quiz page "a"
+    When I click the start button
     Then I should see the countdown timer after delay "1:30"
 
   Scenario: Last question is not answered and there are any skipped questions
     Given I visit the quiz page "a"
-    When I click the skip button
+    When I click the start button
+    * I click the skip button
     Then I should see the next question
     Then I should not see the evaluate button
     Then I should see the skip button
@@ -164,7 +167,8 @@ Feature: Take a quiz
 
   Scenario: Last question is answered and show skipped question
     Given I visit the quiz page "a"
-    When I click the skip button
+    When I click the start button
+    * I click the skip button
     Then I should see the next question
     When I answer "Paris"
     Then I should not see the evaluate button
@@ -174,6 +178,7 @@ Feature: Take a quiz
 
   Scenario: Last question is skipped and there are any skipped questions
     Given I visit the quiz page "a"
+    When I click the start button
     When I click the skip button
     Then I should see the next question
     Then I should see the skip button
@@ -182,6 +187,7 @@ Feature: Take a quiz
 
   Scenario: Do not show skipped question which was submited
     Given I visit the quiz page "a"
+    When I click the start button
     When I click the skip button
     Then I should see the next question
     When I answer "Paris"
