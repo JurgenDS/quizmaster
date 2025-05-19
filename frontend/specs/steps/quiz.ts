@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
 import { Given, When, Then } from './fixture.ts'
+import { expectQuestion } from './take-question.ts'
 
 Given(
     /quiz "(\w+)" with (\d+) questions, pass score (\d+)% and (feedback at the end|continuous feedback)/,
@@ -47,14 +48,9 @@ Then('I should see heading "Create quiz"', async function () {
     await expectTextToBe(this.page.locator('h1'), 'Create quiz')
 })
 
-Then('I see the first question', async function () {
-    const firstQuestion = this.bookmarks.Sky
-    await expectTextToBe(this.takeQuestionPage.questionLocator(), firstQuestion.question)
-})
-
-Then('I see the b question', async function () {
-    const firstQuestion = this.bookmarks.BQuestion
-    await expectTextToBe(this.takeQuestionPage.questionLocator(), firstQuestion.question)
+Then('I see question {string}', async function (bookmark: string) {
+    const question = this.bookmarks[bookmark]
+    await expectQuestion(this.takeQuestionPage, question)
 })
 
 Then('I should see the next button', async function () {
@@ -82,14 +78,6 @@ When('I click the skip button', async function () {
 
 When('I click the start button', async function () {
     await this.quizWelcomePage.start()
-})
-Then('I should see the next question', async function () {
-    const secondQuestion = this.bookmarks.France
-    await expectTextToBe(this.takeQuestionPage.questionLocator(), secondQuestion.question)
-})
-
-Then('I should see the first question', async function () {
-    await expectTextToBe(this.takeQuestionPage.questionLocator(), 'What is the standard colour of sky?')
 })
 
 Then('I should see the evaluate button', async function () {

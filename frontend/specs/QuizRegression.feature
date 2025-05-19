@@ -20,7 +20,7 @@ Feature: Take a quiz
   Scenario: Quiz question is displayed and not answered
     Given I visit the quiz page "a"
     When I click the start button
-    Then I see the first question
+    Then I see question "Sky"
     And no answer is selected
 
 Scenario: After page refresh no answer is selected

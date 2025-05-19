@@ -2,6 +2,8 @@ import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 import { expectTextToBe, expectTextToContain } from './common.ts'
 import { Then, When } from './fixture.ts'
+import type { Question } from './world/question.ts'
+import type { TakeQuestionPage } from '../pages/take-question-page.ts'
 
 enum Color {
     GREEN = 'GREEN',
@@ -26,10 +28,10 @@ When('I take question {string}', async function (bookmark: string) {
     this.activeBookmark = bookmark
 })
 
-Then('I see the question and the answers', async function () {
-    await expectTextToBe(this.takeQuestionPage.questionLocator(), this.activeQuestion.question)
-    const answers = this.activeQuestion.answers
-    const answerLocators = this.takeQuestionPage.answersLocator()
+export async function expectQuestion(takeQuestionPage: TakeQuestionPage, question: Question) {
+    await expectTextToBe(takeQuestionPage.questionLocator(), question.question)
+    const answers = question.answers
+    const answerLocators = takeQuestionPage.answersLocator()
 
     expect(await answerLocators.count()).toBe(answers.length)
 
@@ -37,6 +39,10 @@ Then('I see the question and the answers', async function () {
         const answerLocator = answerLocators.nth(index)
         await expectTextToBe(answerLocator, answer)
     }
+}
+
+Then('I see the question and the answers', async function () {
+    await expectQuestion(this.takeQuestionPage, this.activeQuestion)
 })
 
 When('I answer {string}', async function (answerList: string) {

@@ -27,8 +27,7 @@ Feature: Take a quiz
   Scenario: Quiz question A is displayed
     Given I visit the quiz page "a"
     When I click the start button
-    Then I see the first question
-    Then I should see heading "Quiz"
+    Then I see question "Sky"
 
 
   Scenario: Quiz question A is skipable
@@ -39,14 +38,14 @@ Feature: Take a quiz
   Scenario: Quiz question B is displayed
     Given I visit the quiz page "b"
     When I click the start button
-    Then I see the b question
+    Then I see question "BQuestion"
 
   Scenario: Quiz question is not answered afterEach
     Given I visit the quiz page "a"
     When I click the start button
     When I answer "Green"
     Then I should not see the answer
-    Then I should see the next question
+    Then I see question "France"
     Then I should not see the skip button
 
   Scenario: Quiz question is answered afterEach
@@ -60,19 +59,19 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     When I answer "Green"
-    Then I should see the next question
+    Then I see question "France"
 
   Scenario: Quiz question is not answered and the skip button is clicked
     Given I visit the quiz page "a"
     When I click the start button
     When I click the skip button
-    Then I should see the next question
+    Then I see question "France"
 
   Scenario: User proceed to last question
     Given I visit the quiz page "a"
     When I click the start button
     When I answer "Green"
-    Then I should see the next question
+    Then I see question "France"
     Then I should not see the skip button
     Then I should not see the evaluate button
     When I answer "Lyon"
@@ -83,7 +82,7 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     When I answer "Green"
-    Then I should see the next question
+    Then I see question "France"
     Then I should not see the skip button
     Then I should not see the evaluate button
     When I answer "Lyon"
@@ -123,8 +122,9 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     When I answer "Green"
+    Then I see question "France"
     And I click the back button
-    Then I see the first question
+    Then I see question "Sky"
 
   Scenario: Display countdown timer
     Given I visit the quiz page "a"
@@ -142,7 +142,7 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     * I click the skip button
-    Then I should see the next question
+    Then I see question "France"
     Then I should not see the evaluate button
     Then I should see the skip button
 
@@ -150,7 +150,7 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     When I click the skip button
-    Then I should see the next question
+    Then I see question "France"
     When I answer "Paris"
     Then I should not see the evaluate button
     Then I should see the next button
@@ -159,32 +159,32 @@ Feature: Take a quiz
     Given I visit the quiz page "a"
     When I click the start button
     * I click the skip button
-    Then I should see the next question
+    Then I see question "France"
     When I answer "Paris"
     Then I should not see the evaluate button
     Then I should see the next button
     When I click the next button
-    Then I should see the first question
+    Then I see question "Sky"
 
   Scenario: Last question is skipped and there are any skipped questions
     Given I visit the quiz page "a"
     When I click the start button
     When I click the skip button
-    Then I should see the next question
+    Then I see question "France"
     Then I should see the skip button
     When I click the skip button
-    Then I should see the first question
+    Then I see question "Sky"
 
   Scenario: Do not show skipped question which was submited
     Given I visit the quiz page "a"
     When I click the start button
     When I click the skip button
-    Then I should see the next question
+    Then I see question "France"
     When I answer "Paris"
     Then I should not see the evaluate button
     Then I should see the next button
     When I click the next button
-    Then I should see the first question
+    Then I see question "Sky"
     When I answer "Blue"
     Then I should see the evaluate button
 
