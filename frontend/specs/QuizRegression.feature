@@ -18,21 +18,18 @@ Feature: Take a quiz
     # Given a quiz containing questions "Sky" and "France"
 
   Scenario: Quiz question is displayed and not answered
-    Given I visit the quiz page "a"
-    When I click the start button
+    Given I start quiz "a"
     Then I see question "Sky"
     And no answer is selected
 
 Scenario: After page refresh no answer is selected
-    Given I visit the quiz page "a"
-    When I click the start button
+    Given I start quiz "a"
     When I answer "Green"
     And I refresh page
     Then no answer is selected
 
 Scenario: After next page is displayed, no answer and explanation is displayed
-    Given I visit the quiz page "a"
-    When I click the start button
+    Given I start quiz "a"
     When I answer "Green"
     Then no answer is selected
     And no explanation answer is displayed
