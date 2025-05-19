@@ -3,6 +3,8 @@ import type { Page } from '@playwright/test'
 export class QuizQuestionPage {
     constructor(private page: Page) {}
 
+    goto = (quizId: string) => this.page.goto(`/quiz/${quizId}`)
+
     backButtonLocator = () => this.page.locator('button#back')
     nextButtonLocator = () => this.page.locator('button#next')
     skipButtonLocator = () => this.page.locator('button#skip')

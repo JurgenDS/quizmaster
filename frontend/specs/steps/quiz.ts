@@ -8,8 +8,8 @@ Given(
     (quizName: string, questionCount: number, passScore: number, feedbackType: string) => {},
 )
 
-Given('I visit the quiz page {string}', async function (quizName: string) {
-    await this.page.goto(`/quiz/${quizName}`)
+Given('I visit the quiz page {string}', async function (quizId: string) {
+    await this.quizQuestionPage.goto(quizId)
 })
 
 Then('I see question {string}', async function (bookmark: string) {
