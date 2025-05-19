@@ -21,7 +21,7 @@ Then('I see quiz description', async function () {
 
 Then('I see question count {int}', async function (questionCount: number) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.questionCountLocator(), `Question count: ${questionCount}`)
+    await expectTextToBe(welcomePage.questionCountLocator(), questionCount.toString())
 })
 
 Then('I see feedback type {string}', async function (feedbackType: string) {
@@ -31,5 +31,5 @@ Then('I see feedback type {string}', async function (feedbackType: string) {
 
 Then('I see pass score {int}%', async function (passScore: number) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.passScoreLocator(), `Pass score: ${passScore} %`)
+    await expectTextToBe(welcomePage.passScoreLocator(), passScore.toString())
 })

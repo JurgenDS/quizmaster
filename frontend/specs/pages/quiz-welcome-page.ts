@@ -6,9 +6,9 @@ export class QuizWelcomePage {
     headerLocator = () => this.page.locator('h2')
     nameLocator = () => this.page.locator('h3#quiz-name')
     descriptionLocator = () => this.page.locator('p#quiz-description')
-    questionCountLocator = () => this.page.locator('p#question-count')
+    questionCountLocator = () => this.page.locator('span#question-count')
     feedbackLocator = () => this.page.locator('p#question-feedback')
-    passScoreLocator = () => this.page.locator('p#pass-score')
+    passScoreLocator = () => this.page.locator('span#pass-score')
     startButtonLocator = () => this.page.locator('button#start')
 
     start = () => this.startButtonLocator().click()

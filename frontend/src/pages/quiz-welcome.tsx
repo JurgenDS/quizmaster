@@ -33,8 +33,12 @@ const QuizWelcomePage = () => {
                     at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
                     Nam eu massa a neque imperdiet convallis in vel erat.
                 </p>
-                <p id="question-count">Question count: {quiz.questions.length}</p>
-                <p id="pass-score">Pass score: {quiz.passScore} %</p>
+                <p>
+                    Question count: <span id="question-count">{quiz.questions.length}</span>
+                </p>
+                <p id="pass-score">
+                    Pass score: <span id="pass-score">{quiz.passScore}</span>%
+                </p>
                 <p id="question-feedback">{quiz.afterEach ? 'Continuous feedback' : 'Feedback at the end'}</p>
                 <StartButton onClick={onStart} />
             </>
