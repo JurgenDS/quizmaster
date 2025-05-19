@@ -9,7 +9,6 @@ import {
     QuizWelcomePage,
 } from '../../pages'
 import type { Question } from './question'
-import { QuizOverviewPage } from '../../pages/quiz-overview-page.ts'
 
 export class QuizmasterWorld {
     constructor(
@@ -21,7 +20,6 @@ export class QuizmasterWorld {
         this.quizQuestionPage = new QuizQuestionPage(this.page)
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
-        this.quizOverviewPage = new QuizOverviewPage(this.page)
         this.createQuizPage = new CreateQuizPage(this.page)
     }
 
@@ -31,7 +29,6 @@ export class QuizmasterWorld {
     readonly quizQuestionPage: QuizQuestionPage
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizScorePage: QuizScorePage
-    readonly quizOverviewPage: QuizOverviewPage
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
     nextAnswerIdx = 0

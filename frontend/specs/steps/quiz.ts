@@ -8,44 +8,8 @@ Given(
     (quizName: string, questionCount: number, passScore: number, feedbackType: string) => {},
 )
 
-Given('I visit the Quiz create page', async function () {
-    await this.page.goto('/quiz/create')
-})
-
 Given('I visit the quiz page {string}', async function (quizName: string) {
     await this.page.goto(`/quiz/${quizName}`)
-})
-
-Given('I visit the quiz overview page {string}', async function (id: string) {
-    await this.page.goto(`/quiz/${id}/overview`)
-})
-
-When('I changed the "Show feedback after each question" checkbox {string}', async function (value: string) {
-    const booleanValue = value.toLowerCase() === 'true'
-    await this.quizOverviewPage.setCheckboxValue(booleanValue)
-    await this.quizOverviewPage.saveButtonLocator().click()
-})
-
-Then('I should see checkbox {string}', async function (value: string) {
-    const expectedValue = value.toLowerCase() === 'true'
-    const isChecked = await this.quizOverviewPage.checkboxLocator().isChecked()
-    expect(isChecked).toBe(expectedValue)
-})
-
-When('I reload page', async function () {
-    await this.page.reload()
-})
-
-Given('I visit the afterEach quiz page', async function () {
-    await this.page.goto('/quiz/aftereach')
-})
-
-Then('I should see heading "Quiz"', async function () {
-    await expectTextToBe(this.page.locator('h2'), 'Quiz')
-})
-
-Then('I should see heading "Create quiz"', async function () {
-    await expectTextToBe(this.page.locator('h1'), 'Create quiz')
 })
 
 Then('I see question {string}', async function (bookmark: string) {
@@ -127,10 +91,6 @@ Then(
         expect(progressBarMaxValue).toBe(maxValue.toString())
     },
 )
-
-Then('I should see heading "Quiz overview"', async function () {
-    await expectTextToBe(this.page.locator('h1'), 'Quiz overview')
-})
 
 Then('I should see the text "Game over time"', async function () {
     await expectTextToBe(this.page.getByTestId('modal-timeout'), 'Game over time')
