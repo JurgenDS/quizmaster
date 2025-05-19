@@ -92,15 +92,10 @@ Then('I should see the answer', async function () {
     await expectThatIsVisible(this.takeQuestionPage.feedbackLocator())
 })
 
-Then(
-    'I should see the progress bar showing page {int} of {int}',
-    async function (expectedValue: number, maxValue: number) {
-        const progressBarValue = await this.quizQuestionPage.progressBarLocator().getAttribute('value')
-        expect(progressBarValue).toBe(expectedValue.toString())
-        const progressBarMaxValue = await this.quizQuestionPage.progressBarLocator().getAttribute('max')
-        expect(progressBarMaxValue).toBe(maxValue.toString())
-    },
-)
+Then('progress shows {int} of {int}', async function (current: number, max: number) {
+    expect(await this.quizQuestionPage.progressCurrent()).toBe(current)
+    expect(await this.quizQuestionPage.progressMax()).toBe(max)
+})
 
 Then('I should see the text "Game over time"', async function () {
     await expectTextToBe(this.page.getByTestId('modal-timeout'), 'Game over time')

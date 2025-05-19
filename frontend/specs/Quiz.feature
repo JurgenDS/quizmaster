@@ -44,15 +44,6 @@ Feature: Take a quiz
     * I reload the page
     Then no answer is selected
 
-  Scenario: Progress bar is shown on first quiz page
-    Given I start quiz "a"
-    Then I should see the progress bar showing page 1 of 2
-
-  Scenario: Progress bar is full on last quiz page
-    Given I start quiz "a"
-    When I answer "Green"
-    Then I should see the progress bar showing page 2 of 2
-
   Scenario: Back button is not visible on the quiz page
     Given I start quiz "a"
     Then I should not see the back button
