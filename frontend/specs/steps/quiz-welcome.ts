@@ -1,35 +1,28 @@
-import { expectTextToBe } from './common.ts'
+import { expect } from '@playwright/test'
 import { Then } from './fixture.ts'
 
 Then('I see the welcome page', async function () {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.headerLocator(), 'Welcome to the quiz')
+    expect(await this.quizWelcomePage.header()).toBe('Welcome to the quiz')
 })
 
 Then('I see quiz name {string}', async function (quizName: string) {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.nameLocator(), quizName)
+    expect(await this.quizWelcomePage.name()).toBe(quizName)
 })
 
 Then('I see quiz description', async function () {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(
-        welcomePage.descriptionLocator(),
+    expect(await this.quizWelcomePage.description()).toBe(
         'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper pellentesque leo at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam eu massa a neque imperdiet convallis in vel erat.',
     )
 })
 
 Then('I see question count {int}', async function (questionCount: number) {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.questionCountLocator(), questionCount.toString())
+    expect(await this.quizWelcomePage.questionCount()).toBe(questionCount)
 })
 
 Then('I see feedback type {string}', async function (feedbackType: string) {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.feedbackLocator(), feedbackType)
+    expect(await this.quizWelcomePage.feedback()).toBe(feedbackType)
 })
 
 Then('I see pass score {int}%', async function (passScore: number) {
-    const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.passScoreLocator(), passScore.toString())
+    expect(await this.quizWelcomePage.passScore()).toBe(passScore)
 })
