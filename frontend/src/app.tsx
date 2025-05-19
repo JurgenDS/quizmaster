@@ -9,7 +9,6 @@ import QuizWelcomePage from 'pages/quiz-welcome.tsx'
 
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
-import { QuestionListPage } from 'pages/question-list'
 import QuizOverview from './pages/quiz-overview.tsx'
 
 export const App = () => (
@@ -24,7 +23,6 @@ export const App = () => (
             <Route path="/quiz/aftereach" element={<QuizPage />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />
             <Route path="/question/:id" element={<QuestionTakePage />} />
-            <Route path="/question-list/:id" element={<QuestionListPage />} />
             <Route path="/" element={<HomePage />} />
         </Routes>
     </BrowserRouter>
