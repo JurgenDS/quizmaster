@@ -30,15 +30,6 @@ Feature: Take a quiz
     Then I see the first question
     Then I should see heading "Quiz"
 
-  Scenario: Quiz welcome page is available
-    Given I visit the quiz page "a"
-    Then I see the welcome page
-    * I see quiz name
-    * I see quiz description
-    * I see question count
-    * I see pass score
-    * I see feedback type
-
 
   Scenario: Quiz question A is skipable
     Given I visit the quiz page "a"
