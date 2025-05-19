@@ -7,13 +7,11 @@ import QuizWelcomePage from 'pages/quiz-welcome.tsx'
 
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
-import QuizOverview from './pages/quiz-overview.tsx'
 
 export const App = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/question/new" element={<CreateQuestionContainer />} />
-            <Route path="/quiz/:id/overview" element={<QuizOverview />} />
             <Route path="/quiz/:id" element={<QuizWelcomePage />} />
             <Route path="/quiz/:id/questions" element={<QuizPage />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />
