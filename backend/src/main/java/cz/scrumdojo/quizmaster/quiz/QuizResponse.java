@@ -1,15 +1,13 @@
 package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class QuizResponse {
 
     private String id;

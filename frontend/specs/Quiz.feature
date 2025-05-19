@@ -8,26 +8,9 @@ Feature: Take a quiz
 
   # Given a quiz containing questions "Sky" and "France"
 
-  Scenario: Quiz question A is displayed
-    Given I start quiz "a"
-    Then I see question "Sky"
-
-
   Scenario: Quiz question A is skipable
     Given I start quiz "a"
     Then I should see the skip button
-
-  Scenario: Quiz question is not answered afterEach
-    Given I start quiz "a"
-    When I answer "Green"
-    Then I should not see the answer
-    Then I see question "France"
-    Then I should not see the skip button
-
-  Scenario: Quiz question is answered and the next button is clicked
-    Given I start quiz "a"
-    When I answer "Green"
-    Then I see question "France"
 
   Scenario: Quiz question is not answered and the skip button is clicked
     Given I start quiz "a"

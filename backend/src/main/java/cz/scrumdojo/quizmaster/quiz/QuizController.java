@@ -68,6 +68,50 @@ public class QuizController {
         quizs.add(quiz1);
         quizs.add(quiz2);
         quizs.add(quiz3);
+
+        var planet = quizQuestionRepository.save(
+            QuizQuestion.builder()
+                .question("Which planet is known as the Red Planet?")
+                .answers(new String[]{ "Mars", "Venus" })
+                .explanations(new String[]{ "", "" })
+                .correctAnswers(new int[]{ 0 })
+                .build()
+        );
+
+        var australia = quizQuestionRepository.save(
+            QuizQuestion.builder()
+                .question("What's the capital city of Australia?")
+                .answers(new String[]{ "Sydney", "Canberra" })
+                .explanations(new String[]{ "", "" })
+                .correctAnswers(new int[]{ 1 })
+                .build()
+        );
+
+        var fruit = quizQuestionRepository.save(
+            QuizQuestion.builder()
+                .question("Which fruit is known for having seeds on the outside?")
+                .answers(new String[]{ "Strawberry", "Blueberry" })
+                .explanations(new String[]{ "", "" })
+                .correctAnswers(new int[]{ 0 })
+                .build()
+        );
+
+        var quizD = QuizResponse.builder()
+            .id("d")
+            .questions(new QuizQuestion[]{ planet, australia, fruit })
+            .afterEach(false)
+            .passScore(85)
+            .build();
+
+        var quizE = QuizResponse.builder()
+            .id("e")
+            .questions(new QuizQuestion[]{ planet, australia, fruit })
+            .afterEach(true)
+            .passScore(85)
+            .build();
+
+        quizs.add(quizD);
+        quizs.add(quizE);
     }
 
     @Transactional

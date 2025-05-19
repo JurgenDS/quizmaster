@@ -38,9 +38,14 @@ Then('I should not see the next button', async function () {
     await expect(this.quizQuestionPage.nextButtonLocator()).not.toBeVisible()
 })
 
+When('I proceed to the next question', async function () {
+    await this.quizQuestionPage.next()
+})
+
 When('I click the next button', async function () {
     await this.quizQuestionPage.next()
 })
+
 When('I click the skip button', async function () {
     await this.quizQuestionPage.skip()
 })
