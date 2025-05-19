@@ -2,6 +2,11 @@ import { expect } from '@playwright/test'
 import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
 import { Given, When, Then } from './fixture.ts'
 
+Given(
+    /quiz "(\w+)" with (\d+) questions, pass score (\d+)% and (feedback at the end|continuous feedback)/,
+    (quizName: string, questionCount: number, passScore: number, feedbackType: string) => {},
+)
+
 Given('I visit the Quiz create page', async function () {
     await this.page.goto('/quiz/create')
 })

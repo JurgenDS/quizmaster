@@ -1,10 +1,16 @@
 Feature: Quiz Welcome page
 
-  Scenario: Quiz welcome page is available
-    Given I visit the quiz page "a"
+  Scenario Outline: Quiz welcome page
+    Given quiz "a" with 2 questions, pass score 85% and feedback at the end
+    Given quiz "c" with 2 questions, pass score 40% and continuous feedback
+    When I visit the quiz page "<quiz>"
     Then I see the welcome page
-    * I see quiz name "a"
+    * I see quiz name "<name>"
     * I see quiz description
-    * I see question count 2
-    * I see pass score 85%
-    * I see feedback type "Feedback at the end"
+    * I see question count <count>
+    * I see pass score <score>%
+    * I see feedback type "<type>"
+    Examples:
+      | quiz | name | count | score | type                |
+      | a    | a    | 2     | 85    | Feedback at the end |
+      | c    | c    | 2     | 40    | Continuous feedback |
