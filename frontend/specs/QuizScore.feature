@@ -1,16 +1,10 @@
 Feature: Evaluate quiz score
 
   Background:
-    Given a question "What is the standard colour of sky?" bookmarked as "Sky"
-      | Red       |   |
-      | Blue      | * |
-      | Green     |   |
-      | Black     |   |
-    Given a question "What is capital of France?" bookmarked as "France"
-      | Marseille |   |
-      | Lyon      |   |
-      | Paris     | * |
-      | Toulouse  |   |
+    Given questions
+      | Bookmark  | Question                            | Answers                              |
+      | Sky       | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
+      | France    | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
 Scenario: Quiz score all question are correct
   Given I start quiz "a"
