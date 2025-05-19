@@ -1,20 +1,16 @@
 Feature: Take a quiz
 
    Background:
-    Given a question "What is the standard colour of sky?"
-    * with answers:
+    Given a question "What is the standard colour of sky?" bookmarked as "Sky"
       | Red       |   |
       | Blue      | * |
       | Green     |   |
       | Black     |   |
-    * saved and bookmarked as "Sky"
-    Given a question "What is capital of France?"
-    * with answers:
+    Given a question "What is capital of France?" bookmarked as "France"
       | Marseille |   |
       | Lyon      |   |
       | Paris     | * |
       | Toulouse  |   |
-    * saved and bookmarked as "France"
     # Given a quiz containing questions "Sky" and "France"
 
   Scenario: Quiz question is displayed and not answered

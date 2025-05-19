@@ -42,27 +42,41 @@ const addAnswer = async (world: QuizmasterWorld, i: number) => {
     await world.createQuestionPage.addAnswer(i)
 }
 
+const addAnswers = async (world: QuizmasterWorld, answerRawTable: TableOf<AnswerRaw>) => {
+    const raw = answerRawTable.raw()
+
+    const isMultipleChoice = raw.filter(([_, correct]) => correct === '*').length > 1
+    if (isMultipleChoice) await world.createQuestionPage.setMultipleChoice()
+
+    for (let i = 0; i < raw.length; i++) {
+        if (i >= NUM_ANSWERS) await addAnswer(world, i)
+        const [answer, correct, explanation] = raw[i]
+        const isCorrect = correct === '*'
+        await enterAnswer(world, i, answer, isCorrect, explanation || '')
+    }
+}
+
 Given('a question {string}', async function (question: string) {
     await openCreatePage(this)
     await enterQuestion(this, question)
 })
+
+Given(
+    'a question {string} bookmarked as {string}',
+    async function (question: string, bookmark: string, answerRawTable: TableOf<AnswerRaw>) {
+        await openCreatePage(this)
+        await enterQuestion(this, question)
+        await addAnswers(this, answerRawTable)
+        await saveQuestion(this, bookmark)
+    },
+)
 
 Given('with multi-choice selected', async function () {
     await this.createQuestionPage.setMultipleChoice()
 })
 
 Given('with answers:', async function (answerRawTable: TableOf<AnswerRaw>) {
-    const raw = answerRawTable.raw()
-
-    const isMultipleChoice = raw.filter(([_, correct]) => correct === '*').length > 1
-    if (isMultipleChoice) await this.createQuestionPage.setMultipleChoice()
-
-    for (let i = 0; i < raw.length; i++) {
-        if (i >= NUM_ANSWERS) await addAnswer(this, i)
-        const [answer, correct, explanation] = raw[i]
-        const isCorrect = correct === '*'
-        await enterAnswer(this, i, answer, isCorrect, explanation || '')
-    }
+    await addAnswers(this, answerRawTable)
 })
 
 Given('with explanation {string}', async function (explanation: string) {

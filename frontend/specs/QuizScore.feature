@@ -1,20 +1,16 @@
 Feature: Evaluate quiz score
 
   Background:
-    Given a question "What is the standard colour of sky?"
-    * with answers:
+    Given a question "What is the standard colour of sky?" bookmarked as "Sky"
       | Red       |   |
       | Blue      | * |
       | Green     |   |
       | Black     |   |
-    * saved and bookmarked as "Sky"
-    Given a question "What is capital of France?"
-    * with answers:
+    Given a question "What is capital of France?" bookmarked as "France"
       | Marseille |   |
       | Lyon      |   |
       | Paris     | * |
       | Toulouse  |   |
-    * saved and bookmarked as "France"
 
 Scenario: Quiz score all question are correct
   Given I start quiz "a"
