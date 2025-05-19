@@ -6,9 +6,9 @@ Then('I see the welcome page', async function () {
     await expectTextToBe(welcomePage.headerLocator(), 'Welcome to the quiz')
 })
 
-Then('I see quiz name', async function () {
+Then('I see quiz name {string}', async function (quizName: string) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.nameLocator(), 'a')
+    await expectTextToBe(welcomePage.nameLocator(), quizName)
 })
 
 Then('I see quiz description', async function () {
@@ -19,17 +19,17 @@ Then('I see quiz description', async function () {
     )
 })
 
-Then('I see question count', async function () {
+Then('I see question count {int}', async function (questionCount: number) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.questionCountLocator(), 'Question count: 2')
+    await expectTextToBe(welcomePage.questionCountLocator(), `Question count: ${questionCount}`)
 })
 
-Then('I see feedback type', async function () {
+Then('I see feedback type {string}', async function (feedbackType: string) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.feedbackLocator(), 'Feedback at the end')
+    await expectTextToBe(welcomePage.feedbackLocator(), feedbackType)
 })
 
-Then('I see pass score', async function () {
+Then('I see pass score {int}%', async function (passScore: number) {
     const welcomePage = this.quizWelcomePage
-    await expectTextToBe(welcomePage.passScoreLocator(), 'Pass score: 85 %')
+    await expectTextToBe(welcomePage.passScoreLocator(), `Pass score: ${passScore} %`)
 })
