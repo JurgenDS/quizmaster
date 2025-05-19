@@ -52,28 +52,13 @@ public class QuizController {
         question2.setQuestionExplanation("");
         question2.setCorrectAnswers(new int[]{2});
 
-        QuizQuestion question3 = new QuizQuestion();
-        question3.setId(3);
-        question3.setQuestion("Is this the B quiz?");
-        question3.setAnswers(new String[]{"Yes", "No", "Idk", "Not"});
-        question3.setExplanations(new String[]{});
-        question3.setQuestionExplanation("");
-        question3.setCorrectAnswers(new int[]{0});
-
-
         var quizQuestion = quizQuestionRepository.save(question);
         var quizQuestion2 = quizQuestionRepository.save(question2);
-        var quizQuestion3 = quizQuestionRepository.save(question3);
 
         quiz1.setId("a");
         quiz1.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
         quiz1.setAfterEach(false);
         quiz1.setPassScore(85);
-
-        quiz2.setId("b");
-        quiz2.setQuestions(new QuizQuestion[]{quizQuestion3, quizQuestion3});
-        quiz2.setAfterEach(true);
-        quiz2.setPassScore(85);
 
         quiz3.setId("c");
         quiz3.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});

@@ -15,13 +15,6 @@ Feature: Take a quiz
       | Paris     | * |
       | Toulouse  |   |
     * saved and bookmarked as "France"
-    Given a question "Is this the B quiz?"
-    * with answers:
-      | Yes | * |
-      | No  |   |
-      | Idk |   |
-      | Not |   |
-    * saved and bookmarked as "BQuestion"
   # Given a quiz containing questions "Sky" and "France"
 
   Scenario: Quiz question A is displayed
@@ -33,22 +26,12 @@ Feature: Take a quiz
     Given I start quiz "a"
     Then I should see the skip button
 
-  Scenario: Quiz question B is displayed
-    Given I start quiz "b"
-    Then I see question "BQuestion"
-
   Scenario: Quiz question is not answered afterEach
     Given I start quiz "a"
     When I answer "Green"
     Then I should not see the answer
     Then I see question "France"
     Then I should not see the skip button
-
-  Scenario: Quiz question is answered afterEach
-    Given I start quiz "b"
-    When I answer "Yes"
-    Then I should see the answer
-    Then I should see the next button
 
   Scenario: Quiz question is answered and the next button is clicked
     Given I start quiz "a"
