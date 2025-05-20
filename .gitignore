@@ -1,5 +1,6 @@
 .idea/
 
+backend/bin/
 backend/.gradle/
 backend/build/
 backend/src/main/resources/static/
