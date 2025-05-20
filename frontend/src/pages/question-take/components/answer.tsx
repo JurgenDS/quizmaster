@@ -31,7 +31,14 @@ export const Answer = (props: AnswerProps) => {
             key={props.idx}
             style={{ position: 'relative', height: props.showFeedback ? '90px' : '45px', width: '100%' }}
         >
-            <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} checked={isChecked}/>
+            <input
+                type={checkType}
+                name={checkName}
+                id={answerId}
+                value={props.answer}
+                onChange={onChange}
+                checked={isChecked}
+            />
             <label htmlFor={answerId} className="">
                 {props.answer}
             </label>

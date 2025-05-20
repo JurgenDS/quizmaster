@@ -24,7 +24,8 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
     const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
-        if(props.question.userInput && props.question.userInput.length > 0) setSelectedAnswerIdxs(props.question.userInput)
+        if (props.question.userInput && props.question.userInput.length > 0)
+            setSelectedAnswerIdxs(props.question.userInput)
     }, [props.question.userInput])
 
     const submit = () => setSubmitted(true)
@@ -46,6 +47,6 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
         submitted,
         submit,
         onSelectedAnswerChange,
-        isAnswerChecked
+        isAnswerChecked,
     }
 }
