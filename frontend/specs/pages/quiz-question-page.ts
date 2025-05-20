@@ -23,7 +23,7 @@ export class QuizQuestionPage {
 
     /** Text aktuální otázky */
     questionText = async (): Promise<string> => {
-        return await this.page.locator('[data-testid="question-text"]').textContent() ?? ''
+        return (await this.page.locator('[data-testid="question-text"]').textContent()) ?? ''
     }
 
     /** Klikne na hvězdičku pro přidání/odebrání záložky */

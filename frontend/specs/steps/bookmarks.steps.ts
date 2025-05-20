@@ -2,7 +2,6 @@ import { expect } from '@playwright/test'
 import { When, Then } from './fixture.ts'
 import type { DataTable } from '@cucumber/cucumber'
 
-
 When('I bookmark question {string}', async function (questionTitle: string) {
     await this.quizQuestionPage.toggleBookmark()
     this.activeBookmark = questionTitle
@@ -42,4 +41,3 @@ Then('no question is bookmarked', async function () {
 When('I refresh the page', async function () {
     await this.page.reload()
 })
-
