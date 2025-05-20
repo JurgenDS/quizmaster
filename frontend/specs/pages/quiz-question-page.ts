@@ -9,20 +9,22 @@ export class QuizQuestionPage {
     nextButtonLocator = () => this.page.locator('button#next')
     skipButtonLocator = () => this.page.locator('button#skip')
     evaluateButtonLocator = () => this.page.locator('button#evaluate')
+    addQuestionToBookmarkButtonLocator = () => this.page.locator('button#add-question-to-bookmark')
 
     private progressBarLocator = () => this.page.locator('#progress-bar')
     progressCurrent = async () => Number.parseInt((await this.progressBarLocator().getAttribute('value')) ?? '')
     progressMax = async () => Number.parseInt((await this.progressBarLocator().getAttribute('max')) ?? '')
 
     back = () => this.backButtonLocator().click()
+    bookmark = () => this.addQuestionToBookmarkButtonLocator().click()
     next = () => this.nextButtonLocator().click()
     skip = () => this.skipButtonLocator().click()
     evaluate = () => this.evaluateButtonLocator().click()
 
     // --- Bookmark funkcionalita ---
 
-    /** Text aktuální otázky */
-    questionText = async (): Promise<string> => {
+    /** Text aktuální otázky (používaný ve Then I see question ...) */
+    currentQuestionText = async (): Promise<string> => {
         return (await this.page.locator('[data-testid="question-text"]').textContent()) ?? ''
     }
 
@@ -49,5 +51,16 @@ export class QuizQuestionPage {
     /** Vrací počet aktivních bookmark indikátorů (např. `[data-testid^="bookmark-"].active`) */
     activeBookmarksCount = async (): Promise<number> => {
         return await this.page.locator('[data-testid^="bookmark-"].active').count()
+    }
+
+    /** Klikne na záložku s daným názvem v seznamu záložek */
+    clickBookmark = async (title: string): Promise<void> => {
+        await this.page.locator('[data-testid="bookmark-list"] li', { hasText: title }).click()
+    }
+
+    /** Klikne na záložku s daným názvem v seznamu záložek */
+    clickAddQuestionToBookmark = async (title: string): Promise<void> => {
+        await this.addQuestionToBookmarkButtonLocator().click()
+        console.log(`Bookmarking question ${title}`)
     }
 }
