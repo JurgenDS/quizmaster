@@ -8,6 +8,7 @@ export class QuizScorePage {
 
     private firstCorrectAnswerLocator = () => this.page.locator('#first-correct-answers')
     firstCorrectAnswers = () => this.firstCorrectAnswerLocator().textContent().then(Number)
+    firstCorrectAnswersPresent = () => this.firstCorrectAnswerLocator().isVisible()
 
     private totalQuestionsLocator = () => this.page.locator('#total-questions')
     totalQuestions = () => this.totalQuestionsLocator().textContent().then(Number)
@@ -17,6 +18,7 @@ export class QuizScorePage {
 
     private firstPercentageResultLocator = () => this.page.locator('#first-percentage-result')
     firstPercentageResult = () => this.firstPercentageResultLocator().textContent().then(Number)
+    firstPercentageResultPresent = () => this.firstPercentageResultLocator().isVisible()
 
     private passScoreLocator = () => this.page.locator('#pass-score')
     passScore = () => this.passScoreLocator().textContent().then(Number)

@@ -42,6 +42,14 @@ Then(
     },
 )
 
+Then(/^I don't see the original results/, async function () {
+    const firstCorrectAnswers = await this.quizScorePage.firstCorrectAnswersPresent()
+    expect(firstCorrectAnswers).toBe(false)
+
+    const result = await this.quizScorePage.firstPercentageResultPresent()
+    expect(result).toBe(false)
+})
+
 Then('I see the question {string}', async function (question: string) {
     const questions: string[] = await this.quizScorePage.questions()
     expect(questions).toContain(question)
