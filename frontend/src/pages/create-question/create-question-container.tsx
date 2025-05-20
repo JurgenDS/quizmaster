@@ -1,79 +1,37 @@
 import './create-question.scss'
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { type QuestionApiData, saveQuestion, getQuestion } from 'api/quiz-question.ts'
+import { saveQuestion, getQuestion } from 'api/quiz-question.ts'
 
-import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
 import { CreateQuestionForm } from './create-question'
+import { BaseQuestionContainer } from './BaseQuestionContainer'
 
 export function CreateQuestionContainer() {
     const params = useParams()
     const questionId = params.id ? Number.parseInt(params.id) : undefined
 
-    const [questionData, setQuestionData] = useState(emptyQuestionFormData())
-    const [isLoaded, setIsLoaded] = useState<boolean>(false)
-    const [linkToQuestion, setLinkToQuestion] = useState<string>('')
-    const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
-    const [errorMessage, setErrorMessage] = useState<string>('')
-
-    useEffect(() => {
-        const fetchQuestion = async () => {
-            if (questionId) {
-                const quizQuestion = await getQuestion(questionId)
-                setQuestionData(toQuestionFormData(quizQuestion))
-                setIsLoaded(true)
-            }
+    const fetchQuestionData = async () => {
+        if (questionId) {
+            return await getQuestion(questionId)
         }
-        fetchQuestion()
-    }, [questionId])
+        return undefined
+    }
 
-    const postData = async (formData: QuestionApiData) => {
+    const onDataLoaded = () => {
+        // no-op
+    }
+
+    const processData = async (formData: any) => {
         return saveQuestion(formData)
             .then(response => {
-                setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
+                return `${location.origin}/question/${response.id}`
             })
-            .catch(error => setLinkToQuestion(error.message))
+            .catch(error => error.message)
     }
 
-    const handleSubmit = () => {
-        setErrorMessage('')
-        const apiData = toQuestionApiData(questionData)
+    const { questionData, setQuestionData, isLoaded, linkToQuestion, errorMessage, handleSubmit } =
+        BaseQuestionContainer({ fetchQuestionData, onDataLoaded, processData })
 
-        if (apiData.correctAnswers.length === 0) {
-            setErrorMessage('At least one correct answer must be selected')
-            return
-        }
-
-        const answersCount = apiData.answers.length
-        for (let i = 0; i < answersCount; i++) {
-            if (apiData.answers[i] === '') {
-                setErrorMessage('All answers must be filled in')
-                return
-            }
-        }
-
-        let explanationNotEmptyCounter = 0
-        const explanationCount = apiData.explanations.length
-
-        for (let i = 0; i < explanationCount; i++) {
-            if (apiData.explanations[i] !== '') {
-                explanationNotEmptyCounter++
-            }
-        }
-
-        if (explanationNotEmptyCounter !== 0 && explanationNotEmptyCounter !== explanationCount) {
-            setErrorMessage('All or none explanation must be filled in.')
-            return
-        }
-
-        if (apiData.question === '') {
-            setErrorMessage('Question must not be empty.')
-            return
-        }
-
-        postData(apiData)
-    }
+    const linkToEditQuestion = `${location.origin}/question/:hash/edit`
 
     return (
         <CreateQuestionForm
