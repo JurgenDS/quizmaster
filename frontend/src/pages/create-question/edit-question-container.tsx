@@ -1,6 +1,6 @@
 import './create-question.scss'
 import { useParams } from 'react-router-dom'
-import { getQuestionByHash, updateQuestion } from 'api/quiz-question.ts'
+import { type QuestionApiData, getQuestionByHash, updateQuestion } from 'api/quiz-question.ts'
 
 import { CreateQuestionForm } from './create-question'
 import { BaseQuestionContainer } from './BaseQuestionContainer'
@@ -16,11 +16,7 @@ export function EditQuestionContainer() {
         return undefined
     }
 
-    const onDataLoaded = () => {
-        // no-op
-    }
-
-    const processData = async (formData: any) => {
+    const processData = async (formData: QuestionApiData) => {
         if (!questionHash) {
             throw new Error('Question hash is not defined')
         }

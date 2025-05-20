@@ -1,6 +1,6 @@
 import './create-question.scss'
 import { useParams } from 'react-router-dom'
-import { saveQuestion, getQuestion } from 'api/quiz-question.ts'
+import { type QuestionApiData, saveQuestion, getQuestion } from 'api/quiz-question.ts'
 
 import { CreateQuestionForm } from './create-question'
 import { BaseQuestionContainer } from './BaseQuestionContainer'
@@ -20,7 +20,7 @@ export function CreateQuestionContainer() {
         // no-op
     }
 
-    const processData = async (formData: any) => {
+    const processData = async (formData: QuestionApiData) => {
         return saveQuestion(formData)
             .then(response => {
                 return `${location.origin}/question/${response.id}`

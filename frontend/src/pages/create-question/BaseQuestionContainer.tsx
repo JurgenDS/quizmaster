@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { type QuestionApiData } from 'api/quiz-question.ts'
+import type { QuestionApiData } from 'api/quiz-question.ts'
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
 
 interface BaseQuestionContainerProps {
     fetchQuestionData: () => Promise<QuestionApiData | undefined>
-    onDataLoaded: (questionData: QuestionApiData) => void
     processData: (formData: QuestionApiData) => Promise<string | undefined>
 }
 
@@ -20,13 +19,12 @@ export function BaseQuestionContainer({ fetchQuestionData, onDataLoaded, process
             if (fetchedData) {
                 const formData = toQuestionFormData(fetchedData)
                 setQuestionData(formData)
-                onDataLoaded(fetchedData)
                 setIsLoaded(true)
             }
         }
 
         fetchAndSetQuestion()
-    }, [])
+    }, [fetchQuestionData])
 
     const handleSubmit = async () => {
         setErrorMessage('')
