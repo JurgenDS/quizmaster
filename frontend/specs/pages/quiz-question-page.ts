@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import type { Page, Locator } from '@playwright/test'
 
 export class QuizQuestionPage {
     constructor(private page: Page) {}
@@ -18,4 +18,36 @@ export class QuizQuestionPage {
     next = () => this.nextButtonLocator().click()
     skip = () => this.skipButtonLocator().click()
     evaluate = () => this.evaluateButtonLocator().click()
+
+    // --- Bookmark funkcionalita ---
+
+    /** Text aktuální otázky */
+    questionText = async (): Promise<string> => {
+        return await this.page.locator('[data-testid="question-text"]').textContent() ?? ''
+    }
+
+    /** Klikne na hvězdičku pro přidání/odebrání záložky */
+    toggleBookmark = async (): Promise<void> => {
+        await this.page.locator('[data-testid="bookmark-toggle"]').click()
+    }
+
+    /** Lokátor na samotný bookmark indikátor (např. pro kontrolu .active třídy) */
+    bookmarkIndicator = (): Locator => {
+        return this.page.locator('[data-testid="bookmark-toggle"]')
+    }
+
+    /** Lokátor pro položky v seznamu záložek */
+    bookmarkListItems = (): Locator => {
+        return this.page.locator('[data-testid="bookmark-list"] li')
+    }
+
+    /** Vrací texty všech položek ze seznamu záložek */
+    bookmarkListItemsText = async (): Promise<string[]> => {
+        return await this.bookmarkListItems().allTextContents()
+    }
+
+    /** Vrací počet aktivních bookmark indikátorů (např. `[data-testid^="bookmark-"].active`) */
+    activeBookmarksCount = async (): Promise<number> => {
+        return await this.page.locator('[data-testid^="bookmark-"].active').count()
+    }
 }
