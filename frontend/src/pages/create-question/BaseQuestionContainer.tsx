@@ -7,7 +7,7 @@ interface BaseQuestionContainerProps {
     processData: (formData: QuestionApiData) => Promise<string | undefined>
 }
 
-export function BaseQuestionContainer({ fetchQuestionData, onDataLoaded, processData }: BaseQuestionContainerProps) {
+export function BaseQuestionContainer({ fetchQuestionData, processData }: BaseQuestionContainerProps) {
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')

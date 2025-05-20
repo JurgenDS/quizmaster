@@ -29,7 +29,7 @@ export function EditQuestionContainer() {
     }
 
     const { questionData, setQuestionData, isLoaded, linkToQuestion, errorMessage, handleSubmit } =
-        BaseQuestionContainer({ fetchQuestionData, onDataLoaded, processData })
+        BaseQuestionContainer({ fetchQuestionData, processData })
 
     return (
         <CreateQuestionForm
