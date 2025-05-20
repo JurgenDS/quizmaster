@@ -138,12 +138,12 @@ public class QuizController {
 
     @Transactional
     @PutMapping("/quiz/{id}")
-    public Integer putQuiz(@RequestBody Quiz quiz) {
+    public ResponseEntity<Integer> putQuiz(@RequestBody Quiz quiz) {
 
         quizs.stream().filter(it -> Objects.equals(it.getId(), quiz.getId())).findFirst().ifPresent(it -> {
             it.setAfterEach(quiz.isAfterEach());
         });
-        return ResponseEntity.ok().build().getStatusCodeValue();
+        return ResponseEntity.ok(1);
     }
 
     @Transactional
