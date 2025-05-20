@@ -3,10 +3,7 @@ import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './c
 import { Given, When, Then } from './fixture.ts'
 import { expectQuestion } from './take-question.ts'
 
-Given(
-    /quiz "(\w+)" with (\d+) questions, pass score (\d+)% and (feedback at the end|continuous feedback)/,
-    (quizName: string, questionCount: number, passScore: number, feedbackType: string) => {},
-)
+Given(/quiz "(\w+)" with (\d+) questions, pass score (\d+)% and (feedback at the end|continuous feedback)/, () => {})
 
 Given('I open quiz {string}', async function (quizId: string) {
     await this.quizQuestionPage.goto(quizId)
