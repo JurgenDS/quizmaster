@@ -24,4 +24,6 @@ export class TakeQuestionPage {
     questionExplanationLocator = () => this.page.locator('p.question-explanation')
 
     selectedAnswersLocator = () => this.page.locator('input:checked')
+
+    checkAnswer = (answer: string) => this.answerLocator(answer).isChecked()
 }

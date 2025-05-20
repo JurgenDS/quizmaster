@@ -122,3 +122,7 @@ Then('I should see the countdown timer after delay is less then {string}', async
     await this.page.clock.fastForward('02:00')
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
+
+Then('I see answer {string} with marked radiobutton', async function (answer: string) {
+    expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
+})

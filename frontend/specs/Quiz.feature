@@ -115,3 +115,11 @@ Feature: Take a quiz
     When I answer "Blue"
     Then I should see the evaluate button
 
+  @skip
+  Scenario: Remembered answer after back button
+    Given I start quiz "a"
+    When I answer "Green"
+    Then I see question "France"
+    When I click the back button
+    Then I see answer "Green" with marked radiobutton
+
