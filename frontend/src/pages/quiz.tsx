@@ -25,6 +25,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const isFirstQuestion = currentQuestionIdx === 0
 
     const [quizState, setQuizState] = useState<QuizState>([])
+    const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
     const isAnswered = quizState[currentQuestionIdx] !== undefined
 
     const removeCurrentQuestionFromSkippedQuestions = () => {
@@ -37,6 +38,13 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         const newQuizState = Array.from(quizState)
         newQuizState[currentQuestionIdx] = selectedAnswerIdxs
         setQuizState(newQuizState)
+
+        if (firstQuizState[currentQuestionIdx] === undefined) {
+            const newFirstQuizState = Array.from(firstQuizState)
+            newFirstQuizState[currentQuestionIdx] = selectedAnswerIdxs
+            setFirstQuizState(newFirstQuizState)
+        }
+
         removeCurrentQuestionFromSkippedQuestions()
         props.quiz.questions[currentQuestionIdx].userInput = selectedAnswerIdxs
     }
@@ -65,10 +73,14 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             onNext()
         }
     }
+
     const onEvaluate = () => {
         props.onEvaluate({
             correct: props.quiz.questions.filter((question, idx) =>
                 isAnsweredCorrectly(quizState[idx], question.correctAnswers),
+            ).length,
+            firstCorrect: props.quiz.questions.filter((question, idx) =>
+                isAnsweredCorrectly(firstQuizState[idx], question.correctAnswers),
             ).length,
             total: props.quiz.questions.length,
         })
@@ -123,7 +135,12 @@ export const QuizPage = () => {
 
     if (quiz) {
         return isEvaluated ? (
-            <QuizScore score={quizScore} questions={quiz.questions} passScore={quiz.passScore} />
+            <QuizScore
+                score={quizScore}
+                questions={quiz.questions}
+                passScore={quiz.passScore}
+                showFirstAnwers={quiz.afterEach}
+            />
         ) : (
             <>
                 <Countdown setTimeoutReached={setTimeoutReached} />

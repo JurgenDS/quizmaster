@@ -67,7 +67,6 @@ Scenario: Quiz with passScore 40% and score 50% will pass
   * I click the evaluate button
   Then I see the result 1 correct out of 2, 50%, passed, required passScore 40%
 
-@skip
 Scenario: Quiz with corrected answers will show original and corrected results
   Given I start quiz "c"
   When I answer "Green"
@@ -78,7 +77,6 @@ Scenario: Quiz with corrected answers will show original and corrected results
   Then I see the result 2 correct out of 2, 100%, passed, required passScore 40%
   Then I see the original result 1, 50%
 
-@skip
 Scenario: Quiz without corrections does not show corrected results
   Given I start quiz "a"
   When I answer "Green"
