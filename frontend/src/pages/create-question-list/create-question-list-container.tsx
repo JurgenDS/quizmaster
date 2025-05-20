@@ -1,11 +1,13 @@
 import './create-question-list.scss'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { emptyQuestionListFormData } from './form'
 import { CreateQuestionListForm } from './create-question-list'
 
 export function CreateQuestionListContainer() {
     const [errorMessage, setErrorMessage] = useState<string>('')
+    const navigate = useNavigate()
 
     const [questionListData, setQuestionListData] = useState(emptyQuestionListFormData())
 
@@ -16,6 +18,8 @@ export function CreateQuestionListContainer() {
             setErrorMessage('Title must be filled')
             return
         }
+
+        navigate('/q-list/123456')
     }
 
     return (

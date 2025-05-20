@@ -1,21 +1,10 @@
-import { expect } from '@playwright/test'
-import { expectTextToBe } from './common.ts'
-import { Given, Then } from './fixture.ts'
+import { expectedNumberOfChildrenToBe, expectTextToBe } from './common.ts'
+import { Then } from './fixture.ts'
 
-Given('I visit the questionlist for {string} page', async function (hash: string) {
-    await this.page.goto(`/question-list/${hash}`)
+Then('I see the empty question list', async function () {
+    await expectedNumberOfChildrenToBe(this.page.getByTestId('question-holder'), 0)
 })
 
-Then('I should see a questionlist displayed', async function () {
-    await expectTextToBe(this.page.locator('h2'), 'Question list')
-})
-
-Then('I see a link to the question {string}', async function (questionNumber: string) {
-    const questionLink = await this.page.locator(`a[href="/question/${questionNumber}?source=questionList"]`)
-    await expect(questionLink).toHaveCount(1)
-})
-
-Then('I do not see a link to the question {string}', async function (questionNumber: string) {
-    const questionLink = await this.page.locator(`a[href="/question/${questionNumber}?source=questionList"]`)
-    await expect(questionLink).toHaveCount(0)
+Then('I see question list title {string}', async function (title: string) {
+    await expectTextToBe(this.page.getByTestId('question-list-title'), title)
 })

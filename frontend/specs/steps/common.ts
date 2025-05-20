@@ -12,3 +12,6 @@ export const expectInputToBe = async (locator: Locator, text: string) => expect(
 export const expectThatIsVisible = async (locator: Locator) => expect(locator).toBeVisible()
 
 export const expectThatIsNotVisible = async (locator: Locator) => expect(locator).toBeHidden()
+
+export const expectedNumberOfChildrenToBe = async (locator: Locator, count: number) =>
+    expect(await locator.count()).toBe(count)
