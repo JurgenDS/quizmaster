@@ -2,15 +2,19 @@ package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import cz.scrumdojo.quizmaster.model.ErrorResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -138,12 +142,20 @@ public class QuizController {
 
     @Transactional
     @PutMapping("/quiz/{id}")
-    public ResponseEntity<Integer> putQuiz(@RequestBody Quiz quiz) {
+    public ResponseEntity<Object> putQuiz(@RequestBody QuizResponse quiz, @PathVariable String id) {
+        try {
+            quizs.stream().filter(it -> Objects.equals(it.getId(), quiz.getId())).
+            findFirst().ifPresent(it -> {
+                throw new RuntimeException("Quiz with this ID already exists");
+            });
+            quizs.add(quiz);
+            return ResponseEntity.ok(quiz.getId());
+        } catch (RuntimeException e) {
+            return ResponseEntity.
+                        badRequest().
+                            body(new ErrorResponse("Quiz with id " + quiz.getId() + " already exists", 1, UUID.randomUUID().toString()));
+        }
 
-        quizs.stream().filter(it -> Objects.equals(it.getId(), quiz.getId())).findFirst().ifPresent(it -> {
-            it.setAfterEach(quiz.isAfterEach());
-        });
-        return ResponseEntity.ok(1);
     }
 
     @Transactional

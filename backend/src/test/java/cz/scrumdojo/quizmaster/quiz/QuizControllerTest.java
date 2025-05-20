@@ -9,12 +9,13 @@ import org.springframework.http.ResponseEntity;
 import cz.scrumdojo.quizmaster.quiz.Quiz;
 import cz.scrumdojo.quizmaster.quiz.QuizResponse;
 import cz.scrumdojo.quizmaster.quiz.QuizController;
-//import cz.scrumdojo.quizmaster.quiz.QuizRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.beans.Transient;
 import java.util.Base64;
+import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @SpringBootTest
@@ -22,11 +23,6 @@ public class QuizControllerTest {
 
     @Autowired
     private QuizController quizController;
-
-  // @Autowired
-  //  private QuizRepository quizRepository;
-
-    private static final Logger logger = Logger.getLogger(QuizControllerTest.class.getName());
 
 
     @Test
@@ -39,25 +35,59 @@ public class QuizControllerTest {
         assertNotNull(result);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertEquals("d", result.getId());
-        logger.info("Quiz D" + result);
+        System.err.println("Result: " + result);
     }
 
     @Test
     public void putQuiz() {
 
-        Quiz quiz = Quiz.builder()
-            .id("d")
+        QuizResponse quiz = QuizResponse.builder()
+            .id("10")
             .afterEach(false)
             .build();
 
-        ResponseEntity<Integer> resp = quizController.putQuiz(quiz);
+        ResponseEntity<Object> resp = quizController.putQuiz(quiz,"10");
         var result = resp.getBody();
 
         assertNotNull(result);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        System.out.println("Result: " + result);
+
+        // assertEquals("10", result, "Problem checking saved Id! value=" + result);
+
         //assertEquals(HttpStatus.OK, resp.getStatusCode());
         //assertEquals("d", result.getId());
         //logger.info("Quiz D" + result);
     }
+
+    @Test
+    public void putQuizGetQuizNoProblem() {
+
+        String testId = UUID.randomUUID().toString();
+
+        QuizResponse quiz = QuizResponse.builder()
+            .id(testId)
+            .afterEach(false)
+            .build();
+
+        ResponseEntity<Object> resp = quizController.putQuiz(quiz,testId);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        var result = resp.getBody();
+        assertNotNull(result, "Result is null");
+
+
+        ResponseEntity<QuizResponse> resp2 = quizController.getQuiz(testId);
+        var result2 = resp2.getBody();
+        assertNotNull(result2);
+        assertEquals(HttpStatus.OK, resp2.getStatusCode());
+        assertEquals(testId, result2.getId());
+
+
+        //assertEquals(HttpStatus.OK, resp.getStatusCode());
+        //assertEquals("d", result.getId());
+        //logger.info("Quiz D" + result);
+    }
+
 
     /* private static QuizQuestion createSingleChoiceQuestion() {
         return QuizQuestion.builder()
