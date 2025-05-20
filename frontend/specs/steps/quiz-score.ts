@@ -31,6 +31,17 @@ Then(
     },
 )
 
+Then(
+    /^I see the original result (\d+), (\d+)%/,
+    async function (expectedOriginalCorrectAnswers: number, expectedOriginalPercentage: number) {
+        const firstCorrectAnswers = await this.quizScorePage.firstCorrectAnswers()
+        expect(firstCorrectAnswers).toBe(expectedOriginalCorrectAnswers)
+
+        const result = await this.quizScorePage.firstPercentageResult()
+        expect(result).toBe(expectedOriginalPercentage)
+    },
+)
+
 Then('I see the question {string}', async function (question: string) {
     const questions: string[] = await this.quizScorePage.questions()
     expect(questions).toContain(question)
