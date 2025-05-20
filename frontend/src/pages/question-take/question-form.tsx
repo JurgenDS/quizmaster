@@ -40,6 +40,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                         explanation={props.question.explanations ? props.question.explanations[idx] : 'not defined'}
                         showFeedback={state.submitted && feedback.showFeedback(idx) && props.afterEach}
                         onAnswerChange={state.onSelectedAnswerChange}
+                        isAnswerChecked={state.isAnswerChecked}
                     />
                 ))}
             </ul>

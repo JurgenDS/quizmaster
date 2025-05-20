@@ -38,6 +38,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         newQuizState[currentQuestionIdx] = selectedAnswerIdxs
         setQuizState(newQuizState)
         removeCurrentQuestionFromSkippedQuestions()
+        props.quiz.questions[currentQuestionIdx].userInput = selectedAnswerIdxs
     }
 
     const onNext = () => {

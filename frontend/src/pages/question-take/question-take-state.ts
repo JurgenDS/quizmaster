@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { AnswerIdxs } from 'model/quiz-question'
 import type { QuestionFormProps } from './question-form'
 
@@ -8,6 +8,7 @@ export interface QuestionTakeState {
     readonly submitted: boolean
     readonly submit: () => void
     readonly onSelectedAnswerChange: (idx: number, selected: boolean) => void
+    readonly isAnswerChecked: (idx: number) => boolean
 }
 
 export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeState => {
@@ -22,6 +23,10 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
 
     const [submitted, setSubmitted] = useState(false)
 
+    useEffect(() => {
+        if(props.question.userInput && props.question.userInput.length > 0) setSelectedAnswerIdxs(props.question.userInput)
+    }, [props.question.userInput])
+
     const submit = () => setSubmitted(true)
 
     const onSelectedAnswerChange = (idx: number, selected: boolean) => {
@@ -31,11 +36,16 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
         else removeSelectedAnswerIdx(idx)
     }
 
+    const isAnswerChecked = (idx: number) => {
+        return selectedAnswerIdxs.includes(idx)
+    }
+
     return {
         isMultipleChoice,
         selectedAnswerIdxs,
         submitted,
         submit,
         onSelectedAnswerChange,
+        isAnswerChecked
     }
 }

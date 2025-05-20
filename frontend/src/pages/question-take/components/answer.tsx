@@ -11,6 +11,7 @@ export type AnswerProps = {
     readonly isUserSelected: boolean
     readonly showFeedback: boolean
     readonly onAnswerChange: (idx: number, selected: boolean) => void
+    readonly isAnswerChecked: (idx: number) => boolean
 }
 
 export const Answer = (props: AnswerProps) => {
@@ -22,13 +23,15 @@ export const Answer = (props: AnswerProps) => {
         props.onAnswerChange(props.idx, event.target.checked)
     }
 
+    const isChecked = props.isAnswerChecked(props.idx)
+
     return (
         <li
             data-testid={`answer-row-${props.answer}`}
             key={props.idx}
             style={{ position: 'relative', height: props.showFeedback ? '90px' : '45px', width: '100%' }}
         >
-            <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} />
+            <input type={checkType} name={checkName} id={answerId} value={props.answer} onChange={onChange} checked={isChecked}/>
             <label htmlFor={answerId} className="">
                 {props.answer}
             </label>
