@@ -43,11 +43,6 @@ Feature: Create question GUI
     * I try saving the question
     Then I see an error message
 
-  Scenario: Cannot save a question with 0 correct answers
-    When I start creating a question
-    * I try saving the question
-    Then I see an error message
-
   Scenario: By default question is single-choice type
     Given I start creating a question
     Then Multiple choice is unchecked
@@ -56,6 +51,7 @@ Feature: Create question GUI
     Given I start creating a question
     When I try saving the question
     Then I see empty question
+    * I see an error message
 
   Scenario: Cannot save an empty answer
     Given I start creating a question
