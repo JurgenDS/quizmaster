@@ -13,7 +13,7 @@ Feature: Quiz progress bar
   Scenario: Feedback at the end
     - Progress bar shows the current page of the quiz
 
-    When I start quiz "D"
+    When I start quiz "d"
     Then progress shows 1 of 3
 
     When I answer "Mars"
@@ -26,7 +26,7 @@ Feature: Quiz progress bar
   Scenario: Continuous feedback
     - Progress bar updates after navigating to the next question
 
-    When I start quiz "E"
+    When I start quiz "e"
     Then progress shows 1 of 3
 
     When I answer "Mars"
