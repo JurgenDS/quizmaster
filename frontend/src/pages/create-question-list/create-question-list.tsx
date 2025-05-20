@@ -10,16 +10,15 @@ type Props = {
     errorMessage: string
 }
 
-export function CreateQuestionListForm({
-    errorMessage,
-    handleSubmit,
-    questionListData,
-    setQuestionListData,
-}: Props) {
+export function CreateQuestionListForm({ errorMessage, handleSubmit, questionListData, setQuestionListData }: Props) {
     return (
         <div className="question-list-page">
             <h1>Create Question List</h1>
-            <QuestionListEditForm questionListData={questionListData} setQuestionListData={setQuestionListData} onSubmit={handleSubmit} />
+            <QuestionListEditForm
+                questionListData={questionListData}
+                setQuestionListData={setQuestionListData}
+                onSubmit={handleSubmit}
+            />
             <ErrorMessage errorMessage={errorMessage} />
         </div>
     )

@@ -3,5 +3,5 @@ export interface QuestionListFormData {
 }
 
 export const emptyQuestionListFormData = (): QuestionListFormData => ({
-    title: ''
+    title: '',
 })

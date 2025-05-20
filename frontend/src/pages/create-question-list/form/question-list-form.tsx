@@ -1,9 +1,6 @@
 import { SubmitButton } from 'pages/components/submit-button.tsx'
 import { preventDefault } from 'helpers.ts'
-import {
-    type QuestionListFormData,
-    TitleEdit
-} from 'pages/create-question-list/form'
+import { type QuestionListFormData, TitleEdit } from 'pages/create-question-list/form'
 
 interface QuestionListEditProps {
     readonly questionListData: QuestionListFormData
@@ -11,7 +8,7 @@ interface QuestionListEditProps {
     readonly onSubmit: () => void
 }
 
-export const QuestionListEditForm = ({questionListData, setQuestionListData, onSubmit }: QuestionListEditProps) => {
+export const QuestionListEditForm = ({ questionListData, setQuestionListData, onSubmit }: QuestionListEditProps) => {
     const setTitle = (title: string) => setQuestionListData({ ...questionListData, title })
     return (
         <form id="question-list-create-form" onSubmit={preventDefault(onSubmit)}>
