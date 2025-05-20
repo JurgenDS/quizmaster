@@ -123,6 +123,6 @@ Then('I should see the countdown timer after delay is less then {string}', async
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
 
-Then('I see answer {string} with marked radiobutton', async function (answer: string) {
+Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
 })

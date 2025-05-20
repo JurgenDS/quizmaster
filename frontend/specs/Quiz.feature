@@ -120,6 +120,20 @@ Feature: Take a quiz
     When I answer "Green"
     Then I see question "France"
     When I click the back button
-    Then I see answer "Green" with marked radiobutton
+    Then I see answer "Green" checked
 
 
+Scenario: Remembered multiple choices after back button
+  Given questions
+    | Bookmark | Question                            | Answers                                            |
+    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+
+  And I start quiz "k"
+  Then I see question "Nose"
+  When I answer "Elephant, Anteater"
+
+  Then I see question "France"
+  When I click the back button
+  Then I see answer "Elephant" checked
+  Then I see answer "Anteater" checked

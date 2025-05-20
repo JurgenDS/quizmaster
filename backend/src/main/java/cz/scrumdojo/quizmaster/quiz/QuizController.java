@@ -21,6 +21,7 @@ public class QuizController {
     private static QuizResponse quiz1 = new QuizResponse();
     private static QuizResponse quiz2 = new QuizResponse();
     private static QuizResponse quiz3 = new QuizResponse();
+    private static QuizResponse quiz4 = new QuizResponse();
     private static List<QuizResponse> quizs = new ArrayList<>();
 
     @Autowired
@@ -52,8 +53,17 @@ public class QuizController {
         question2.setQuestionExplanation("");
         question2.setCorrectAnswers(new int[]{2});
 
+        QuizQuestion question3 = new QuizQuestion();
+        question3.setId(3);
+        question3.setQuestion("Which animal has long nose?");
+        question3.setAnswers(new String[]{"Elephant", "Anteater", "Swordfish", "Bulldog"});
+        question3.setExplanations(new String[]{});
+        question3.setQuestionExplanation("");
+        question3.setCorrectAnswers(new int[]{0,1,2});
+
         var quizQuestion = quizQuestionRepository.save(question);
         var quizQuestion2 = quizQuestionRepository.save(question2);
+        var quizQuestion3 = quizQuestionRepository.save(question3);
 
         quiz1.setId("a");
         quiz1.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
@@ -65,9 +75,15 @@ public class QuizController {
         quiz3.setAfterEach(true);
         quiz3.setPassScore(40);
 
+        quiz4.setId("k");
+        quiz4.setQuestions(new QuizQuestion[]{quizQuestion3, quizQuestion2});
+        quiz4.setAfterEach(false);
+        quiz4.setPassScore(40);
+
         quizs.add(quiz1);
         quizs.add(quiz2);
         quizs.add(quiz3);
+        quizs.add(quiz4);
 
         var planet = quizQuestionRepository.save(
             QuizQuestion.builder()
