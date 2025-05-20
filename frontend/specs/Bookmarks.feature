@@ -23,9 +23,8 @@ Feature: Bookmark questions during a quiz
   # And a quiz "D" with questions "Planet", "Australia", "Fruit" with "feedback at the end"
   # And a quiz "E" with questions "Planet", "Australia", "Fruit" with "continuous feedback"
 
-  Scenario: Feedback at the end
-    - Quiz with feedback at the end does not show feedback until the quiz is finished
-    - Submitting an answer proceeds directly to the next question
+  Scenario: Mark bookmark and return to bookmark
+    - Testuju bookmarky v rámci jednoho kvízu, po zabookmarkovani otayky se vratim klikem na bookmark na otazku, kterou jsem si bookmarokoval
 
     When I start quiz "d"
     Then I see question "Planet"
