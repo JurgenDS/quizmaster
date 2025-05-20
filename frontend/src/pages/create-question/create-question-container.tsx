@@ -16,10 +16,6 @@ export function CreateQuestionContainer() {
         return undefined
     }
 
-    const onDataLoaded = () => {
-        // no-op
-    }
-
     const processData = async (formData: QuestionApiData) => {
         return saveQuestion(formData)
             .then(response => {
@@ -29,7 +25,7 @@ export function CreateQuestionContainer() {
     }
 
     const { questionData, setQuestionData, isLoaded, linkToQuestion, errorMessage, handleSubmit } =
-        BaseQuestionContainer({ fetchQuestionData, onDataLoaded, processData })
+        BaseQuestionContainer({ fetchQuestionData, processData })
 
     const linkToEditQuestion = `${location.origin}/question/:hash/edit`
 
