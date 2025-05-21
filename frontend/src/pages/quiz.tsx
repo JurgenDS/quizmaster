@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useEffect, useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton, BackButton, SkipButton } from './quiz/buttons'
+import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz/buttons'
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
@@ -20,6 +20,7 @@ type QuizState = readonly AnswerIdxs[]
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
     const [skippedQuestions, setSkippedQuestions] = useState<number[]>([])
+    const [isBookmarked, setIsBookmarked] = useState(false)
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
@@ -95,6 +96,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         <div>
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
+            <div className={isBookmarked ? 'bookmarked' : ''} />
             <QuestionForm
                 key={currentQuestion.id}
                 question={currentQuestion}
@@ -109,6 +111,9 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     ) : (
                         <EvaluateButton onClick={onEvaluate} />
                     ))}
+            </div>
+            <div>
+                <BookmarkButton onClick={onBookmark} />
             </div>
             <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
         </div>

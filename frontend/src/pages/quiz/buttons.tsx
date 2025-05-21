@@ -28,3 +28,9 @@ export const StartButton = ({ onClick }: WithOnClick) => (
         Start
     </Button>
 )
+
+export const BookmarkButton = ({ onClick }: WithOnClick) => (
+    <Button id="add-question-to-bookmark" onClick={onClick}>
+        Bookmark
+    </Button>
+)
