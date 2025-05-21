@@ -64,6 +64,10 @@ export class QuizQuestionPage {
         console.log(`Bookmarking question ${title}`)
     }
 
+    deleteBookmark = async (title: string): Promise<void> => {
+        await this.page.locator(`[data-testid="delete-bookmark-${title}"]`).click()
+    }
+
     bookmarkLink = (title: string): Locator => {
         return this.page.locator('[data-testid="bookmark-list"] button', { hasText: title })
     }

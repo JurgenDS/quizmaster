@@ -87,6 +87,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const bookmarks = bookmarkedQuestions.map(idx => ({
         title: props.quiz.questions[idx].question,
         onClick: () => handleBookmarkClick(idx),
+        onDelete: () => setBookmarkedQuestions(prev => prev.filter(i => i !== idx)),
     }))
 
     const onEvaluate = () => {
