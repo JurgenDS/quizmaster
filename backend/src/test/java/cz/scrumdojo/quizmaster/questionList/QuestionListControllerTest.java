@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import cz.scrumdojo.quizmaster.questionList.QuestionListController;
 import cz.scrumdojo.quizmaster.questionList.QuestionListRepository;
+import cz.scrumdojo.quizmaster.questionList.QuestionListCreateResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,10 +35,10 @@ public class QuestionListControllerTest {
 
     @Test
     public void saveQuestionList() {
-        var guid = questionListController.saveQuestionList(new QuestionList(null, title));
-        assertNotNull(guid);
+        QuestionListCreateResponse response = questionListController.saveQuestionList(new QuestionList(null, title));
+        assertNotNull(response);
 
-        var createdQuestionList = questionListRepository.findById(guid);
+        var createdQuestionList = questionListRepository.findById(response.getGuid());
         assertNotNull(createdQuestionList);
         QuestionList ql = createdQuestionList.get();
         assertNotNull(ql);
