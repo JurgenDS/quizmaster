@@ -117,7 +117,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
-
             <div
                 className={bookmarkedQuestions.includes(currentQuestionIdx) ? 'bookmarked' : ''}
                 data-testid="bookmark-toggle"
