@@ -39,7 +39,7 @@ export class QuizmasterWorld {
     quizId = ''
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
-    questionListWipGuid: string = ''
+    questionListWipGuid = ''
     nextAnswerIdx = 0
     bookmarks: Record<string, Question> = {}
     activeBookmark = ''

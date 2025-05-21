@@ -13,11 +13,5 @@ export type QuestionApiData = Omit<QuizQuestion, 'id'>
 export const saveQuestion = async (question: QuestionApiData) =>
     await postJson<QuestionApiData, QuestionCreateResponse>('/api/quiz-question', question)
 
-export const saveQuestionToList = async (question: QuestionApiData) =>
-    await postJson<QuestionApiData, QuestionCreateResponse>(
-        `/api/quiz-question/by-question-list/${question.questionListGuid}`,
-        question,
-    )
-
 export const updateQuestion = async (question: QuestionApiData, hash: string) =>
     await patchJson<QuestionApiData, number>(`/api/quiz-question/${hash}`, question)

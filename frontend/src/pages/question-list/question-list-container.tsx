@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { QuestionList } from './question-list'
 import { getQuestionList, getListQuestions } from 'api/question-list'
-import { QuestionListData } from '.'
+import type { QuestionListData } from '.'
 
 export function QuestionListContainer() {
     const params = useParams()

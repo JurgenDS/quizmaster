@@ -31,25 +31,12 @@ export function CreateQuestionContainer() {
     }, [questionId])
 
     const postData = async (formData: QuestionApiData) => {
-        var response
-
-        if (formData.questionListGuid) {
-            response = await saveQuestion(formData)
-                .then(response => {
-                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
-                })
-                .catch(error => setLinkToQuestion(error.message))
-        } else {
-            response = await saveQuestion(formData)
-                .then(response => {
-                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
-                })
-                .catch(error => setLinkToQuestion(error.message))
-        }
-
-        return response
+        await saveQuestion(formData)
+            .then(response => {
+                setLinkToQuestion(`${location.origin}/question/${response.id}`)
+                setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
+            })
+            .catch(error => setLinkToQuestion(error.message))
     }
 
     const handleSubmit = () => {
@@ -88,13 +75,13 @@ export function CreateQuestionContainer() {
             return
         }
 
-        if (apiData.questionListGuid === '') {
+        if (questionListGuid !== '') {
             apiData.questionListGuid = questionListGuid
         }
 
         postData(apiData)
 
-        if (questionListGuid != null) navigate(`/q-list/${questionListGuid}`)
+        if (questionListGuid !== '') navigate(`/q-list/${questionListGuid}`)
     }
 
     return (

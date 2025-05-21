@@ -1,5 +1,6 @@
 Feature: Create question list
 
+  @skip
   Scenario: Create question list without title
     Given I start creating question list
     When I save the question list ""

@@ -2,7 +2,7 @@ import type { QuestionListCreateResponse } from 'model/question-list-create-resp
 import type { QuestionListGetResponse } from 'model/question-list-get-response.ts'
 import { postJson, fetchJson } from './helpers.ts'
 import type { QuestionList } from 'model/question-list.ts'
-import { QuizQuestion } from 'model/quiz-question.ts'
+import type { QuizQuestion } from 'model/quiz-question.ts'
 
 export type QuestionListApiData = QuestionList
 

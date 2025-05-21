@@ -14,7 +14,7 @@ export interface QuestionFormData {
     readonly answers: readonly AnswerData[]
     readonly questionExplanation: string
     readonly isMultipleChoice: boolean
-    readonly questionListGuid: string
+    readonly questionListGuid: string | null
 }
 
 export const emptyQuestionFormData = (): QuestionFormData => ({
