@@ -24,8 +24,8 @@ export function QuestionList({ questionListData }: Props) {
         navigate(`/question/new?listguid=${questionListId}`)
     }
 
-    return (
-        questionListData ? <div className="question-list-page">
+    return questionListData ? (
+        <div className="question-list-page">
             <h1 data-testid="question-list-title">{questionListData.title}</h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={() => onCreateNewQuestion()} />
@@ -36,6 +36,5 @@ export function QuestionList({ questionListData }: Props) {
                 ))}
             </div>
         </div>
-        : null
-    )
+    ) : null
 }

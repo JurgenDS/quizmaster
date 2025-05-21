@@ -33,14 +33,14 @@ export function CreateQuestionContainer() {
     const postData = async (formData: QuestionApiData) => {
         var response
 
-        if(formData.questionListGuid){
+        if (formData.questionListGuid) {
             response = await saveQuestion(formData)
                 .then(response => {
                     setLinkToQuestion(`${location.origin}/question/${response.id}`)
                     setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
                 })
                 .catch(error => setLinkToQuestion(error.message))
-        }else{
+        } else {
             response = await saveQuestion(formData)
                 .then(response => {
                     setLinkToQuestion(`${location.origin}/question/${response.id}`)
@@ -88,7 +88,7 @@ export function CreateQuestionContainer() {
             return
         }
 
-        if (apiData.questionListGuid === ''){
+        if (apiData.questionListGuid === '') {
             apiData.questionListGuid = questionListGuid
         }
 

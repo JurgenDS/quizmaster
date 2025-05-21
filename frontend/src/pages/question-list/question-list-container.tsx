@@ -12,20 +12,18 @@ export function QuestionListContainer() {
     const [questionListData, setQuestionListData] = useState<QuestionListData>()
 
     useEffect(() => {
-            const getQList = async () => {
-                if (params.id) {
-                    const listInfo = await getQuestionList(params.id)
-                    const listQuestion = await getListQuestions(params.id)
-                    setQuestionListData ({
-                        title: listInfo.title,
-                        questions: Array.isArray(listQuestion)
-                            ? listQuestion
-                            : [listQuestion]
-                    })
-                }
+        const getQList = async () => {
+            if (params.id) {
+                const listInfo = await getQuestionList(params.id)
+                const listQuestion = await getListQuestions(params.id)
+                setQuestionListData({
+                    title: listInfo.title,
+                    questions: Array.isArray(listQuestion) ? listQuestion : [listQuestion],
+                })
             }
-            getQList()
-        }, [params.id])
+        }
+        getQList()
+    }, [params.id])
 
     return <QuestionList questionListData={questionListData} />
 }
