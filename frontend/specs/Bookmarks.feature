@@ -34,3 +34,17 @@ Feature: Bookmark questions during a quiz
 
     When I delete bookmark "Which planet is known as the Red Planet?"
     Then I don't see bookmark link "Which planet is known as the Red Planet?"
+
+  @only
+  Scenario: Unmark bookmark
+    - Testuju odznačení bookmarku v rámci jednoho kvízu, po odznačení se mi otázka nezobrazí v bookmarku
+
+    When I start quiz "d"
+    Then I see question "Planet"
+
+    When I bookmark question "Planet"
+    Then I see bookmarked question "Planet"
+    Then I see bookmark link "Planet"
+
+    When I bookmark question "Planet"
+    Then I don't see bookmark link "Planet"
