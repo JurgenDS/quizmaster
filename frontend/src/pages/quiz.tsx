@@ -117,8 +117,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
-            {/* Bookmark list visible for tests */}
-            <BookmarkList bookmarks={bookmarks} />
 
             <div
                 className={bookmarkedQuestions.includes(currentQuestionIdx) ? 'bookmarked' : ''}
@@ -129,21 +127,29 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     question={currentQuestion}
                     onSubmitted={props.quiz.afterEach ? onSubmitted : onSubmittedAndNext}
                     afterEach={props.quiz.afterEach}
+                    isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)}
+                    onBookmark={onBookmark}
                 />
             </div>
-            <div>
-                {!isFirstQuestion && <BackButton onClick={onBack} />}
-                {isAnswered &&
-                    (!isLastQuestion || anySkippedQuestions ? (
-                        <NextButton onClick={onNext} />
-                    ) : (
-                        <EvaluateButton onClick={onEvaluate} />
-                    ))}
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}>
+                {(!isFirstQuestion || isAnswered) &&
+                    <>
+                        {!isFirstQuestion && <div><BackButton onClick={onBack} /></div>}
+                        <div>
+                            {isAnswered &&
+                                (!isLastQuestion || anySkippedQuestions ? (
+                                    <NextButton onClick={onNext} />
+                                ) : (
+                                    <EvaluateButton onClick={onEvaluate} />
+                                ))}
+                        </div>
+                    </>
+                }
+                <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
             </div>
-            <div>
-                <BookmarkButton isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)} onClick={onBookmark} />
-            </div>
-            <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
+
+            {/* Bookmark list visible for tests */}
+            <BookmarkList bookmarks={bookmarks} />
         </div>
     )
 }

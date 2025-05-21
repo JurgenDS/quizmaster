@@ -6,11 +6,14 @@ import {
     QuestionCorrectness,
     QuestionExplanation,
 } from 'pages/question-take'
+import { BookmarkButton } from '../quiz/buttons'
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly afterEach: boolean
+    readonly onBookmark?: () => void
+    readonly isBookmarked?: boolean
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
@@ -47,14 +50,19 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 ))}
             </ul>
 
-            {!state.submitted && (
-                <input
-                    type="submit"
-                    value="Submit"
-                    className={isAnswerChecked ? 'submit-btn' : 'submit-btn-disabled'}
-                    disabled={!isAnswerChecked}
-                />
-            )}
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
+                {!state.submitted && (
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className={isAnswerChecked ? 'submit-btn' : 'submit-btn-disabled'}
+                        disabled={!isAnswerChecked}
+                    />
+                )}
+                <div>
+                    <BookmarkButton isBookmarked={props.isBookmarked ?? false} onClick={props.onBookmark ?? (() => {})} />
+                </div>
+            </div>
             {state.submitted && props.afterEach && (
                 <QuestionCorrectness
                     correctAnswers={props.question.answers.filter((_, idx) =>
