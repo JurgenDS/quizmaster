@@ -70,7 +70,6 @@ public class QuizQuestionController {
     public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String hash) {
         var id = getQuestionIdFromHash(hash);
         question.setId(id);
-        System.out.println("Updating question: " + question);
         quizQuestionRepository.save(question);
         return id;
     }

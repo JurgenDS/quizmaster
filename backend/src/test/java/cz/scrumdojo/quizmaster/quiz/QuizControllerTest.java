@@ -27,15 +27,12 @@ public class QuizControllerTest {
 
     @Test
     public void getQuiz() {
-
-
         ResponseEntity<QuizResponse> resp = quizController.getQuiz("d");
         var result = resp.getBody();
 
         assertNotNull(result);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertEquals("d", result.getId());
-        System.err.println("Result: " + result);
     }
 
     @Test
@@ -51,7 +48,6 @@ public class QuizControllerTest {
 
         assertNotNull(result);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
-        System.out.println("Result: " + result);
 
         // assertEquals("10", result, "Problem checking saved Id! value=" + result);
 
