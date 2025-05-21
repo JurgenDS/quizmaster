@@ -1,6 +1,6 @@
 import type { QuestionListCreateResponse } from 'model/question-list-create-response.ts'
 import { postJson } from './helpers.ts'
-import { QuestionList } from 'model/question-list.ts'
+import type { QuestionList } from 'model/question-list.ts'
 
 export type QuestionListApiData = QuestionList
 

@@ -15,21 +15,21 @@ export function CreateQuestionListContainer() {
 
     const handleSubmit = async () => {
         try {
-            setErrorMessage('');
+            setErrorMessage('')
 
             if (questionListData.title.length === 0) {
-                setErrorMessage('Title must be filled');
-                return;
+                setErrorMessage('Title must be filled')
+                return
             }
 
-            const response = await getQuestionList(toQuestionListApiData(questionListData));
+            const response = await getQuestionList(toQuestionListApiData(questionListData))
             if (!response.guid) {
-                throw new Error("GUID is missing");
+                throw new Error('GUID is missing')
             }
             navigate(`/q-list/${response.guid}`)
         } catch (err) {
-            setErrorMessage('Failed to create list');
-            console.error(err);
+            setErrorMessage('Failed to create list')
+            console.error(err)
         }
     }
 

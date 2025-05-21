@@ -1,4 +1,4 @@
-import { QuestionListApiData } from "api/question-list"
+import type { QuestionListApiData } from 'api/question-list'
 
 export interface QuestionListFormData {
     readonly title: string
