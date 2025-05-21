@@ -26,7 +26,7 @@ export const AnswerRow = ({ answer, index, isMultichoiceQuestion, updateAnswerDa
         <input
             id={`answer-explanation-${index}`}
             type="text"
-            placeholder="Explanation for wrong answer"
+            placeholder={answer.isCorrect ? '✅ Correct answer explanation' : '❌ Incorrect answer explanation'}
             value={answer.explanation}
             onChange={e => updateAnswerData(index, { explanation: e.target.value })}
         />

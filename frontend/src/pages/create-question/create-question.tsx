@@ -31,6 +31,8 @@ export function CreateQuestionForm({
             <QuestionLink url={linkToQuestion} />
             <QuestionEditLink editUrl={linkToEditQuestion} />
             <LoadedIndicator isLoaded={isLoaded} />
+            <br />
+            <p style={{ textAlign: 'right', fontSize: '11px' }}>Powered by MFČR</p>
         </div>
     )
 }
