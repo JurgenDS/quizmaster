@@ -10,6 +10,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +33,12 @@ public class QuizQuestionController {
     @GetMapping("/quiz-question/{id}")
     public ResponseEntity<QuizQuestion> getQuestion(@PathVariable Integer id) {
         return response(findQuestion(id));
+    }
+
+    @Transactional
+    @GetMapping("/quiz-question/by-question-list/{guid}")
+    public List<QuizQuestion> getQuestionsByQuestionList(@PathVariable String guid) {
+        return quizQuestionRepository.findByQuestionListGuid(guid);
     }
 
     @Transactional

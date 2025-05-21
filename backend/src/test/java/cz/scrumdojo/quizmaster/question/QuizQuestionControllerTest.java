@@ -58,6 +58,18 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
+    public void getQuestionsByQuestionList() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+
+        var result = quizQuestionController.getQuestionsByQuestionList(question.getQuestionListGuid());
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(question.getId(), result.get(0).getId());
+    }
+
+    @Test
     public void updateQuestion() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
