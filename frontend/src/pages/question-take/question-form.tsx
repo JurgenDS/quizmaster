@@ -6,7 +6,6 @@ import {
     QuestionCorrectness,
     QuestionExplanation,
 } from 'pages/question-take'
-import { BookmarkButton } from '../quiz/buttons'
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
