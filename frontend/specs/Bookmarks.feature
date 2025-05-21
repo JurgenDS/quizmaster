@@ -1,4 +1,3 @@
-@only
 Feature: Bookmark questions during a quiz
 
   Background:
