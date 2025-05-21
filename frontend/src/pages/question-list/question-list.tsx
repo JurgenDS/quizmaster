@@ -5,7 +5,7 @@ import type { QuestionListData } from '.'
 import { QuestionItem } from './question-item'
 
 type Props = {
-    questionListData: QuestionListData
+    questionListData?: QuestionListData
 }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
@@ -25,7 +25,7 @@ export function QuestionList({ questionListData }: Props) {
     }
 
     return (
-        <div className="question-list-page">
+        questionListData ? <div className="question-list-page">
             <h1 data-testid="question-list-title">{questionListData.title}</h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={() => onCreateNewQuestion()} />
@@ -36,5 +36,6 @@ export function QuestionList({ questionListData }: Props) {
                 ))}
             </div>
         </div>
+        : null
     )
 }

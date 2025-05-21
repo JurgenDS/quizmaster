@@ -10,7 +10,7 @@ export function CreateQuestionContainer() {
     const params = useParams()
     const questionId = params.id ? Number.parseInt(params.id) : undefined
     const [searchParams] = useSearchParams()
-    const questionListId = searchParams.get('listguid') ? searchParams.get('listguid') : undefined
+    const questionListGuid = searchParams.get('listguid') ? searchParams.get('listguid') : ''
     const navigate = useNavigate()
 
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
@@ -31,12 +31,25 @@ export function CreateQuestionContainer() {
     }, [questionId])
 
     const postData = async (formData: QuestionApiData) => {
-        return saveQuestion(formData)
-            .then(response => {
-                setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
-            })
-            .catch(error => setLinkToQuestion(error.message))
+        var response
+
+        if(formData.questionListGuid){
+            response = await saveQuestion(formData)
+                .then(response => {
+                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
+                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
+                })
+                .catch(error => setLinkToQuestion(error.message))
+        }else{
+            response = await saveQuestion(formData)
+                .then(response => {
+                    setLinkToQuestion(`${location.origin}/question/${response.id}`)
+                    setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
+                })
+                .catch(error => setLinkToQuestion(error.message))
+        }
+
+        return response
     }
 
     const handleSubmit = () => {
@@ -75,9 +88,13 @@ export function CreateQuestionContainer() {
             return
         }
 
+        if (apiData.questionListGuid === ''){
+            apiData.questionListGuid = questionListGuid
+        }
+
         postData(apiData)
 
-        if (questionListId != null) navigate(`/q-list/${questionListId}`)
+        if (questionListGuid != null) navigate(`/q-list/${questionListGuid}`)
     }
 
     return (

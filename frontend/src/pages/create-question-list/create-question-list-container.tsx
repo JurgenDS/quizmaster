@@ -2,7 +2,7 @@ import './create-question-list.scss'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { getQuestionList } from 'api/question-list.ts'
+import { postQuestionList } from 'api/question-list.ts'
 
 import { emptyQuestionListFormData, toQuestionListApiData } from './form'
 import { CreateQuestionListForm } from './create-question-list'
@@ -22,7 +22,7 @@ export function CreateQuestionListContainer() {
                 return
             }
 
-            const response = await getQuestionList(toQuestionListApiData(questionListData))
+            const response = await postQuestionList(toQuestionListApiData(questionListData))
             if (!response.guid) {
                 throw new Error('GUID is missing')
             }

@@ -1,28 +1,32 @@
 import './question-list.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { emptyQuestionListData } from '.'
-import { questionListAData } from '.'
-import { questionListBData } from '.'
-import { questionListCData } from '.'
 import { QuestionList } from './question-list'
+import { getQuestionList, getListQuestions } from 'api/question-list'
+import { QuestionListData } from '.'
 
 export function QuestionListContainer() {
     const params = useParams()
 
-    const [questionListData] = (() => {
-        switch (params.id) {
-            case 'a':
-                return useState(questionListAData())
-            case 'b':
-                return useState(questionListBData())
-            case 'c':
-                return useState(questionListCData())
-            default:
-                return useState(emptyQuestionListData())
-        }
-    })()
+    const [questionListData, setQuestionListData] = useState<QuestionListData>()
+
+    useEffect(() => {
+            const getQList = async () => {
+                if (params.id) {
+                    const listInfo = await getQuestionList(params.id)
+                    const listQuestion = await getListQuestions(params.id)
+                    setQuestionListData ({
+                        title: listInfo.title,
+                        questions: Array.isArray(listQuestion)
+                            ? listQuestion
+                            : [listQuestion]
+                    })
+                }
+            }
+            getQList()
+        }, [params.id])
 
     return <QuestionList questionListData={questionListData} />
 }

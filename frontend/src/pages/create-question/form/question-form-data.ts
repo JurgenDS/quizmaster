@@ -14,6 +14,7 @@ export interface QuestionFormData {
     readonly answers: readonly AnswerData[]
     readonly questionExplanation: string
     readonly isMultipleChoice: boolean
+    readonly questionListGuid: string
 }
 
 export const emptyQuestionFormData = (): QuestionFormData => ({
@@ -21,6 +22,7 @@ export const emptyQuestionFormData = (): QuestionFormData => ({
     answers: [emptyAnswerData(), emptyAnswerData()],
     questionExplanation: '',
     isMultipleChoice: false,
+    questionListGuid: '',
 })
 
 export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormData => {
@@ -35,6 +37,7 @@ export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormD
         answers: answerData,
         questionExplanation: questionData.questionExplanation,
         isMultipleChoice: questionData.correctAnswers.length > 1,
+        questionListGuid: questionData.questionListGuid,
     }
 }
 
@@ -48,6 +51,7 @@ export const toQuestionApiData = (questionData: QuestionFormData): QuestionApiDa
 
     return {
         question: questionData.question,
+        questionListGuid: questionData.questionListGuid,
         answers,
         correctAnswers,
         explanations,

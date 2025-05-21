@@ -7,6 +7,7 @@ export interface QuizQuestion {
     readonly explanations: string[]
     readonly questionExplanation: string
     readonly correctAnswers: AnswerIdxs
+    questionListGuid: any
     userInput?: AnswerIdxs
 }
 
