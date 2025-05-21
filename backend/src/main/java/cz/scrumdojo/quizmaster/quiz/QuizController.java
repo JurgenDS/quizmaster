@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import cz.scrumdojo.quizmaster.model.ErrorResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.HashMap;
@@ -175,16 +171,9 @@ public class QuizController {
 
     }
 
-    // @Transactional
-    // @PostMapping("/quiz/")
-    // public Integer postQuiz(@RequestBody Quiz quiz) {
-    //     log.info("POST /quiz/ param:{}",quiz);
-    //     return null;
+    // private <T> ResponseEntity<T> response(Optional<T> entity) {
+    //     return entity
+    //         .map(ResponseEntity::ok)
+    //         .orElse(ResponseEntity.notFound().build());
     // }
-
-    private <T> ResponseEntity<T> response(Optional<T> entity) {
-        return entity
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
-    }
 }
