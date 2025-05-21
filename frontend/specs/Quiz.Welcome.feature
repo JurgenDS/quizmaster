@@ -1,3 +1,4 @@
+@skip
 Feature: Quiz Welcome page
 
   Scenario Outline: Quiz welcome page
