@@ -55,7 +55,7 @@ export class QuizQuestionPage {
 
     /** Klikne na záložku s daným názvem v seznamu záložek */
     clickBookmark = async (title: string): Promise<void> => {
-        await this.page.locator('[data-testid="bookmark-list"] li > button', { hasText: title }).click()
+        await this.page.locator('[data-testid="bookmark-list"] button', { hasText: title }).click()
     }
 
     /** Klikne na záložku s daným názvem v seznamu záložek */
@@ -65,6 +65,6 @@ export class QuizQuestionPage {
     }
 
     bookmarkLink = (title: string): Locator => {
-        return this.page.locator('[data-testid="bookmark-list"] li > button', { hasText: title })
+        return this.page.locator('[data-testid="bookmark-list"] button', { hasText: title })
     }
 }
