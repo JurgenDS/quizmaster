@@ -72,10 +72,11 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 </span>
             )}
             <div style={{ marginRight: '15px' }}>
-                {isWrongAnswer || wasNotAnswerd ? (
-                    <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon" />
-                ) : (
+                {isCorrectAnswer && (
                     <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon" />
+                )}
+                {(isWrongAnswer || wasNotAnswerd) && (
+                    <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon" />
                 )}
             </div>
         </span>

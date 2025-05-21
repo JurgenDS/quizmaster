@@ -7,14 +7,12 @@ import type { TakeQuestionPage } from '../pages/take-question-page.ts'
 
 enum Color {
     GREEN = 'GREEN',
-    ORANGE = 'ORANGE',
     RED = 'RED',
     NONE = 'NONE',
 }
 
 const colorCssValue: { [key in Color]: string } = {
     [Color.GREEN]: 'rgb(178, 223, 178)',
-    [Color.ORANGE]: '2px solid rgb(242, 169, 30)',
     [Color.RED]: 'rgb(244, 182, 184)',
     [Color.NONE]: 'rgba(0, 0, 0, 0)',
 }
@@ -107,22 +105,19 @@ Then('I see individual color feedback per answer:', async function (dataTable: D
     for (const row of rows) {
         const { answer, color } = row
         const answerRow = this.page.getByTestId(`answer-row-${answer}-color`)
-        const answerRowResult = this.page.getByTestId(`answer-row-${answer}-result`)
         const answerRowResultIconSuccess = this.page.getByTestId(`answer-row-${answer}-icon-success`)
-        const answerRowResultTextFailure = this.page.getByTestId(`answer-row-${answer}-icon-failure`)
-        if (color === 'ORANGE') {
-            await expect(answerRow).toHaveCSS('border', getColor(color))
-            await expect(answerRowResult).toBeVisible()
+        const answerRowResultIconFailure = this.page.getByTestId(`answer-row-${answer}-icon-failure`)
+        await expect(answerRow).toHaveCSS('background-color', getColor(color))
+        if (color === Color.NONE) {
             await expect(answerRowResultIconSuccess).not.toBeVisible()
-            await expect(answerRowResultTextFailure).not.toBeVisible()
+            await expect(answerRowResultIconFailure).not.toBeVisible()
         } else {
-            await expect(answerRow).toHaveCSS('background-color', getColor(color))
-            if (color === 'GREEN') {
+            if (color === Color.GREEN) {
                 await expect(answerRowResultIconSuccess).toBeVisible()
-                await expect(answerRowResultTextFailure).not.toBeVisible()
+                await expect(answerRowResultIconFailure).not.toBeVisible()
             }
-            if (color === 'RED') {
-                await expect(answerRowResultTextFailure).toBeVisible()
+            if (color === Color.RED) {
+                await expect(answerRowResultIconFailure).toBeVisible()
                 await expect(answerRowResultIconSuccess).not.toBeVisible()
             }
         }
