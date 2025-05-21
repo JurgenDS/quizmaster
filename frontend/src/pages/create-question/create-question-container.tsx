@@ -1,6 +1,6 @@
 import './create-question.scss'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { type QuestionApiData, saveQuestion, getQuestion } from 'api/quiz-question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
@@ -9,6 +9,9 @@ import { CreateQuestionForm } from './create-question'
 export function CreateQuestionContainer() {
     const params = useParams()
     const questionId = params.id ? Number.parseInt(params.id) : undefined
+    const [searchParams] = useSearchParams()
+    const questionListId = searchParams.get('listguid') ? searchParams.get('listguid') : undefined
+    const navigate = useNavigate()
 
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -73,6 +76,9 @@ export function CreateQuestionContainer() {
         }
 
         postData(apiData)
+
+        if(questionListId != null)
+            navigate(`/q-list/${questionListId}`)
     }
 
     return (

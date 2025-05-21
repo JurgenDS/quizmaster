@@ -8,6 +8,7 @@ import {
     QuizScorePage,
     CreateQuizPage,
     QuizWelcomePage,
+    QuestionListPage,
 } from '../../pages'
 import type { Question } from './question'
 
@@ -23,6 +24,7 @@ export class QuizmasterWorld {
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
         this.createQuizPage = new CreateQuizPage(this.page)
+        this.questionListPage = new QuestionListPage(this.page)
     }
 
     readonly createQuizPage: CreateQuizPage
@@ -32,6 +34,7 @@ export class QuizmasterWorld {
     readonly quizQuestionPage: QuizQuestionPage
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizScorePage: QuizScorePage
+    readonly questionListPage: QuestionListPage
     quizId = ''
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
