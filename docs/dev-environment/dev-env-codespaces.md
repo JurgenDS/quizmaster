@@ -16,6 +16,24 @@
 Congratulations, you're good to go! You can either work from the browser window,
 or open the codespace from your VS Code.
 
+## ⚠️ Troubleshooting
+
+### 403: Permission denied when `git push`
+
+Inside the Codespace, Github automatically signs you in using your Github account. However after some time
+the auth token expires for some reason and you need to login again.
+
+In terminal inside the Codespace, run
+
+```sh
+export GITHUB_TOKEN=
+gh auth login
+```
+
+Follow the instructions on the screen. (Login using HTTPS and browser is probably the easiest.)
+
+If you work from VS Code in browser, it might not be enough and you may need to create a new container.
+
 ## Optional: Setup SSH access
 
 If you want to use IntelliJ IDEA or Cursor, you need to setup SSH access to the codespace.
