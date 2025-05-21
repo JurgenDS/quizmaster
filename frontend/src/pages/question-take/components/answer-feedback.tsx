@@ -42,7 +42,10 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
         if (isWrongAnswer || wasNotAnswerd) {
             return '#5a1518'
         }
-        return '#0f3e0f'
+        if (isCorrectAnswer) {
+            return '#0f3e0f'
+        }
+        return ''
     }
 
     return (

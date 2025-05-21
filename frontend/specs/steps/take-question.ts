@@ -17,8 +17,18 @@ const colorCssValue: { [key in Color]: string } = {
     [Color.NONE]: 'rgba(0, 0, 0, 0)',
 }
 
+const colorExplanationCssValue: { [key in Color]: string } = {
+    [Color.GREEN]: 'rgb(15, 62, 15)',
+    [Color.RED]: 'rgb(90, 21, 24)',
+    [Color.NONE]: 'rgb(0, 0, 0)',
+}
+
 function getColor(color: string): string {
     return colorCssValue[color as Color] || ''
+}
+
+function getExplanationColor(color: string): string {
+    return colorExplanationCssValue[color as Color] || ''
 }
 
 When('I take question {string}', async function (bookmark: string) {
@@ -107,6 +117,7 @@ Then('I see individual color feedback per answer:', async function (dataTable: D
         const answerRow = this.page.getByTestId(`answer-row-${answer}-color`)
         const answerRowResultIconSuccess = this.page.getByTestId(`answer-row-${answer}-icon-success`)
         const answerRowResultIconFailure = this.page.getByTestId(`answer-row-${answer}-icon-failure`)
+        await expect(answerRow).toHaveCSS('color', getExplanationColor(color))
         await expect(answerRow).toHaveCSS('background-color', getColor(color))
         if (color === Color.NONE) {
             await expect(answerRowResultIconSuccess).not.toBeVisible()
