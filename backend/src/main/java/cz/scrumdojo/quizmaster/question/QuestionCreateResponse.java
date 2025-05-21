@@ -1,4 +1,4 @@
-package question;
+package cz.scrumdojo.quizmaster.question;
 
 import lombok.*;
 

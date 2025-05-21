@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.beans.Transient;
 import java.util.Base64;
 import java.util.logging.Logger;
+import java.util.UUID;
 
 @SpringBootTest
 public class QuizQuestionControllerTest {
@@ -27,6 +28,7 @@ public class QuizQuestionControllerTest {
             .answers(new String[] { "Naples", "Rome", "Florence", "Palermo" })
             .explanations(new String[] { "Nope", "Of course!", "You wish", "Sicilia!" })
             .correctAnswers(new int[] { 1 })
+            .questionListGuid(UUID.randomUUID().toString())
             .build();
     }
 
@@ -36,6 +38,7 @@ public class QuizQuestionControllerTest {
             .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
             .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
             .correctAnswers(new int[] { 1, 2 })
+            .questionListGuid(UUID.randomUUID().toString())
             .build();
     }
 
@@ -49,6 +52,9 @@ public class QuizQuestionControllerTest {
         assertNotNull(result);
         assertEquals(question.getQuestion(), result.getQuestion());
         assertArrayEquals(question.getAnswers(), result.getAnswers());
+        assertArrayEquals(question.getExplanations(), result.getExplanations());
+        assertArrayEquals(question.getCorrectAnswers(), result.getCorrectAnswers());
+        assertEquals(question.getQuestionListGuid(), result.getQuestionListGuid());
     }
 
     @Test
@@ -63,6 +69,9 @@ public class QuizQuestionControllerTest {
         assertNotNull(result);
         assertEquals(updatedQuestion.getQuestion(), result.getQuestion());
         assertArrayEquals(updatedQuestion.getAnswers(), result.getAnswers());
+        assertArrayEquals(updatedQuestion.getExplanations(), result.getExplanations());
+        assertArrayEquals(updatedQuestion.getCorrectAnswers(), result.getCorrectAnswers());
+        assertEquals(updatedQuestion.getQuestionListGuid(), result.getQuestionListGuid());
     }
 
     @Test

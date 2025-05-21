@@ -27,4 +27,8 @@ public class QuizQuestion {
     @Column(name = "correct_answers", columnDefinition = "text[]")
     @JdbcTypeCode(SqlTypes.ARRAY)
     private int[] correctAnswers;
+
+    @Column(name = "question_list_guid", columnDefinition = "varchar(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private String questionListGuid;
 }
