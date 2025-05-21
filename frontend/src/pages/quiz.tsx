@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useEffect, useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz/buttons'
+import { EvaluateButton, NextButton, BackButton, SkipButton } from './quiz/buttons'
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
