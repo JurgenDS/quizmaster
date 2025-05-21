@@ -10,6 +10,6 @@ export const mcr = MCR({
         '**/node_modules/**': false,
     },
     sourcePath: {
-        'frontend/src/': ''
+        'frontend/src/': '',
     },
 })
