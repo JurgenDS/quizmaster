@@ -67,6 +67,9 @@ public class QuizQuestionControllerTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(question.getId(), result.get(0).getId());
+        assertEquals(question.getQuestion(), result.get(0).getQuestion());
+
+        assertEquals(questionCreateResponse.getHash(), result.get(0).getHash());
     }
 
     @Test

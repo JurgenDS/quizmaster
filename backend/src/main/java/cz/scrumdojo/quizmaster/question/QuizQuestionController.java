@@ -37,8 +37,11 @@ public class QuizQuestionController {
 
     @Transactional
     @GetMapping("/quiz-question/by-question-list/{guid}")
-    public List<QuizQuestion> getQuestionsByQuestionList(@PathVariable String guid) {
-        return quizQuestionRepository.findByQuestionListGuid(guid);
+    public List<QuestionListItem> getQuestionsByQuestionList(@PathVariable String guid) {
+        List<QuizQuestion> questions = quizQuestionRepository.findByQuestionListGuid(guid);
+        return questions.stream()
+            .map(q -> new QuestionListItem( q.getId(),q.getQuestion(), getHashFromQuestionId(q.getId())))
+            .toList();
     }
 
     @Transactional
