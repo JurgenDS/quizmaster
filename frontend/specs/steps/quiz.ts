@@ -125,15 +125,19 @@ Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
 })
 
-Given('I create a quiz {string} with questions', async function (title: string) {
+Given('I create a quiz {string} with questions {string}, {string}', async function (title: string, bookmark1: string, bookmark2: string) {
+
+    const question1 = this.bookmarks[bookmark1]
+    const question2 = this.bookmarks[bookmark2]
+
     const requestBody = {
         title: title,
-        questions: [{ text: 'Planet' }, { text: 'Australia' }, { text: 'Fruit' }],
+        urls: [question1.url, question2.url],
         feedbackMode: 'END',
     }
 
     const apiContext = await request.newContext()
-    const response = await apiContext.post('http://localhost:8080/api/quiz', {
+    const response = await apiContext.post('http://localhost:8080/api/v2/quiz', {
         data: requestBody,
         headers: {
             'Content-Type': 'application/json',

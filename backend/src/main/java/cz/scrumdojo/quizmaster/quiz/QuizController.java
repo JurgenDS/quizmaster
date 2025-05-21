@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import cz.scrumdojo.quizmaster.model.ErrorResponse;
+import cz.scrumdojo.quizmaster.model.QuizCreateRequest;
 
 import java.util.Random;
 import java.util.UUID;
@@ -171,9 +172,83 @@ public class QuizController {
 
     }
 
-    // private <T> ResponseEntity<T> response(Optional<T> entity) {
-    //     return entity
-    //         .map(ResponseEntity::ok)
-    //         .orElse(ResponseEntity.notFound().build());
-    // }
+    @Transactional
+    @PostMapping("/v2/quiz")
+    public ResponseEntity<Object> postQuizV2(@RequestBody QuizCreateRequest quiz) {
+
+        log.info("V2 POST /quiz param:{}", quiz.toString());
+
+        try {
+            if (quiz.getId() == null) {
+                quiz.setId(""+ new Random().nextInt(100000000, 999999999));
+                log.info("Quiz created with new id: {}", quiz.getId());
+            }
+            if (quizs.get(quiz.getId()) != null) {
+                //throw new RuntimeException("Quiz with this ID " + quiz.getId() + " already exists");
+                log.warn("Quiz with this ID " + quiz.getId() + " already exists, will be replaced");
+            };
+
+            QuizResponse quizResponse = new QuizResponse();
+            quizResponse.setId(quiz.getId());
+            quizResponse.setTitle(quiz.getTitle());
+            quizResponse.setAfterEach(quiz.isAfterEach());
+            quizResponse.setPassScore(quiz.getPassScore());
+
+            if (quiz.getUrls() != null && quiz.getUrls().length > 0) {
+                quizResponse.setQuestions(new QuizQuestion[quiz.getUrls().length]);
+            } else {
+                quizResponse.setQuestions(new QuizQuestion[0]);
+            }
+
+            if (quiz.getUrls() != null && quiz.getUrls().length > 0) {
+
+                for (int i = 0; i < quiz.getUrls().length; i++) {
+                    String url = quiz.getUrls()[i];
+                    int questionId = parseLastElement(url).isEmpty() ? -1 : Integer.parseInt(parseLastElement(url));
+                    if (questionId < 0) {
+                        log.error("Invalid URL: " + url);
+                        continue;
+                    }
+                    var question = quizQuestionRepository.findById(questionId);
+                    if (question.isPresent()) {
+                        quizResponse.getQuestions()[i] = question.get();
+                    } else {
+                        log.error("Invalid question ID:" + questionId + " gotten from url: " + url);
+                    }
+                }
+
+            } else {
+                log.warn("No question IDs provided");
+            }
+
+            quizs.put(quiz.getId(), quizResponse);
+            return ResponseEntity.ok(quiz.getId());
+        } catch (RuntimeException e) {
+            log.error("Error while creating quiz: {}", getStackTrace(e));
+            return ResponseEntity.
+                        badRequest().
+                            body(new ErrorResponse("Quiz with id " + quiz.getId() + " had a problem. Reason: " + e.getMessage(), 1, UUID.randomUUID().toString()));
+        }
+
+    }
+
+    private String getStackTrace(Exception e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString()).append(",");
+        }
+        return sb.toString();
+    }
+
+    private String parseLastElement(String url) {
+    // Rozdělí URL podle lomítek a vezme poslední neprázdný prvek
+    String[] parts = url.split("/");
+    for (int i = parts.length - 1; i >= 0; i--) {
+        if (!parts[i].isEmpty()) {
+            return parts[i];
+        }
+    }
+    return "";
+}
+
 }

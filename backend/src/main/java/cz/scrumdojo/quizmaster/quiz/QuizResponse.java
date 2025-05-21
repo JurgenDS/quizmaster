@@ -2,6 +2,7 @@ package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import lombok.*;
+import java.util.List;
 
 @Getter
 @Setter
