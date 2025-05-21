@@ -76,7 +76,12 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         }
     }
     const onBookmark = () => {
-        setBookmarkedQuestions(prev => (prev.includes(currentQuestionIdx) ? prev : [...prev, currentQuestionIdx]))
+        setBookmarkedQuestions(
+            prev =>
+                prev.includes(currentQuestionIdx)
+                    ? prev.filter(idx => idx !== currentQuestionIdx) // Odebrat bookmark
+                    : [...prev, currentQuestionIdx], // Přidat bookmark
+        )
     }
 
     const handleBookmarkClick = (idx: number) => {
@@ -136,7 +141,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     ))}
             </div>
             <div>
-                <BookmarkButton onClick={onBookmark} />
+                <BookmarkButton isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)} onClick={onBookmark} />
             </div>
             <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
         </div>
