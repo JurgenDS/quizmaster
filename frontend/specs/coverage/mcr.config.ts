@@ -2,8 +2,8 @@ import MCR from 'monocart-coverage-reports'
 
 export const mcr = MCR({
     name: 'Quizmaster Frontend Coverage',
-    outputDir: './coverage',
-    reports: ['v8', 'v8-json'],
+    outputDir: './coverage/frontend',
+    reports: ['raw'],
     baseDir: 'frontend/src',
     sourceFilter: {
         '**/*.{js,jsx,ts,tsx}': true,

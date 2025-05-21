@@ -19,6 +19,7 @@
     "include": [
         "vite.config.ts",
         "playwright.config.ts",
-        "specs/**/*.ts"
+        "specs/**/*.ts",
+        "specs/coverage/report.js"
     ]
 }

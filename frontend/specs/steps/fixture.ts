@@ -1,6 +1,6 @@
 import { test as base, createBdd } from 'playwright-bdd'
 import { QuizmasterWorld } from './world/world.ts'
-import { mcr } from './coverage/mcr.config.ts'
+import { mcr } from '../coverage/mcr.config.ts'
 
 export const test = base.extend<{ world: QuizmasterWorld }>({
     world: async ({ page }, use, testInfo) => {
