@@ -27,7 +27,6 @@ export const QuestionForm = (props: QuestionFormProps) => {
 
     const isAnswerChecked = state.selectedAnswerIdxs.length > 0
 
-
     return (
         <form onSubmit={handleSubmit} id="question-form">
             <h1>{props.question.question}</h1>
