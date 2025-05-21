@@ -113,7 +113,7 @@ export const Answer = (props: AnswerProps) => {
                             marginLeft: '8px',
                         }}
                     >
-                        {<Explanation text={props.explanation} styleClassName='explanation2' />}
+                        {<Explanation text={props.explanation} styleClassName="explanation2" />}
                     </div>
                 )}
             </div>
