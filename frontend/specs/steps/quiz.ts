@@ -125,7 +125,7 @@ Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
 })
 
-Given('I create a quiz {string} with questions {string}, {string}', async function (title: string, bookmark1: string, bookmark2: string, bookmark3: string) {
+Given('I create a quiz {string} with questions {string}, {string}, {string}', async function (title: string, bookmark1: string, bookmark2: string, bookmark3: string) {
 
     const question1 = this.bookmarks[bookmark1]
     const question2 = this.bookmarks[bookmark2]
