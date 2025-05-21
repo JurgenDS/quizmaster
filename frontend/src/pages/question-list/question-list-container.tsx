@@ -2,7 +2,6 @@ import './question-list.scss'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { emptyQuestionListData } from '.'
 import { QuestionList } from './question-list'
 import { getQuestionList, getListQuestions } from 'api/question-list'
 import { QuestionListData } from '.'
