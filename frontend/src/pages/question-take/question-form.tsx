@@ -52,7 +52,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 <input
                     type="submit"
                     value="Submit"
-                    className={isAnswerChecked ? "submit-btn" : "submit-btn-disabled"}
+                    className={isAnswerChecked ? 'submit-btn' : 'submit-btn-disabled'}
                     disabled={!isAnswerChecked}
                 />
             )}
