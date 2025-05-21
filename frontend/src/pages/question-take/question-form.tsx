@@ -60,7 +60,12 @@ export const QuestionForm = (props: QuestionFormProps) => {
                     />
                 )}
                 <div>
-                    <BookmarkButton isBookmarked={props.isBookmarked ?? false} onClick={props.onBookmark ?? (() => {})} />
+                    {props.isBookmarked && props.onBookmark && (
+                        <BookmarkButton
+                            isBookmarked={props.isBookmarked}
+                            onClick={props.onBookmark}
+                        />
+                    )}
                 </div>
             </div>
             {state.submitted && props.afterEach && (

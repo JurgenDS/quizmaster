@@ -131,10 +131,16 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     onBookmark={onBookmark}
                 />
             </div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}>
-                {(!isFirstQuestion || isAnswered) &&
+            <div
+                style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}
+            >
+                {(!isFirstQuestion || isAnswered) && (
                     <>
-                        {!isFirstQuestion && <div><BackButton onClick={onBack} /></div>}
+                        {!isFirstQuestion && (
+                            <div>
+                                <BackButton onClick={onBack} />
+                            </div>
+                            )}
                         <div>
                             {isAnswered &&
                                 (!isLastQuestion || anySkippedQuestions ? (
@@ -144,7 +150,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                                 ))}
                         </div>
                     </>
-                }
+                )}
                 <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
             </div>
 
