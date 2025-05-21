@@ -61,10 +61,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 )}
                 <div>
                     {props.isBookmarked && props.onBookmark && (
-                        <BookmarkButton
-                            isBookmarked={props.isBookmarked}
-                            onClick={props.onBookmark}
-                        />
+                        <BookmarkButton isBookmarked={props.isBookmarked} onClick={props.onBookmark} />
                     )}
                 </div>
             </div>

@@ -140,7 +140,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                             <div>
                                 <BackButton onClick={onBack} />
                             </div>
-                            )}
+                        )}
                         <div>
                             {isAnswered &&
                                 (!isLastQuestion || anySkippedQuestions ? (
