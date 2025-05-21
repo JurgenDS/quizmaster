@@ -1,4 +1,5 @@
-import type { Page, TestInfo } from '@playwright/test'
+import type { Page, TestInfo, APIResponse } from '@playwright/test'
+
 
 import {
     CreateQuestionPage,
@@ -32,6 +33,7 @@ export class QuizmasterWorld {
     readonly quizQuestionPage: QuizQuestionPage
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizScorePage: QuizScorePage
+    quizId = ''
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
     nextAnswerIdx = 0

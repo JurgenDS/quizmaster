@@ -10,6 +10,9 @@ Feature: Take a quiz
   # And a quiz "D" with questions "Planet", "Australia", "Fruit" with "feedback at the end"
   # And a quiz "E" with questions "Planet", "Australia", "Fruit" with "continuous feedback"
 
+  Scenario: Create a quiz
+      Given I create a quiz "New quiz" with questions
+      Then I see the quiz "New quiz"
 
   Scenario: Feedback at the end
     - Quiz with feedback at the end does not show feedback until the quiz is finished

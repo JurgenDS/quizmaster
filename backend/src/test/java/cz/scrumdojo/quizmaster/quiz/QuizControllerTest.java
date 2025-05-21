@@ -46,7 +46,7 @@ public class QuizControllerTest {
             .afterEach(false)
             .build();
 
-        ResponseEntity<Object> resp = quizController.putQuiz(quiz,"10");
+        ResponseEntity<Object> resp = quizController.postQuiz(quiz);
         var result = resp.getBody();
 
         assertNotNull(result);
@@ -70,7 +70,7 @@ public class QuizControllerTest {
             .afterEach(false)
             .build();
 
-        ResponseEntity<Object> resp = quizController.putQuiz(quiz,testId);
+        ResponseEntity<Object> resp = quizController.postQuiz(quiz);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         var result = resp.getBody();
         assertNotNull(result, "Result is null");

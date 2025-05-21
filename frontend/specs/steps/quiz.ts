@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test'
+import { expect, request } from '@playwright/test';
 import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
 import { Given, When, Then } from './fixture.ts'
 import { expectQuestion } from './take-question.ts'
@@ -126,3 +126,41 @@ Then('I should see the countdown timer after delay is less then {string}', async
 Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
 })
+
+Given('I create a quiz {string} with questions', async function (title: string) {
+  const requestBody = {
+    title: title,
+    questions: [
+      { text: "Planet" },
+      { text: "Australia" },
+      { text: "Fruit" }
+    ],
+    feedbackMode: "END"
+  };
+
+  const apiContext = await request.newContext();
+  const response = await apiContext.post('http://localhost:8080/api/quiz', {
+    data: requestBody,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  expect(response.status()).toBe(200);
+
+  this.quizId = await response.text();
+});
+
+Then('I see the quiz {string}', async function (expectedTitle: string) {
+  const apiContext = await request.newContext();
+  const response = await apiContext.get(`http://localhost:8080/api/quiz/${this.quizId}`, {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  expect(response.status()).toBe(200);
+  expect(response.body()).not.toBeNull();
+  const quiz = await response.json();
+  expect(quiz.title).toBe(expectedTitle);
+});

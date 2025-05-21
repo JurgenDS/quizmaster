@@ -7,10 +7,12 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class QuizResponse {
 
     private String id;
+    private String title;
     private QuizQuestion[] questions;
     private boolean afterEach;
     private int passScore;

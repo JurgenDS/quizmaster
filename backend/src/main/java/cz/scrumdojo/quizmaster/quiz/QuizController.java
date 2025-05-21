@@ -14,8 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
+import java.util.HashMap;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class QuizController {
@@ -26,7 +31,7 @@ public class QuizController {
     private static QuizResponse quiz2 = new QuizResponse();
     private static QuizResponse quiz3 = new QuizResponse();
     private static QuizResponse quiz4 = new QuizResponse();
-    private static List<QuizResponse> quizs = new ArrayList<>();
+    private static HashMap<String,QuizResponse> quizs = new HashMap<>();
 
     @Autowired
     public QuizController(QuizQuestionRepository quizQuestionRepository) {
@@ -84,10 +89,10 @@ public class QuizController {
         quiz4.setAfterEach(false);
         quiz4.setPassScore(40);
 
-        quizs.add(quiz1);
-        quizs.add(quiz2);
-        quizs.add(quiz3);
-        quizs.add(quiz4);
+        quizs.put(quiz1.getId(), quiz1);
+        quizs.put(quiz2.getId(), quiz2);
+        quizs.put(quiz3.getId(), quiz3);
+        quizs.put(quiz4.getId(), quiz4);
 
         var planet = quizQuestionRepository.save(
             QuizQuestion.builder()
@@ -130,25 +135,37 @@ public class QuizController {
             .passScore(85)
             .build();
 
-        quizs.add(quizD);
-        quizs.add(quizE);
+        quizs.put(quizD.getId(), quizD);
+        quizs.put(quizE.getId(), quizE);
     }
 
     @Transactional
     @GetMapping("/quiz/{id}")
     public ResponseEntity<QuizResponse> getQuiz(@PathVariable String id) {
-        return response(quizs.stream().filter(it -> Objects.equals(it.getId(), id)).findFirst());
+        log.info("GET /quiz param:{}", id);
+        if (quizs.get(id) == null) {
+            log.info("QUIZ {} was not found, HTTP 404", id);
+            return ResponseEntity.notFound().build();
+        }
+        log.info("QUIZ {} with {} was found, HTTP 200", id, quizs.get(id));
+        return ResponseEntity.ok(quizs.get(id));
     }
 
     @Transactional
-    @PutMapping("/quiz/{id}")
-    public ResponseEntity<Object> putQuiz(@RequestBody QuizResponse quiz, @PathVariable String id) {
+    @PostMapping("/quiz")
+    public ResponseEntity<Object> postQuiz(@RequestBody QuizResponse quiz) {
+
+        log.info("POST /quiz param:{}", quiz.toString());
+
         try {
-            quizs.stream().filter(it -> Objects.equals(it.getId(), quiz.getId())).
-            findFirst().ifPresent(it -> {
-                throw new RuntimeException("Quiz with this ID already exists");
-            });
-            quizs.add(quiz);
+            if (quiz.getId() == null) {
+                quiz.setId(""+ new Random().nextInt(100000000, 999999999));
+                log.info("Quiz created with new id: {}", quiz.getId());
+            }
+            if (quizs.get(quiz.getId()) != null) {
+                throw new RuntimeException("Quiz with this ID " + quiz.getId() + " already exists");
+            };
+            quizs.put(quiz.getId(),quiz);
             return ResponseEntity.ok(quiz.getId());
         } catch (RuntimeException e) {
             return ResponseEntity.
@@ -158,11 +175,12 @@ public class QuizController {
 
     }
 
-    @Transactional
-    @PostMapping("/quiz/")
-    public Integer postQuiz(@RequestBody Quiz quiz) {
-        return null;
-    }
+    // @Transactional
+    // @PostMapping("/quiz/")
+    // public Integer postQuiz(@RequestBody Quiz quiz) {
+    //     log.info("POST /quiz/ param:{}",quiz);
+    //     return null;
+    // }
 
     private <T> ResponseEntity<T> response(Optional<T> entity) {
         return entity
