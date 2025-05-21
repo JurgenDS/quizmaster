@@ -137,3 +137,31 @@ Scenario: Remembered multiple choices after back button
   When I click the back button
   Then I see answer "Elephant" checked
   Then I see answer "Anteater" checked
+
+
+@skip
+Scenario: Submit button is visible as active when answer is checked
+  Given questions
+    | Bookmark | Question                            | Answers                                            |
+    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+
+  Given I start quiz "k"
+  Then I see question "Nose"
+  When I check answer "Elephant"
+  Then I see the submit button as active
+
+@skip
+Scenario: Submit button is visible as inactive when no answer is checked
+  Given questions
+    | Bookmark | Question                            | Answers                                            |
+    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+
+  Given I start quiz "k"
+  Then I see question "Nose"
+  Then I see the submit button as inactive
+  When I check answer "Elephant"
+  Then I see the submit button as active
+  When I uncheck answer "Elephant"
+  Then I see the submit button as inactive

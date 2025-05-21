@@ -157,3 +157,11 @@ Then('I see the quiz {string}', async function (expectedTitle: string) {
     const quiz = await response.json()
     expect(quiz.title).toBe(expectedTitle)
 })
+
+Then('I see the submit button as active', async function () {
+    expect(await this.takeQuestionPage.submitButtonIsDisabled()).toBe(false)
+})
+
+Then('I see the submit button as inactive', async function () {
+    expect(await this.takeQuestionPage.submitButtonIsDisabled()).toBe(true)
+})

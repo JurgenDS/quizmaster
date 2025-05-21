@@ -15,7 +15,10 @@ export class TakeQuestionPage {
     selectAnswer = (answer: string) => this.answerLocator(answer).check()
     unselectAnswer = (answer: string) => this.answerLocator(answer).uncheck()
 
-    submit = () => this.page.locator('input[type="submit"]').click()
+    submitButtonLocator = () => this.page.locator('input[type="submit"]')
+
+    submit = () => this.submitButtonLocator().click()
+    submitButtonIsDisabled = () => this.submitButtonLocator().isDisabled()
 
     feedbackLocator = () => this.page.locator('p.question-correctness')
 
