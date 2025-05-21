@@ -12,8 +12,6 @@ export interface QuestionFormProps {
     readonly question: QuizQuestion
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly afterEach: boolean
-    readonly onBookmark?: () => void
-    readonly isBookmarked?: boolean
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
@@ -59,11 +57,6 @@ export const QuestionForm = (props: QuestionFormProps) => {
                         disabled={!isAnswerChecked}
                     />
                 )}
-                <div>
-                    {props.isBookmarked && props.onBookmark && (
-                        <BookmarkButton isBookmarked={props.isBookmarked} onClick={props.onBookmark} />
-                    )}
-                </div>
             </div>
             {state.submitted && props.afterEach && (
                 <QuestionCorrectness

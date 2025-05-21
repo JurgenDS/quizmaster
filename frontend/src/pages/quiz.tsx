@@ -3,7 +3,7 @@ import { QuestionForm } from './question-take'
 import { useEffect, useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton, BackButton, SkipButton } from './quiz/buttons'
+import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz/buttons'
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
@@ -126,8 +126,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     question={currentQuestion}
                     onSubmitted={props.quiz.afterEach ? onSubmitted : onSubmittedAndNext}
                     afterEach={props.quiz.afterEach}
-                    isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)}
-                    onBookmark={onBookmark}
                 />
             </div>
             <div
@@ -151,6 +149,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     </>
                 )}
                 <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
+                <BookmarkButton isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)} onClick={onBookmark} />
             </div>
 
             {/* Bookmark list visible for tests */}
