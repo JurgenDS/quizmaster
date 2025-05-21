@@ -21,7 +21,7 @@ export function QuestionList({ questionListData }: Props) {
     const questionListId = params.id
 
     const onCreateNewQuestion = () => {
-        navigate(`/question/new?listguid=${questionListId}`); // or whatever uniquely identifies it
+        navigate(`/question/new?listguid=${questionListId}`)
     }
 
     return (
@@ -31,9 +31,9 @@ export function QuestionList({ questionListData }: Props) {
                 <CreateQuestionButton onClick={() => onCreateNewQuestion()} />
             </div>
             <div className="question-holder">
-            {questionListData.questions.map((q, index) => (
-                <QuestionItem key={q.id || index} question={q} index={index} />
-            ))}
+                {questionListData.questions.map((q, index) => (
+                    <QuestionItem key={q.id || index} question={q} index={index} />
+                ))}
             </div>
         </div>
     )

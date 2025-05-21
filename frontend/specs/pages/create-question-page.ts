@@ -4,7 +4,7 @@ export class CreateQuestionPage {
     constructor(private page: Page) {}
 
     gotoNew = () => this.page.goto('/question/new')
-    gotoNewToList = (listguid: string) => this.page.goto(`/question/new?listguid=${listguid}`);
+    gotoNewToList = (listguid: string) => this.page.goto(`/question/new?listguid=${listguid}`)
 
     gotoEdit = (url: string) => this.page.goto(url, { waitUntil: 'networkidle' })
 

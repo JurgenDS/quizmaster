@@ -77,8 +77,7 @@ export function CreateQuestionContainer() {
 
         postData(apiData)
 
-        if(questionListId != null)
-            navigate(`/q-list/${questionListId}`)
+        if (questionListId != null) navigate(`/q-list/${questionListId}`)
     }
 
     return (

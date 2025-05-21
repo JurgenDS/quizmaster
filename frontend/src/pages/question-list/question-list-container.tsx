@@ -12,17 +12,17 @@ export function QuestionListContainer() {
     const params = useParams()
 
     const [questionListData] = (() => {
-    switch (params.id) {
-        case 'a':
-        return useState(questionListAData());
-        case 'b':
-        return useState(questionListBData());
-        case 'c':
-        return useState(questionListCData());
-        default:
-        return useState(emptyQuestionListData());
-    }
-    })();
+        switch (params.id) {
+            case 'a':
+                return useState(questionListAData())
+            case 'b':
+                return useState(questionListBData())
+            case 'c':
+                return useState(questionListCData())
+            default:
+                return useState(emptyQuestionListData())
+        }
+    })()
 
     return <QuestionList questionListData={questionListData} />
 }
