@@ -1,6 +1,6 @@
 import type React from 'react'
 import './answer.scss'
-import { Explanation2 } from './explanation.tsx'
+import { Explanation } from './explanation.tsx'
 import successIcon from '../../../assets/icons/checkmark.svg'
 import errorIcon from '../../../assets/icons/error.svg'
 
@@ -113,7 +113,7 @@ export const Answer = (props: AnswerProps) => {
                             marginLeft: '8px',
                         }}
                     >
-                        {<Explanation2 text={props.explanation} />}
+                        {<Explanation text={props.explanation} styleClassName='explanation2' />}
                     </div>
                 )}
             </div>
