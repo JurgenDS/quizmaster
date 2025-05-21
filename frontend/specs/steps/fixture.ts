@@ -20,7 +20,9 @@ BeforeAll(emptyCoverageDir)
 BeforeScenario(async function () {
     if (!ENABLE_COVERAGE) return
 
-    await this.page.coverage.startJSCoverage()
+    await this.page.coverage.startJSCoverage({
+        resetOnNavigation: false,
+    })
 })
 
 AfterScenario(async function () {
