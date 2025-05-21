@@ -1,4 +1,4 @@
-import {Explanation} from 'pages/question-take'
+import { Explanation } from 'pages/question-take'
 import './answer-feedback.scss'
 import successIcon from 'assets/icons/checkmark.svg'
 import errorIcon from 'assets/icons/error.svg'
@@ -65,18 +65,18 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 zIndex: -1,
             }}
         >
-            <span/>
+            <span />
             {props.explanation && (
                 <span data-testid={`answer-row-${props.answer}-explanation`} className="explanation">
-                    {<Explanation text={props.explanation}/>}
+                    {<Explanation text={props.explanation} />}
                 </span>
             )}
-            <div style={{marginRight: '15px'}}>
-                {(isWrongAnswer || wasNotAnswerd)
-                    ? <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon"/>
-                    :
-                    <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon"/>
-                }
+            <div style={{ marginRight: '15px' }}>
+                {isWrongAnswer || wasNotAnswerd ? (
+                    <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon" />
+                ) : (
+                    <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon" />
+                )}
             </div>
         </span>
     )
