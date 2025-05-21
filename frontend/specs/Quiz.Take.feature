@@ -11,8 +11,7 @@ Feature: Take a quiz
   # And a quiz "E" with questions "Planet", "Australia", "Fruit" with "continuous feedback"
 
   Scenario: Create a quiz
-      Given I create a quiz "New quiz" with questions "Planet", "Australia"
-      Then I see the quiz "New quiz"
+      Given I create a quiz "New quiz" with questions "Planet", "Australia", "Fruit"
       Then I see the quiz "New quiz"
 
   Scenario: Feedback at the end
