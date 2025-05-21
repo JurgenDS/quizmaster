@@ -7,6 +7,7 @@ Feature: Answering a quiz question with multiple choice
       | France  | * | One of the founders of the European Union.                                  |
       | Morocco |   | This country is in Africa, not in Europe.                                   |
       | Spain   | * | Located on the Iberian Peninsula, which is part of the European continent.  |
+      | Kanada  |   | Located in America.                                                         |
     * with explanation "Italy, France, and Spain are in Europe. Morocco is in Africa."
     * saved and bookmarked as "Europe"
 
@@ -27,14 +28,14 @@ Feature: Answering a quiz question with multiple choice
     Examples:
       | answer                        | italy_color | france_color  | morocco_color | spain_color |
       | Italy, France, Spain          | GREEN       | GREEN         | NONE          | GREEN       |
-      | Italy, France                 | GREEN       | GREEN         | NONE          | ORANGE      |
-      | Italy, France, Morocco        | GREEN       | GREEN         | RED           | ORANGE      |
-      | Italy, Morocco                | GREEN       | ORANGE        | RED           | ORANGE      |
-      | France, Spain                 | ORANGE      | GREEN         | NONE          | GREEN       |
-      | Morocco                       | ORANGE      | ORANGE        | RED           | ORANGE      |
+      | Italy, France                 | GREEN       | GREEN         | NONE          | RED         |
+      | Italy, France, Morocco        | GREEN       | GREEN         | RED           | RED         |
+      | Italy, Morocco                | GREEN       | RED           | RED           | RED         |
+      | France, Spain                 | RED         | GREEN         | NONE          | GREEN       |
+      | Morocco                       | RED         | RED           | RED           | RED         |
       | Italy, France, Morocco, Spain | GREEN       | GREEN         | RED           | GREEN       |
-      | Italy, Spain                  | GREEN       | ORANGE        | NONE          | GREEN       |
-      | France                        | ORANGE      | GREEN         | NONE          | ORANGE      |
+      | Italy, Spain                  | GREEN       | RED           | NONE          | GREEN       |
+      | France                        | RED         | GREEN         | NONE          | RED         |
 
   Scenario: Individual explanation per answer is displayed after answering
     When I take question "Europe"
@@ -45,3 +46,5 @@ Feature: Answering a quiz question with multiple choice
       | France  | One of the founders of the European Union.                                  |
       | Morocco | This country is in Africa, not in Europe.                                   |
       | Spain   | Located on the Iberian Peninsula, which is part of the European continent.  |
+      | Kanada  | Located in America.                                                         |
+

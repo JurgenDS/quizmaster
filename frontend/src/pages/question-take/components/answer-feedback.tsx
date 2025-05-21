@@ -1,4 +1,4 @@
-import { Explanation } from 'pages/question-take'
+import {Explanation} from 'pages/question-take'
 import './answer-feedback.scss'
 import successIcon from 'assets/icons/checkmark.svg'
 import errorIcon from 'assets/icons/error.svg'
@@ -19,31 +19,30 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
     const isWrongAnswer = !props.isCorrect && props.isUserSelected
     const wasNotAnswerd = !props.isUserSelected && !props.isCorrect
 
-    function getBorder() {
-        if (!props.showFeedback) {
-            return ''
-        }
-
-        if (wasNotAnswerd) {
-            return '2px solid #F2A91E'
-        }
-
-        return ''
-    }
-
     function getBgColor() {
         if (!props.showFeedback) {
             return ''
         }
 
-        if (isCorrectAnswer) {
-            return '#087F19'
+        if (isWrongAnswer || wasNotAnswerd) {
+            return '#f4b6b8'
         }
 
-        if (isWrongAnswer) {
-            return '#F35757'
+        if (isCorrectAnswer) {
+            return '#b2dfb2'
         }
         return ''
+    }
+
+    function getColor() {
+        if (!props.showFeedback) {
+            return ''
+        }
+
+        if (isWrongAnswer || wasNotAnswerd) {
+            return '#5a1518'
+        }
+        return '#0f3e0f'
     }
 
     return (
@@ -62,29 +61,22 @@ export const AnswerFeedback = (props: AnswerFeedbackProps) => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 borderRadius: '8px',
-                color: props.showFeedback && props.isUserSelected ? 'white' : 'black',
-                border: getBorder(),
+                color: getColor(),
                 zIndex: -1,
             }}
         >
-            <span />
-            {props.explanation && (props.isUserSelected || wasNotAnswerd) && (
+            <span/>
+            {props.explanation && (
                 <span data-testid={`answer-row-${props.answer}-explanation`} className="explanation">
-                    {<Explanation text={props.explanation} />}
+                    {<Explanation text={props.explanation}/>}
                 </span>
             )}
-            <div style={{ marginRight: '15px' }}>
-                {isCorrectAnswer && (
-                    <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon" />
-                )}
-                {isWrongAnswer && (
-                    <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon" />
-                )}
-                {wasNotAnswerd && (
-                    <span data-testid={`answer-row-${props.answer}-result`} className="answer-should-been-checked">
-                        SHOULD BE CHECKED
-                    </span>
-                )}
+            <div style={{marginRight: '15px'}}>
+                {(isWrongAnswer || wasNotAnswerd)
+                    ? <img data-testid={`answer-row-${props.answer}-icon-failure`} src={errorIcon} alt="error-icon"/>
+                    :
+                    <img data-testid={`answer-row-${props.answer}-icon-success`} src={successIcon} alt="success-icon"/>
+                }
             </div>
         </span>
     )

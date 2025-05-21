@@ -13,9 +13,9 @@ enum Color {
 }
 
 const colorCssValue: { [key in Color]: string } = {
-    [Color.GREEN]: 'rgb(8, 127, 25)',
+    [Color.GREEN]: 'rgb(178, 223, 178)',
     [Color.ORANGE]: '2px solid rgb(242, 169, 30)',
-    [Color.RED]: 'rgb(243, 87, 87)',
+    [Color.RED]: 'rgb(244, 182, 184)',
     [Color.NONE]: 'rgba(0, 0, 0, 0)',
 }
 
