@@ -29,9 +29,9 @@ public class QuestionListController {
 
     @Transactional
     @PostMapping("/q-list")
-    public String saveQuestionList(@RequestBody QuestionList questionList) {
+    public QuestionListCreateResponse saveQuestionList(@RequestBody QuestionList questionList) {
         var createdQuestionList = questionListRepository.save(questionList);
-        return createdQuestionList.getGuid();
+        return new QuestionListCreateResponse(createdQuestionList.getGuid());
     }
 
     private <T> ResponseEntity<T> response(Optional<T> entity) {

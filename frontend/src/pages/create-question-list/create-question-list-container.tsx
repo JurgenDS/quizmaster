@@ -2,7 +2,9 @@ import './create-question-list.scss'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { emptyQuestionListFormData } from './form'
+import { getQuestionList } from 'api/question-list.ts'
+
+import { emptyQuestionListFormData, toQuestionListApiData } from './form'
 import { CreateQuestionListForm } from './create-question-list'
 
 export function CreateQuestionListContainer() {
@@ -11,15 +13,24 @@ export function CreateQuestionListContainer() {
 
     const [questionListData, setQuestionListData] = useState(emptyQuestionListFormData())
 
-    const handleSubmit = () => {
-        setErrorMessage('')
+    const handleSubmit = async () => {
+        try {
+            setErrorMessage('');
 
-        if (questionListData.title.length === 0) {
-            setErrorMessage('Title must be filled')
-            return
+            if (questionListData.title.length === 0) {
+                setErrorMessage('Title must be filled');
+                return;
+            }
+
+            const response = await getQuestionList(toQuestionListApiData(questionListData));
+            if (!response.guid) {
+                throw new Error("GUID is missing");
+            }
+            navigate(`/q-list/${response.guid}`)
+        } catch (err) {
+            setErrorMessage('Failed to create list');
+            console.error(err);
         }
-
-        navigate('/q-list/123456')
     }
 
     return (
