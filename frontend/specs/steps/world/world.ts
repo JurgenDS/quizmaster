@@ -1,5 +1,4 @@
-import type { Page, TestInfo, APIResponse } from '@playwright/test'
-
+import type { Page, TestInfo } from '@playwright/test'
 
 import {
     CreateQuestionPage,
