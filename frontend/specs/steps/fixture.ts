@@ -1,6 +1,6 @@
 import { test as base, createBdd } from 'playwright-bdd'
 import { QuizmasterWorld } from './world/world.ts'
-import { emptyCoverageDir, toIstanbul, writeCoverage } from './coverage/coverage.ts'
+import { mcr } from './coverage/mcr.config.ts'
 
 export const test = base.extend<{ world: QuizmasterWorld }>({
     world: async ({ page }, use, testInfo) => {
@@ -9,13 +9,11 @@ export const test = base.extend<{ world: QuizmasterWorld }>({
     },
 })
 
-export const { Given, When, Then, BeforeScenario, AfterScenario, BeforeAll } = createBdd(test, {
+export const { Given, When, Then, BeforeScenario, AfterScenario, AfterAll } = createBdd(test, {
     worldFixture: 'world',
 })
 
 const ENABLE_COVERAGE = process.env.ENABLE_COVERAGE === '1'
-
-BeforeAll(emptyCoverageDir)
 
 BeforeScenario(async function () {
     if (!ENABLE_COVERAGE) return
@@ -29,6 +27,10 @@ AfterScenario(async function () {
     if (!ENABLE_COVERAGE) return
 
     const jsCoverage = await this.page.coverage.stopJSCoverage()
-    const istanbulCoverage = await toIstanbul(jsCoverage)
-    writeCoverage(istanbulCoverage, this.testInfo.title)
+    await mcr.add(jsCoverage)
+})
+
+AfterAll(async () => {
+    if (!ENABLE_COVERAGE) return
+    await mcr.generate()
 })

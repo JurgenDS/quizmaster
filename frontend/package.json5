@@ -18,15 +18,15 @@
         "playwright:ui": "bddgen && wait-on tcp:5173 && cross-env FE_PORT=5173 playwright test --ui-host=0.0.0.0 --ui-port=3333",
         "test:e2e:ui": "concurrently 'pnpm test:e2e:watch' 'pnpm playwright:ui'",
 
-        "coverage:build": "vite build --sourcemap",
-        "coverage:test:e2e": "cross-env ENABLE_COVERAGE=1 pnpm test:e2e:vite",
-        "coverage:report": "nyc report --reporter=html --temp-dir=coverage/temp --report-dir=coverage/report",
+        "coverage:clean": "rm -rf coverage",
+        "coverage:test:e2e": "pnpm coverage:clean && cross-env ENABLE_COVERAGE=1 pnpm test:e2e",
 
         "ci:install": "pnpm install && playwright install --with-deps",
         "ci:code": "tsc -b && biome ci",
-        "ci:build": "pnpm build && cd ../backend && ./gradlew build",
+        "ci:build": "pnpm vite build --sourcemap && cd ../backend && ./gradlew build",
         "ci:bootrun": "cd ../backend && ./gradlew bootRun",
-        "ci:test:e2e": "start-server-and-test 'pnpm ci:bootrun' 8080 'pnpm test:e2e'"
+        "ci:test:e2e": "start-server-and-test 'pnpm ci:bootrun' 8080 'pnpm test:e2e'",
+        "ci:coverage": "start-server-and-test 'pnpm ci:bootrun' 8080 'pnpm coverage:test:e2e'"
     },
     "dependencies": {
         "react": "19.0.0",
@@ -45,12 +45,11 @@
         "concurrently": "9.1.2",
         "cross-env": "7.0.3",
         "esbuild-register": "3.6.0",
-        "nyc": "17.1.0",
+        "monocart-coverage-reports": "2.12.6",
         "playwright-bdd": "8.2.0",
         "sass": "1.82.0",
         "start-server-and-test": "2.0.11",
         "typescript": "5.7.2",
-        "v8-to-istanbul": "9.3.0",
         "vite": "6.0.2",
         "vite-tsconfig-paths": "5.1.3",
         "wait-on": "8.0.1"
