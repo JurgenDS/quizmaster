@@ -9,6 +9,7 @@ import { getQuiz } from '../api/quiz.ts'
 
 import { Countdown } from './quiz/countdown.tsx'
 import { TimeOutReachedModal } from './quiz/timeout-reached-modal.tsx'
+import { BookmarkList } from './components/bookmark-list'
 
 interface QuizQuestionProps {
     readonly onEvaluate: (quizScore: QuizScore) => void
@@ -20,7 +21,7 @@ type QuizState = readonly AnswerIdxs[]
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
     const [skippedQuestions, setSkippedQuestions] = useState<number[]>([])
-    const [isBookmarked, setIsBookmarked] = useState(false)
+    const [bookmarkedQuestions, setBookmarkedQuestions] = useState<number[]>([])
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
@@ -74,6 +75,19 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             onNext()
         }
     }
+    const onBookmark = () => {
+        setBookmarkedQuestions(prev => (prev.includes(currentQuestionIdx) ? prev : [...prev, currentQuestionIdx]))
+    }
+
+    const handleBookmarkClick = (idx: number) => {
+        setCurrentQuestionIdx(idx)
+    }
+
+    // Prepare bookmarks for BookmarkList
+    const bookmarks = bookmarkedQuestions.map(idx => ({
+        title: props.quiz.questions[idx].question,
+        onClick: () => handleBookmarkClick(idx),
+    }))
 
     const onEvaluate = () => {
         props.onEvaluate({
@@ -96,13 +110,21 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         <div>
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
-            <div className={isBookmarked ? 'bookmarked' : ''} />
-            <QuestionForm
-                key={currentQuestion.id}
-                question={currentQuestion}
-                onSubmitted={props.quiz.afterEach ? onSubmitted : onSubmittedAndNext}
-                afterEach={props.quiz.afterEach}
-            />
+
+            {/* Bookmark list visible for tests */}
+            <BookmarkList bookmarks={bookmarks} />
+
+            <div
+                className={bookmarkedQuestions.includes(currentQuestionIdx) ? 'bookmarked' : ''}
+                data-testid="bookmark-toggle"
+            >
+                <QuestionForm
+                    key={currentQuestion.id}
+                    question={currentQuestion}
+                    onSubmitted={props.quiz.afterEach ? onSubmitted : onSubmittedAndNext}
+                    afterEach={props.quiz.afterEach}
+                />
+            </div>
             <div>
                 {!isFirstQuestion && <BackButton onClick={onBack} />}
                 {isAnswered &&

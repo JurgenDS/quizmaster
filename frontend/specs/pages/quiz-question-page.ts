@@ -38,29 +38,33 @@ export class QuizQuestionPage {
         return this.page.locator('[data-testid="bookmark-toggle"]')
     }
 
-    /** Lokátor pro položky v seznamu záložek */
-    bookmarkListItems = (): Locator => {
-        return this.page.locator('[data-testid="bookmark-list"] li')
-    }
+    // /** Lokátor pro položky v seznamu záložek */
+    // bookmarkListItems = (): Locator => {
+    //     return this.page.locator('[data-testid="bookmark-list"] li')
+    // }
 
-    /** Vrací texty všech položek ze seznamu záložek */
-    bookmarkListItemsText = async (): Promise<string[]> => {
-        return await this.bookmarkListItems().allTextContents()
-    }
+    // /** Vrací texty všech položek ze seznamu záložek */
+    // bookmarkListItemsText = async (): Promise<string[]> => {
+    //     return await this.bookmarkListItems().allTextContents()
+    // }
 
-    /** Vrací počet aktivních bookmark indikátorů (např. `[data-testid^="bookmark-"].active`) */
-    activeBookmarksCount = async (): Promise<number> => {
-        return await this.page.locator('[data-testid^="bookmark-"].active').count()
-    }
+    // /** Vrací počet aktivních bookmark indikátorů (např. `[data-testid^="bookmark-"].active`) */
+    // activeBookmarksCount = async (): Promise<number> => {
+    //     return await this.page.locator('[data-testid^="bookmark-"].active').count()
+    // }
 
     /** Klikne na záložku s daným názvem v seznamu záložek */
     clickBookmark = async (title: string): Promise<void> => {
-        await this.page.locator('[data-testid="bookmark-list"] li', { hasText: title }).click()
+        await this.page.locator('[data-testid="bookmark-list"] li > button', { hasText: title }).click()
     }
 
     /** Klikne na záložku s daným názvem v seznamu záložek */
     clickAddQuestionToBookmark = async (title: string): Promise<void> => {
         await this.addQuestionToBookmarkButtonLocator().click()
         console.log(`Bookmarking question ${title}`)
+    }
+
+    bookmarkLink = (title: string): Locator => {
+        return this.page.locator('[data-testid="bookmark-list"] li > button', { hasText: title })
     }
 }

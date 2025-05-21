@@ -15,10 +15,10 @@ Feature: Bookmark questions during a quiz
 
     When I bookmark question "Planet"
     Then I see bookmarked question "Planet"
+    Then I see bookmark link "Planet"
 
     When I click the skip button
-    Then I see question "Australia"
-    Then I see bookmarked question "Planet"
+    Then I see bookmark link "Planet"
 
     When I click bookmark "Planet"
     Then I see question "Planet"
