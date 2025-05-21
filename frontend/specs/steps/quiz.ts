@@ -125,29 +125,31 @@ Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
 })
 
-Given('I create a quiz {string} with questions {string}, {string}, {string}', async function (title: string, bookmark1: string, bookmark2: string, bookmark3: string) {
+Given(
+    'I create a quiz {string} with questions {string}, {string}, {string}',
+    async function (title: string, bookmark1: string, bookmark2: string, bookmark3: string) {
+        const question1 = this.bookmarks[bookmark1]
+        const question2 = this.bookmarks[bookmark2]
+        const question3 = this.bookmarks[bookmark3]
 
-    const question1 = this.bookmarks[bookmark1]
-    const question2 = this.bookmarks[bookmark2]
-    const question3 = this.bookmarks[bookmark3]
+        const requestBody = {
+            title: title,
+            urls: [question1.url, question2.url, question3.url],
+            feedbackMode: 'END',
+        }
 
-    const requestBody = {
-        title: title,
-        urls: [question1.url, question2.url, question3.url],
-        feedbackMode: 'END',
-    }
+        const apiContext = await request.newContext()
+        const response = await apiContext.post('http://localhost:8080/api/v2/quiz', {
+            data: requestBody,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
 
-    const apiContext = await request.newContext()
-    const response = await apiContext.post('http://localhost:8080/api/v2/quiz', {
-        data: requestBody,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-
-    expect(response.status()).toBe(200)
-    this.quizId = await response.text()
-})
+        expect(response.status()).toBe(200)
+        this.quizId = await response.text()
+    },
+)
 
 Then('I see the quiz {string}', async function (expectedTitle: string) {
     const apiContext = await request.newContext()
