@@ -80,6 +80,19 @@ ul li input[type="radio"]:checked::after {
     text-decoration: none;
 }
 
+.submit-btn-disabled {
+    background-color: #bbbbbb;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px solid #bbbbbb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+
+
 // Neodstranovat ̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿
 ul li input[type="checkbox"],
 ul li input[type="radio"] {

@@ -25,6 +25,9 @@ export const QuestionForm = (props: QuestionFormProps) => {
         }
     }
 
+    const isAnswerChecked = state.selectedAnswerIdxs.length > 0
+
+
     return (
         <form onSubmit={handleSubmit} id="question-form">
             <h1>{props.question.question}</h1>
@@ -45,7 +48,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 ))}
             </ul>
 
-            {!state.submitted && <input type="submit" value="Submit" className="submit-btn" />}
+            {!state.submitted && <input type="submit" value="Submit" className={isAnswerChecked ? "submit-btn" : "submit-btn-disabled"} disabled={!isAnswerChecked}/>}
             {state.submitted && props.afterEach && (
                 <QuestionCorrectness
                     correctAnswers={props.question.answers.filter((_, idx) =>

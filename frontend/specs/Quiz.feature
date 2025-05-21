@@ -122,7 +122,6 @@ Feature: Take a quiz
     When I click the back button
     Then I see answer "Green" checked
 
-
 Scenario: Remembered multiple choices after back button
   Given questions
     | Bookmark | Question                            | Answers                                            |
@@ -138,8 +137,6 @@ Scenario: Remembered multiple choices after back button
   Then I see answer "Elephant" checked
   Then I see answer "Anteater" checked
 
-
-@skip
 Scenario: Submit button is visible as active when answer is checked
   Given questions
     | Bookmark | Question                            | Answers                                            |
@@ -151,7 +148,6 @@ Scenario: Submit button is visible as active when answer is checked
   When I check answer "Elephant"
   Then I see the submit button as active
 
-@skip
 Scenario: Submit button is visible as inactive when no answer is checked
   Given questions
     | Bookmark | Question                            | Answers                                            |
