@@ -72,10 +72,10 @@ Scenario: Quiz with corrected answers will show original and corrected results
   When I answer "Green"
   * I answer "Blue"
   * I click the next button
-  * I answer "Paris"
+  * I answer "Lyon"
   * I click the evaluate button
-  Then I see the result 2 correct out of 2, 100%, passed, required passScore 40%
-  Then I see the original result 1, 50%
+  Then I see the result 1 correct out of 2, 50%, passed, required passScore 40%
+  Then I see the original result 0, 0%, failed
 
 Scenario: Quiz without corrections does not show corrected results
   Given I start quiz "a"

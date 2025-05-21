@@ -32,13 +32,20 @@ Then(
 )
 
 Then(
-    /^I see the original result (\d+), (\d+)%/,
-    async function (expectedOriginalCorrectAnswers: number, expectedOriginalPercentage: number) {
+    /^I see the original result (\d+), (\d+)%, (passed|failed)/,
+    async function (
+        expectedOriginalCorrectAnswers: number,
+        expectedOriginalPercentage: number,
+        expectedOriginalTextResult: string,
+    ) {
         const firstCorrectAnswers = await this.quizScorePage.firstCorrectAnswers()
         expect(firstCorrectAnswers).toBe(expectedOriginalCorrectAnswers)
 
         const result = await this.quizScorePage.firstPercentageResult()
         expect(result).toBe(expectedOriginalPercentage)
+
+        const textResult = await this.quizScorePage.firstTextResult()
+        expect(textResult).toBe(expectedOriginalTextResult)
     },
 )
 
@@ -48,6 +55,9 @@ Then(/^I don't see the original results/, async function () {
 
     const result = await this.quizScorePage.firstPercentageResultPresent()
     expect(result).toBe(false)
+
+    const textResult = await this.quizScorePage.firstTextResultPresent()
+    expect(textResult).toBe(false)
 })
 
 Then('I see the question {string}', async function (question: string) {

@@ -26,6 +26,10 @@ export class QuizScorePage {
     private textResultLocator = () => this.page.locator('#text-result')
     textResult = () => this.textResultLocator().textContent()
 
+    private firstTextResultLocator = () => this.page.locator('#first-text-result')
+    firstTextResult = () => this.firstTextResultLocator().textContent()
+    firstTextResultPresent = () => this.firstCorrectAnswerLocator().isVisible()
+
     private questionsLocator = () => this.page.locator('[id^=question-]')
     questions = () => this.questionsLocator().locator('strong[id^=question-]').allTextContents()
 

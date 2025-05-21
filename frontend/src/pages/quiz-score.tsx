@@ -19,37 +19,64 @@ export const QuizScore = ({ score, questions, passScore, showFirstAnwers }: Quiz
     const percentage = (correct / total) * 100
     const firstPercentage = (firstCorrect / total) * 100
     const result = percentage >= passScore ? 'passed' : 'failed'
+    const firstResult = firstPercentage >= passScore ? 'passed' : 'failed'
 
     return (
         <>
             <h1>Test result</h1>
-            <p>
-                Correct answers: <span id="correct-answers">{correct}</span>
-            </p>
-            {showFirstAnwers && (
-                <p>
-                    First correct answers: <span id="first-correct-answers">{firstCorrect}</span>
-                </p>
-            )}
-            <p>
-                Total answers: <span id="total-questions">{total}</span>
-            </p>
-            <p>
-                Score(%): <span id="percentage-result">{percentage.toFixed(0)}</span>
-            </p>
-            {showFirstAnwers && (
-                <p>
-                    First time score(%): <span id="first-percentage-result">{firstPercentage.toFixed(0)}</span>
-                </p>
-            )}
-            <p>
-                Min pass score(%): <span id="pass-score">{passScore}</span>
-            </p>
-            <p>
-                State: <span id="text-result">{result}</span>
-            </p>
 
-            <hr />
+            <div className="resultTable">
+                <div className="row header">
+                    <div>Correct Answers</div>
+                    <div>Score</div>
+                    <div>Min pass score</div>
+                    <div>State</div>
+                </div>
+                <div className="row">
+                    <div>
+                        <span id="correct-answers">{correct}</span> / <span id="total-questions">{total}</span>
+                    </div>
+                    <div>
+                        <span id="percentage-result">{percentage.toFixed(0)}</span> %
+                    </div>
+                    <div>
+                        <span id="pass-score">{passScore}</span> %
+                    </div>
+                    <div>
+                        <span id="text-result">{result}</span>
+                    </div>
+                </div>
+            </div>
+
+            {showFirstAnwers && (
+                <div>
+                    <h2>Original result</h2>
+                    <div>how would you do if it was a quiz with no correction options</div>
+
+                    <div className="resultTable">
+                        <div className="row header">
+                            <div>Correct Answers</div>
+                            <div>Score</div>
+                            <div>Min pass score</div>
+                            <div>State</div>
+                        </div>
+                        <div className="row">
+                            <div>
+                                <span id="first-correct-answers">{firstCorrect}</span> / <span>{total}</span>
+                            </div>
+                            <div>
+                                <span id="first-percentage-result">{firstPercentage.toFixed(0)}</span> %
+                            </div>
+                            <div>
+                                <span id="first-pass-score">{passScore}</span> %
+                            </div>
+                            <div>
+                                <span id="first-text-result">{firstResult}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <h2>Answer overview</h2>
             {questions.map(question => (
