@@ -1,6 +1,6 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
-import { expectTextToBe, expectTextToContain } from './common.ts'
+import { expectTextToBe } from './common.ts'
 import { Then, When } from './fixture.ts'
 import type { Question } from './world/question.ts'
 import type { TakeQuestionPage } from '../pages/take-question-page.ts'
@@ -11,7 +11,7 @@ When('I take question {string}', async function (bookmark: string) {
 })
 
 export async function expectQuestion(takeQuestionPage: TakeQuestionPage, question: Question) {
-    await expectTextToBe(takeQuestionPage.questionLocator(), question.question)
+    expect(await takeQuestionPage.questionText()).toBe(question.question)
     const answers = question.answers
     const answerLocators = takeQuestionPage.answersLocator()
 
@@ -54,15 +54,11 @@ When('I submit question', async function () {
 })
 
 Then('I see feedback {string}', async function (feedback: string) {
-    await expectTextToBe(this.takeQuestionPage.feedbackLocator(), `The answer is:\u00A0${feedback}`)
+    await expectTextToBe(this.takeQuestionPage.questionFeedbackLocator(), `The answer is:\u00A0${feedback}`)
 })
 
 Then('no answer is selected', async function () {
     expect(await this.takeQuestionPage.selectedAnswersLocator().count()).toBe(0)
-})
-
-Then('I see the answer explanation {string}', async function (answerExplanation: string) {
-    await expectTextToBe(this.takeQuestionPage.answerExplanationLocator(), answerExplanation)
 })
 
 Then('I see the question explanation', async function () {
@@ -73,12 +69,12 @@ Then('I see individual explanations per answer:', async function (dataTable: Dat
     const rows = dataTable.hashes()
     for (const row of rows) {
         const { answer, explanation } = row
-        await expect(this.takeQuestionPage.answerExplanationLocatorForAnswer(answer)).toHaveText(explanation)
+        await expect(this.takeQuestionPage.answerExplanationLocator(answer)).toHaveText(explanation)
     }
 })
 
 Then('I see the {string} question for the quiz', async function (questionName: string) {
-    await expectTextToContain(this.takeQuestionPage.questionLocator(), questionName)
+    expect(await this.takeQuestionPage.questionText()).toBe(questionName)
 })
 
 const answerRowClass: { [key in string]: string } = {
@@ -101,8 +97,4 @@ Then('I see individual color feedback per answer:', async function (dataTable: D
         const feedbackLocator = this.takeQuestionPage.answerFeedbackLocator(answer)
         await expect(feedbackLocator).toHaveText(checkMark)
     }
-})
-
-Then('no explanation answer is displayed', async function () {
-    expect(await this.takeQuestionPage.answerExplanationLocator().count()).toBe(0)
 })

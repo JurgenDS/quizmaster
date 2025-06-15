@@ -41,9 +41,7 @@ export const Answer = (props: AnswerProps) => {
                     onChange={onChange}
                     checked={isChecked}
                 />
-                <label htmlFor={answerId}>
-                    {props.answer}
-                </label>
+                <label htmlFor={answerId}>{props.answer}</label>
                 {props.showFeedback && <div className="answer-feedback">{props.isCorrect ? '✅' : '❌'}</div>}
             </div>
             {props.showFeedback && props.explanation && <Explanation text={props.explanation} />}

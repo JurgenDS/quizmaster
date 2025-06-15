@@ -1,38 +1,28 @@
 import type { Page } from '@playwright/test'
 
 export class TakeQuestionPage {
-    constructor(private page: Page) { }
+    constructor(private page: Page) {}
 
-    questionLocator = () => this.page.locator('h1')
+    private questionLocator = () => this.page.locator('h1')
+    questionText = () => this.questionLocator().textContent()
 
     answersLocator = () => this.page.locator('li')
+    answerLocator = (answer: string) => this.page.locator(`li:has(input[value="${answer}"])`)
 
-    answerRowLocator = (answer: string) => this.page.locator(`li>.answer-input-row:has(input[value="${answer}"])`)
+    answerRowLocator = (answer: string) => this.answerLocator(answer).locator('.answer-input-row')
+    answerFeedbackLocator = (answer: string) => this.answerRowLocator(answer).locator('.answer-feedback')
+    answerCheckLocator = (answer: string) => this.answerRowLocator(answer).locator('input')
+    answerExplanationLocator = (answer: string) => this.answerLocator(answer).locator('.explanation')
 
-    answerFeedbackLocator = (answer: string) =>
-        this.page.locator(`li>.answer-input-row:has(input[value="${answer}"]) .answer-feedback`)
+    selectAnswer = (answer: string) => this.answerCheckLocator(answer).check()
+    unselectAnswer = (answer: string) => this.answerCheckLocator(answer).uncheck()
+    isAnswerSelected = (answer: string) => this.answerCheckLocator(answer).isChecked()
+    selectedAnswersLocator = () => this.answersLocator().locator('input:checked')
 
-    answerLocator = (answer: string) =>
-        this.page.locator(`input[type="checkbox"][value="${answer}"],input[type="radio"][value="${answer}"]`)
-
-    answerExplanationLocatorForAnswer = (answer: string) =>
-        this.page.locator(`li:has(input[value="${answer}"]) .explanation`)
-
-    selectAnswer = (answer: string) => this.answerLocator(answer).check()
-    unselectAnswer = (answer: string) => this.answerLocator(answer).uncheck()
-
-    submitButtonLocator = () => this.page.locator('input[type="submit"]')
-
+    private submitButtonLocator = () => this.page.locator('input[type="submit"]')
     submit = () => this.submitButtonLocator().click()
     submitButtonIsDisabled = () => this.submitButtonLocator().isDisabled()
 
-    feedbackLocator = () => this.page.locator('p.question-correctness')
-
-    answerExplanationLocator = () => this.page.locator('span.explanationText')
-
+    questionFeedbackLocator = () => this.page.locator('p.question-feedback')
     questionExplanationLocator = () => this.page.locator('p.question-explanation')
-
-    selectedAnswersLocator = () => this.page.locator('input:checked')
-
-    checkAnswer = (answer: string) => this.answerLocator(answer).isChecked()
 }

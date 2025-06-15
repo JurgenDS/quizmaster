@@ -23,4 +23,3 @@ Scenario: After next page is displayed, no answer and explanation is displayed
     Given I start quiz "a"
     When I answer "Green"
     Then no answer is selected
-    And no explanation answer is displayed

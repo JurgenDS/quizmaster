@@ -68,23 +68,23 @@ Given('I refresh page', async function () {
 Then('I should see answer {string} is checked', async function (answerList: string) {
     const answers = this.parseAnswers(answerList)
     for (const element of answers) {
-        await expect(this.takeQuestionPage.answerLocator(element)).toBeChecked()
+        await expect(this.takeQuestionPage.answerCheckLocator(element)).toBeChecked()
     }
 })
 
 Then('I should see answer {string} is unchecked', async function (answerList: string) {
     const answers = this.parseAnswers(answerList)
     for (const element of answers) {
-        await expect(this.takeQuestionPage.answerLocator(element)).not.toBeChecked()
+        await expect(this.takeQuestionPage.answerCheckLocator(element)).not.toBeChecked()
     }
 })
 
 Then('I should not see the answer', async function () {
-    await expectThatIsNotVisible(this.takeQuestionPage.feedbackLocator())
+    await expectThatIsNotVisible(this.takeQuestionPage.questionFeedbackLocator())
 })
 
 Then('I should see the answer', async function () {
-    await expectThatIsVisible(this.takeQuestionPage.feedbackLocator())
+    await expectThatIsVisible(this.takeQuestionPage.questionFeedbackLocator())
 })
 
 Then('progress shows {int} of {int}', async function (current: number, max: number) {
@@ -122,7 +122,7 @@ Then('I should see the countdown timer after delay is less then {string}', async
 })
 
 Then('I see answer {string} checked', async function (answer: string) {
-    expect(await this.takeQuestionPage.checkAnswer(answer)).toBe(true)
+    expect(await this.takeQuestionPage.isAnswerSelected(answer)).toBe(true)
 })
 
 Given(
