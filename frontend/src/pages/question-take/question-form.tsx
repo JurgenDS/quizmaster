@@ -49,26 +49,15 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 ))}
             </ul>
 
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
-                {!state.submitted && (
-                    <input
-                        type="submit"
-                        value="Submit"
-                        className={isAnswerChecked ? 'submit-btn' : 'submit-btn-disabled'}
-                        disabled={!isAnswerChecked}
-                    />
-                )}
-            </div>
-            {state.submitted && props.afterEach && (
-                <QuestionCorrectness
-                    correctAnswers={props.question.answers.filter((_, idx) =>
-                        props.question.correctAnswers.includes(idx),
-                    )}
-                    isCorrect={feedback.isQuestionCorrect}
-                />
+            {!state.submitted && (
+                <input type="submit" value="Submit" className="submit-btn" disabled={!isAnswerChecked} />
             )}
-
-            {state.submitted && props.afterEach && <QuestionExplanation text={props.question.questionExplanation} />}
+            {state.submitted && props.afterEach && (
+                <>
+                    <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />
+                    <QuestionExplanation text={props.question.questionExplanation} />
+                </>
+            )}
         </form>
     )
 }

@@ -48,7 +48,7 @@ ul li input[type="radio"]:checked::after {
     text-decoration: none;
 }
 
-.submit-btn-disabled {
+.submit-btn[disabled] {
     background-color: #bbbbbb;
     color: white;
     font-size: 16px;

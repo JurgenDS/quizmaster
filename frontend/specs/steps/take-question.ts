@@ -54,7 +54,7 @@ When('I submit question', async function () {
 })
 
 Then('I see feedback {string}', async function (feedback: string) {
-    await expectTextToBe(this.takeQuestionPage.questionFeedbackLocator(), `The answer is:\u00A0${feedback}`)
+    await expectTextToBe(this.takeQuestionPage.questionFeedbackLocator(), feedback)
 })
 
 Then('no answer is selected', async function () {
