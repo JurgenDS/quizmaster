@@ -31,10 +31,6 @@ export const QuestionForm = (props: QuestionFormProps) => {
         <form onSubmit={handleSubmit} id="question-form">
             <h1>{props.question.question}</h1>
 
-            <div className="question-form-legend">
-                {state.isMultipleChoice ? 'this question is multi-čois' : 'this question is single choice'}
-            </div>
-
             <ul>
                 {props.question.answers.map((answer, idx) => (
                     <Answer
