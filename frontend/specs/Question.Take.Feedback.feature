@@ -6,6 +6,7 @@ Feature: Take a single question
       | Australia | What's the capital city of Australia? | Sydney, Canberra (*), Melbourne   |
       | Planets   | Which of the following are planets?   | Mars (*), Pluto, Venus (*), Titan |
 
+
   Scenario Outline: Single choice question feedback
     Question is answered correctly if the correct answer is selected
 
@@ -16,6 +17,7 @@ Feature: Take a single question
       | answer   | feedback   |
       | Sydney   | Incorrect! |
       | Canberra | Correct!   |
+
 
   Scenario Outline: Multiple choice question feedback
     Question is answered correctly only if
@@ -32,3 +34,26 @@ Feature: Take a single question
       | Mars, Pluto               | Incorrect! |
       | Mars, Pluto, Venus, Titan | Incorrect! |
       | Pluto, Titan              | Incorrect! |
+
+
+  Scenario Outline: Multiple choice question per-answer feedback
+    Upon submitting the question, each answer is marked with a color:
+    - green if the answer is selected while correct
+    - red if the answer is selected while incorrect, or not selected while correct
+    - none if the answer is not selected while incorrect
+
+    When I take question "Planets"
+    And I answer "<answer>"
+    Then I see individual color feedback per answer:
+      | answer | color   |
+      | Mars   | <◼️ mars>  |
+      | Pluto  | <◼️ pluto> |
+      | Venus  | <◼️ venus> |
+      | Titan  | <◼️ titan> |
+    Examples:
+      | answer                    | ◼️ mars | ◼️ pluto | ◼️ venus | ◼️ titan |
+      | Mars, Venus               | ✅      | ⚪       | ✅       | ⚪       |
+      | Mars, Venus, Titan        | ✅      | ⚪       | ✅       | ❌       |
+      | Mars, Pluto               | ✅      | ❌       | ❌       | ⚪       |
+      | Mars, Pluto, Venus, Titan | ✅      | ❌       | ✅       | ❌       |
+      | Pluto, Titan              | ❌      | ❌       | ❌       | ❌       |

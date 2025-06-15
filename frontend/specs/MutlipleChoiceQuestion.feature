@@ -16,28 +16,6 @@ Feature: Answering a quiz question with multiple choice
     And I answer "Italy"
     Then I see the question explanation
 
-  Scenario Outline: Individual feedback color per answer is displayed after answering
-    When I take question "Europe"
-    And I answer "<answer>"
-    Then I see individual color feedback per answer:
-      | answer  | color           |
-      | Italy   | <italy_color>   |
-      | France  | <france_color>  |
-      | Morocco | <morocco_color> |
-      | Spain   | <spain_color>   |
-      | Canada  | <canada_color>  |
-    Examples:
-      | answer                        | italy_color | france_color  | morocco_color | spain_color | canada_color |
-      | Italy, France, Spain          | GREEN       | GREEN         | NONE          | GREEN       | NONE         |
-      | Italy, France                 | GREEN       | GREEN         | NONE          | RED         | NONE         |
-      | Italy, France, Morocco        | GREEN       | GREEN         | RED           | RED         | NONE         |
-      | Italy, Morocco                | GREEN       | RED           | RED           | RED         | NONE         |
-      | France, Spain                 | RED         | GREEN         | NONE          | GREEN       | NONE         |
-      | Morocco                       | RED         | RED           | RED           | RED         | NONE         |
-      | Italy, France, Morocco, Spain | GREEN       | GREEN         | RED           | GREEN       | NONE         |
-      | Italy, Spain                  | GREEN       | RED           | NONE          | GREEN       | NONE         |
-      | France                        | RED         | GREEN         | NONE          | RED         | NONE         |
-
   Scenario: Individual explanation per answer is displayed after answering
     When I take question "Europe"
     And I answer "France, Morocco, Spain"
