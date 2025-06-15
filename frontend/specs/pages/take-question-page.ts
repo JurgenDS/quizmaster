@@ -1,16 +1,22 @@
 import type { Page } from '@playwright/test'
 
 export class TakeQuestionPage {
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     questionLocator = () => this.page.locator('h1')
 
     answersLocator = () => this.page.locator('li')
 
+    answerRowLocator = (answer: string) => this.page.locator(`li>.answer-input-row:has(input[value="${answer}"])`)
+
+    answerFeedbackLocator = (answer: string) =>
+        this.page.locator(`li>.answer-input-row:has(input[value="${answer}"]) .answer-feedback`)
+
     answerLocator = (answer: string) =>
         this.page.locator(`input[type="checkbox"][value="${answer}"],input[type="radio"][value="${answer}"]`)
 
-    answerExplanationLocatorForAnswer = (answer: string) => this.page.getByTestId(`answer-row-${answer}-explanation`)
+    answerExplanationLocatorForAnswer = (answer: string) =>
+        this.page.locator(`li:has(input[value="${answer}"]) .explanation`)
 
     selectAnswer = (answer: string) => this.answerLocator(answer).check()
     unselectAnswer = (answer: string) => this.answerLocator(answer).uncheck()

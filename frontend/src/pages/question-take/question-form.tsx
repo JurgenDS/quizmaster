@@ -1,3 +1,4 @@
+import './question-form.scss'
 import type { AnswerIdxs, QuizQuestion } from 'model/quiz-question.ts'
 import {
     Answer,
@@ -31,7 +32,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
         <form onSubmit={handleSubmit} id="question-form">
             <h1>{props.question.question}</h1>
 
-            <ul>
+            <ul className="answers">
                 {props.question.answers.map((answer, idx) => (
                     <Answer
                         key={answer}

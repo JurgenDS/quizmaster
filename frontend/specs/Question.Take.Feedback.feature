@@ -46,14 +46,14 @@ Feature: Take a single question
     And I answer "<answer>"
     Then I see individual color feedback per answer:
       | answer | color   |
-      | Mars   | <◼️ mars>  |
-      | Pluto  | <◼️ pluto> |
-      | Venus  | <◼️ venus> |
-      | Titan  | <◼️ titan> |
+      | Mars   | <mars>  |
+      | Pluto  | <pluto> |
+      | Venus  | <venus> |
+      | Titan  | <titan> |
     Examples:
-      | answer                    | ◼️ mars | ◼️ pluto | ◼️ venus | ◼️ titan |
-      | Mars, Venus               | ✅      | ⚪       | ✅       | ⚪       |
-      | Mars, Venus, Titan        | ✅      | ⚪       | ✅       | ❌       |
-      | Mars, Pluto               | ✅      | ❌       | ❌       | ⚪       |
-      | Mars, Pluto, Venus, Titan | ✅      | ❌       | ✅       | ❌       |
-      | Pluto, Titan              | ❌      | ❌       | ❌       | ❌       |
+      | answer                    | mars    | pluto   | venus   | titan   |
+      | Mars, Venus               | 🟩🟩✅ | ◼️◼️✅ | 🟩🟩✅ | ◼️◼️✅ |
+      | Mars, Venus, Titan        | 🟩🟩✅ | ◼️◼️✅ | 🟩🟩✅ | 🟥🟥❌ |
+      | Mars, Pluto               | 🟩🟩✅ | 🟥🟥❌ | 🟥🟥❌ | ◼️◼️✅ |
+      | Mars, Pluto, Venus, Titan | 🟩🟩✅ | 🟥🟥❌ | 🟩🟩✅ | 🟥🟥❌ |
+      | Pluto, Titan              | 🟥🟥❌ | 🟥🟥❌ | 🟥🟥❌ | 🟥🟥❌ |

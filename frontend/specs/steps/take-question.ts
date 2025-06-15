@@ -5,32 +5,6 @@ import { Then, When } from './fixture.ts'
 import type { Question } from './world/question.ts'
 import type { TakeQuestionPage } from '../pages/take-question-page.ts'
 
-enum Color {
-    GREEN = '✅',
-    RED = '❌',
-    NONE = '⚪',
-}
-
-const colorCssValue: { [key in Color]: string } = {
-    [Color.GREEN]: 'rgb(178, 223, 178)',
-    [Color.RED]: 'rgb(244, 182, 184)',
-    [Color.NONE]: 'rgba(0, 0, 0, 0)',
-}
-
-const colorExplanationCssValue: { [key in Color]: string } = {
-    [Color.GREEN]: 'rgb(15, 62, 15)',
-    [Color.RED]: 'rgb(90, 21, 24)',
-    [Color.NONE]: 'rgb(0, 0, 0)',
-}
-
-function getColor(color: string): string {
-    return colorCssValue[color as Color] || ''
-}
-
-function getExplanationColor(color: string): string {
-    return colorExplanationCssValue[color as Color] || ''
-}
-
 When('I take question {string}', async function (bookmark: string) {
     await this.page.goto(this.bookmarks[bookmark].url)
     this.activeBookmark = bookmark
@@ -99,9 +73,7 @@ Then('I see individual explanations per answer:', async function (dataTable: Dat
     const rows = dataTable.hashes()
     for (const row of rows) {
         const { answer, explanation } = row
-        await expect(this.takeQuestionPage.answerExplanationLocatorForAnswer(answer)).toHaveText(
-            `Explanation: ${explanation}`,
-        )
+        await expect(this.takeQuestionPage.answerExplanationLocatorForAnswer(answer)).toHaveText(explanation)
     }
 })
 
@@ -109,30 +81,25 @@ Then('I see the {string} question for the quiz', async function (questionName: s
     await expectTextToContain(this.takeQuestionPage.questionLocator(), questionName)
 })
 
-Then('I see individual color feedback per answer:', async function (dataTable: DataTable) {
-    const rows = dataTable.hashes()
+const answerRowClass: { [key in string]: string } = {
+    '🟩': 'correctly-selected',
+    '🟥': 'incorrect',
+    '◼️': 'correctly-not-selected',
+}
 
-    for (const row of rows) {
-        const { answer, color } = row
-        const answerRow = this.page.getByTestId(`answer-row-${answer}-color`)
-        // const explanationRow = this.page.getByTestId(`answer-row-${answer}-explanation`)
-        const answerRowResultIconSuccess = this.page.getByTestId(`answer-row-${answer}-icon-success`)
-        const answerRowResultIconFailure = this.page.getByTestId(`answer-row-${answer}-icon-failure`)
-        // await expect(explanationRow).toHaveCSS('color', getExplanationColor(color))
-        await expect(answerRow).toHaveCSS('background-color', getColor(color))
-        if (color === Color.NONE) {
-            await expect(answerRowResultIconSuccess).not.toBeVisible()
-            await expect(answerRowResultIconFailure).not.toBeVisible()
-        } else {
-            if (color === Color.GREEN) {
-                await expect(answerRowResultIconSuccess).toBeVisible()
-                await expect(answerRowResultIconFailure).not.toBeVisible()
-            }
-            if (color === Color.RED) {
-                await expect(answerRowResultIconFailure).toBeVisible()
-                await expect(answerRowResultIconSuccess).not.toBeVisible()
-            }
-        }
+const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' })
+
+Then('I see individual color feedback per answer:', async function (dataTable: DataTable) {
+    for (const { answer, color } of dataTable.hashes()) {
+        const graphemes = Array.from(segmenter.segment(color), s => s.segment)
+        const className = answerRowClass[graphemes[0]]
+        const checkMark = graphemes[2]
+
+        const answerRow = this.takeQuestionPage.answerRowLocator(answer)
+        await expect(answerRow).toHaveClass(new RegExp(className))
+
+        const feedbackLocator = this.takeQuestionPage.answerFeedbackLocator(answer)
+        await expect(feedbackLocator).toHaveText(checkMark)
     }
 })
 
