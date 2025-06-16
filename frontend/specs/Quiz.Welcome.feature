@@ -1,9 +1,8 @@
-@skip
 Feature: Quiz Welcome page
 
   Scenario Outline: Quiz welcome page
-    Given quiz "a" with 2 questions, pass score 85% and feedback at the end
-    Given quiz "c" with 2 questions, pass score 40% and continuous feedback
+    # Given quiz "a" with 2 questions, pass score 85% and feedback at the end
+    # Given quiz "c" with 2 questions, pass score 40% and continuous feedback
     When I open quiz "<quiz>"
     Then I see the welcome page
     * I see quiz name "<name>"
