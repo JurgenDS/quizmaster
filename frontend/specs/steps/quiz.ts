@@ -121,6 +121,12 @@ Then('I should see the countdown timer after delay is less then {string}', async
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
 
+Then('I will wait for {string}', async function (timer: string) {
+    await this.page.clock.install({ time: new Date('2023-10-01T00:01:30Z') })
+    await expectTextToBe(this.page.getByTestId('timerID'), timer)
+    await this.page.clock.fastForward(timer)
+})
+
 Then('I should see the results table', async function () {
     await expectThatIsVisible(this.page.getByTestId('resultTableId'))
 })
