@@ -25,7 +25,7 @@ export const QuizScore = ({ score, questions, passScore, showFirstAnwers }: Quiz
         <>
             <h1>Test result</h1>
 
-            <div className="resultTable">
+            <div className="resultTable" data-testId="resultTableId">
                 <div className="row header">
                     <div>Correct Answers</div>
                     <div>Score</div>

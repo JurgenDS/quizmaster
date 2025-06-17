@@ -121,6 +121,11 @@ Then('I should see the countdown timer after delay is less then {string}', async
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
 
+Then('I should see the results table', async function () {
+    await expectThatIsVisible(this.page.getByTestId('resultTableId'))
+})
+
+
 Then('I see answer {string} checked', async function (answer: string) {
     expect(await this.takeQuestionPage.isAnswerSelected(answer)).toBe(true)
 })

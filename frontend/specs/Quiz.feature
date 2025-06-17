@@ -69,6 +69,12 @@ Feature: Take a quiz
     Then I should see the countdown timer after delay is less then "2:00"
     And I should see the text "Game over time"
 
+  @skip
+  Scenario: Display result table after 2 minutes
+    Given I start quiz "a"
+    Then I should see the countdown timer after delay is less then "2:00"
+    And I should see the results table
+
 
   Scenario: Last question is not answered and there are any skipped questions
     Given I start quiz "a"
