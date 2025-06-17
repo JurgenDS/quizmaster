@@ -17,7 +17,7 @@ const QuizWelcomePage = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             if (params.id) {
-                setQuiz(await getQuiz(params.id))
+                setQuiz(await getQuiz(Number(params.id)))
             }
         }
         fetchQuiz()

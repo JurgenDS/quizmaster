@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,17 +26,7 @@ public class QuizControllerTest {
     private QuizRepository quizRepository;
 
     @Test
-    public void getQuiz() {
-        ResponseEntity<QuizResponse> resp = quizController.getQuiz("d");
-        var result = resp.getBody();
-
-        assertNotNull(result);
-        assertEquals(HttpStatus.OK, resp.getStatusCode());
-        assertEquals("d", result.getId());
-    }
-
-    @Test
-    public void createQuiz() {
+    public void createAndGetQuiz() {
         QuizQuestion question = new QuizQuestion();
         question.setQuestion("nějakej string");
         question.setAnswers(Arrays.array("Odp1", "Odp2"));
@@ -71,5 +60,18 @@ public class QuizControllerTest {
         assertEquals(quizInput.getPassScore(), quiz.getPassScore());
         assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
         assertEquals(quizInput.isAfterEach(), quiz.isAfterEach());
+
+        ResponseEntity<QuizResponse> quizGet = quizController.getQuiz(body);
+        assertNotNull(quizGet);
+        assertEquals(HttpStatus.OK, quizGet.getStatusCode());
+        QuizResponse quizGetBody = quizGet.getBody();
+        assertNotNull(quizGetBody);
+        assertEquals(body, quizGetBody.getId());
+        assertEquals(quizInput.getTitle(), quizGetBody.getTitle());
+        assertEquals(quizInput.getDescription(), quizGetBody.getDescription());
+        QuizQuestion[] quizGetBodyQuestions = quizGetBody.getQuestions();
+        assertNotNull(quizGetBodyQuestions);
+        assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
+        assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());
     }
 }

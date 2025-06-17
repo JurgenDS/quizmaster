@@ -18,7 +18,7 @@ export interface Answers {
 }
 
 export interface Quiz {
-    id: string
+    id: number
     questions: QuizQuestion[]
     afterEach: boolean
     passScore: number

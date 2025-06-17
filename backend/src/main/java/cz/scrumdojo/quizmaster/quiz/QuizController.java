@@ -2,20 +2,14 @@ package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import cz.scrumdojo.quizmaster.model.ErrorResponse;
-import cz.scrumdojo.quizmaster.model.QuizCreateRequest;
-
-import java.util.Random;
-import java.util.UUID;
 import java.util.HashMap;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -25,16 +19,13 @@ public class QuizController {
     private final QuizQuestionRepository quizQuestionRepository;
     private final QuizRepository quizRepository;
 
-    private static QuizResponse quiz1 = new QuizResponse();
-    private static QuizResponse quiz2 = new QuizResponse();
-    private static QuizResponse quiz3 = new QuizResponse();
-    private static QuizResponse quiz4 = new QuizResponse();
-    private static HashMap<String, QuizResponse> quizs = new HashMap<>();
+    private static final Map<Integer, Quiz> quizzes = new HashMap<>();
 
     @Autowired
     public QuizController(QuizQuestionRepository quizQuestionRepository, QuizRepository quizRepository) {
         this.quizQuestionRepository = quizQuestionRepository;
         this.quizRepository = quizRepository;
+
 
         QuizQuestion question = new QuizQuestion();
         question.setId(1);
@@ -73,25 +64,27 @@ public class QuizController {
         var quizQuestion2 = quizQuestionRepository.save(question2);
         var quizQuestion3 = quizQuestionRepository.save(question3);
 
-        quiz1.setId("a");
-        quiz1.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
+        Quiz quiz1 = new Quiz();
+        quiz1.setId(-1);
+        quiz1.setQuestionIds(new int[]{quizQuestion.getId(), quizQuestion2.getId()});
         quiz1.setAfterEach(false);
         quiz1.setPassScore(85);
 
-        quiz3.setId("c");
-        quiz3.setQuestions(new QuizQuestion[]{quizQuestion, quizQuestion2});
-        quiz3.setAfterEach(true);
+        Quiz quiz2 = new Quiz();
+        quiz2.setId(-2);
+        quiz2.setQuestionIds(new int[]{quizQuestion.getId(), quizQuestion2.getId()});
+        quiz2.setAfterEach(true);
+        quiz2.setPassScore(40);
+
+        Quiz quiz3 = new Quiz();
+        quiz3.setId(-3);
+        quiz3.setQuestionIds(new int[]{quizQuestion3.getId(), quizQuestion2.getId()});
+        quiz3.setAfterEach(false);
         quiz3.setPassScore(40);
 
-        quiz4.setId("k");
-        quiz4.setQuestions(new QuizQuestion[]{quizQuestion3, quizQuestion2});
-        quiz4.setAfterEach(false);
-        quiz4.setPassScore(40);
-
-        quizs.put(quiz1.getId(), quiz1);
-        quizs.put(quiz2.getId(), quiz2);
-        quizs.put(quiz3.getId(), quiz3);
-        quizs.put(quiz4.getId(), quiz4);
+        quizzes.put(quiz1.getId(), quiz1);
+        quizzes.put(quiz2.getId(), quiz2);
+        quizzes.put(quiz3.getId(), quiz3);
 
         var planet = quizQuestionRepository.save(
             QuizQuestion.builder()
@@ -120,34 +113,51 @@ public class QuizController {
                 .build()
         );
 
-        var quizD = QuizResponse.builder()
-            .id("d")
-            .questions(new QuizQuestion[]{planet, australia, fruit})
+
+        var quiz4 = Quiz.builder()
+            .id(-4)
+            .questionIds(new int[]{planet.getId(), australia.getId(), fruit.getId()})
             .afterEach(false)
             .passScore(85)
             .build();
 
-        var quizE = QuizResponse.builder()
-            .id("e")
-            .questions(new QuizQuestion[]{planet, australia, fruit})
+        var quiz5 = Quiz.builder()
+            .id(-5)
+            .questionIds(new int[]{planet.getId(), australia.getId(), fruit.getId()})
             .afterEach(true)
             .passScore(85)
             .build();
 
-        quizs.put(quizD.getId(), quizD);
-        quizs.put(quizE.getId(), quizE);
+        quizzes.put(quiz4.getId(), quiz4);
+        quizzes.put(quiz5.getId(), quiz5);
+
     }
 
     @Transactional
     @GetMapping("/quiz/{id}")
-    public ResponseEntity<QuizResponse> getQuiz(@PathVariable String id) {
-        log.info("GET /quiz param:{}", id);
-        if (quizs.get(id) == null) {
-            log.info("QUIZ {} was not found, HTTP 404", id);
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<QuizResponse> getQuiz(@PathVariable Integer id) {
+        Quiz quiz;
+        if (id < 0) {
+            quiz = quizzes.get(id);
+        } else {
+            quiz = this.quizRepository.getReferenceById(id);
         }
-        log.info("QUIZ {} with {} was found, HTTP 200", id, quizs.get(id));
-        return ResponseEntity.ok(quizs.get(id));
+
+        QuizQuestion[] questions = new QuizQuestion[quiz.getQuestionIds().length];
+        for (int i = 0; i < quiz.getQuestionIds().length; i++) {
+            questions[i] = this.quizQuestionRepository.getReferenceById(quiz.getQuestionIds()[i]);
+        }
+
+        QuizResponse build = QuizResponse.builder()
+            .id(quiz.getId())
+            .title(quiz.getTitle())
+            .description(quiz.getDescription())
+            .questions(questions)
+            .afterEach(quiz.isAfterEach())
+            .passScore(quiz.getPassScore())
+            .build();
+
+        return ResponseEntity.ok(build);
     }
 
     @Transactional

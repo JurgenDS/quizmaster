@@ -1,5 +1,6 @@
 package cz.scrumdojo.quizmaster.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -7,6 +8,7 @@ import org.hibernate.type.SqlTypes;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class QuizQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

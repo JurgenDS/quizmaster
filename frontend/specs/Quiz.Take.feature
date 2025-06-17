@@ -14,7 +14,7 @@ Feature: Take a quiz
     - Quiz with feedback at the end does not show feedback until the quiz is finished
     - Submitting an answer proceeds directly to the next question
 
-    When I start quiz "d"
+    When I start quiz "-4"
     Then I see question "Planet"
 
     When I answer "Mars"
@@ -25,7 +25,7 @@ Feature: Take a quiz
     - Quiz with continuous feedback shows feedback after each question
     - User must manually proceed to the next question
 
-    When I start quiz "e"
+    When I start quiz "-5"
     Then I see question "Planet"
 
     When I answer "Mars"
@@ -38,7 +38,7 @@ Feature: Take a quiz
   Scenario: Continuous feedback - Retake question
     - User can retake a question and see the feedback again
 
-    When I start quiz "e"
+    When I start quiz "-5"
     Then I see question "Planet"
 
     When I answer "Mars"

@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class QuizResponse {
 
-    private String id;
+    private Integer id;
     private String title;
     private QuizQuestion[] questions;
     private boolean afterEach;

@@ -12,5 +12,5 @@ Feature: Quiz Welcome page
     * I see feedback type "<type>"
     Examples:
       | quiz | name | count | score | type                |
-      | a    | a    | 2     | 85    | Feedback at the end |
-      | c    | c    | 2     | 40    | Continuous feedback |
+      | -1    | -1    | 2     | 85    | Feedback at the end |
+      | -2    | -2    | 2     | 40    | Continuous feedback |

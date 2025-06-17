@@ -170,7 +170,7 @@ export const QuizPage = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             if (quizId) {
-                setQuiz(await getQuiz(quizId))
+                setQuiz(await getQuiz(Number(quizId)))
             }
         }
         fetchQuiz()

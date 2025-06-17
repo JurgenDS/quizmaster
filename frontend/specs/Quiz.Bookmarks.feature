@@ -9,7 +9,7 @@ Feature: Bookmark questions during a quiz
   Scenario: Mark bookmark and return to bookmark
     - Testuju bookmarky v rámci jednoho kvízu, po zabookmarkovani otayky se vratim klikem na bookmark na otazku, kterou jsem si bookmarokoval
 
-    When I start quiz "d"
+    When I start quiz "-4"
     Then I see question "Planet"
 
     When I bookmark question "Planet"
@@ -25,7 +25,7 @@ Feature: Bookmark questions during a quiz
   Scenario: Remove bookmark
     - Testuju odstranění bookmarku v rámci jednoho kvízu, po odstranění se mi otázka nezobrazí v bookmarku
 
-    When I start quiz "d"
+    When I start quiz "-4"
     Then I see question "Planet"
 
     When I bookmark question "Planet"
@@ -38,7 +38,7 @@ Feature: Bookmark questions during a quiz
   Scenario: Unmark bookmark
     - Testuju odznačení bookmarku v rámci jednoho kvízu, po odznačení se mi otázka nezobrazí v bookmarku
 
-    When I start quiz "d"
+    When I start quiz "-4"
     Then I see question "Planet"
 
     When I bookmark question "Planet"
