@@ -2,6 +2,7 @@ package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import lombok.*;
+
 import java.util.List;
 
 @Getter
@@ -17,4 +18,5 @@ public class QuizResponse {
     private QuizQuestion[] questions;
     private boolean afterEach;
     private int passScore;
+    private String description;
 }

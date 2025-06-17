@@ -1,4 +1,5 @@
 package cz.scrumdojo.quizmaster.quiz;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
@@ -13,7 +14,9 @@ import lombok.*;
 public class Quiz {
 
     private String title;
+    private String description;
     private String id;
     private int[] questionIds;
     private boolean afterEach;
+    private int passScore;
 }

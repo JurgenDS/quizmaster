@@ -28,7 +28,7 @@ public class QuizController {
     private static QuizResponse quiz2 = new QuizResponse();
     private static QuizResponse quiz3 = new QuizResponse();
     private static QuizResponse quiz4 = new QuizResponse();
-    private static HashMap<String,QuizResponse> quizs = new HashMap<>();
+    private static HashMap<String, QuizResponse> quizs = new HashMap<>();
 
     @Autowired
     public QuizController(QuizQuestionRepository quizQuestionRepository) {
@@ -65,7 +65,7 @@ public class QuizController {
         question3.setAnswers(new String[]{"Elephant", "Anteater", "Swordfish", "Bulldog"});
         question3.setExplanations(new String[]{});
         question3.setQuestionExplanation("");
-        question3.setCorrectAnswers(new int[]{0,1,2});
+        question3.setCorrectAnswers(new int[]{0, 1, 2});
 
         var quizQuestion = quizQuestionRepository.save(question);
         var quizQuestion2 = quizQuestionRepository.save(question2);
@@ -94,40 +94,40 @@ public class QuizController {
         var planet = quizQuestionRepository.save(
             QuizQuestion.builder()
                 .question("Which planet is known as the Red Planet?")
-                .answers(new String[]{ "Mars", "Venus" })
-                .explanations(new String[]{ "", "" })
-                .correctAnswers(new int[]{ 0 })
+                .answers(new String[]{"Mars", "Venus"})
+                .explanations(new String[]{"", ""})
+                .correctAnswers(new int[]{0})
                 .build()
         );
 
         var australia = quizQuestionRepository.save(
             QuizQuestion.builder()
                 .question("What's the capital city of Australia?")
-                .answers(new String[]{ "Sydney", "Canberra" })
-                .explanations(new String[]{ "", "" })
-                .correctAnswers(new int[]{ 1 })
+                .answers(new String[]{"Sydney", "Canberra"})
+                .explanations(new String[]{"", ""})
+                .correctAnswers(new int[]{1})
                 .build()
         );
 
         var fruit = quizQuestionRepository.save(
             QuizQuestion.builder()
                 .question("Which fruit is known for having seeds on the outside?")
-                .answers(new String[]{ "Strawberry", "Blueberry" })
-                .explanations(new String[]{ "", "" })
-                .correctAnswers(new int[]{ 0 })
+                .answers(new String[]{"Strawberry", "Blueberry"})
+                .explanations(new String[]{"", ""})
+                .correctAnswers(new int[]{0})
                 .build()
         );
 
         var quizD = QuizResponse.builder()
             .id("d")
-            .questions(new QuizQuestion[]{ planet, australia, fruit })
+            .questions(new QuizQuestion[]{planet, australia, fruit})
             .afterEach(false)
             .passScore(85)
             .build();
 
         var quizE = QuizResponse.builder()
             .id("e")
-            .questions(new QuizQuestion[]{ planet, australia, fruit })
+            .questions(new QuizQuestion[]{planet, australia, fruit})
             .afterEach(true)
             .passScore(85)
             .build();
@@ -146,5 +146,11 @@ public class QuizController {
         }
         log.info("QUIZ {} with {} was found, HTTP 200", id, quizs.get(id));
         return ResponseEntity.ok(quizs.get(id));
+    }
+
+    @Transactional
+    @PostMapping("/quiz")
+    public ResponseEntity<String> createQuiz(Quiz quizInput) {
+        return ResponseEntity.ok("1");
     }
 }
