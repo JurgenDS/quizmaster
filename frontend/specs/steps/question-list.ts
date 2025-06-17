@@ -18,12 +18,26 @@ const createQuestionToList = async (world: QuizmasterWorld, question: string) =>
     await world.createQuestionPage.submit()
 }
 
+const createQuestionList = async (world: QuizmasterWorld, title: string) => {
+    world.createQuestionListPage.gotoNew();
+    world.createQuestionListPage.enterQuestionListTitle(title)
+    await world.createQuestionListPage.submit()
+}
+
 Given('I open question list {string}', async function (guid: string) {
     await openQuestionList(this, guid)
 })
 
+Given('I saved the question list {string}', async function (questionListTitle: string) {
+    await createQuestionList(this, questionListTitle)
+})
+
 When('I create new question to list {string}', async function (question: string) {
     await createQuestionToList(this, question)
+})
+
+Then('I see a blank page', async function () {
+    await expectedNumberOfChildrenToBe(this.page.getByTestId('question-holder'), 0)
 })
 
 Then('I see an empty question list', async function () {
