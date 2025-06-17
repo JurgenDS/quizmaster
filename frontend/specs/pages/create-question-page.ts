@@ -19,6 +19,11 @@ export class CreateQuestionPage {
     setMultipleChoice = () => this.multipleChoiceLocator().check()
     setSingleChoice = () => this.multipleChoiceLocator().uncheck()
 
+    easyModeChoiceLocator = () => this.page.locator('#is-easy-mode-choice')
+    isEasyModeChoice = () => this.easyModeChoiceLocator().isChecked()
+    setEasyModeChecked = () => this.easyModeChoiceLocator().check()
+    setEasyModeUnchecked = () => this.easyModeChoiceLocator().uncheck()
+
     isCorrectCheckboxLocator = (answerText: string) =>
         this.page.locator(`[id^=answer-text-][value="${answerText}"]+[id^=answer-checkbox-]`)
 

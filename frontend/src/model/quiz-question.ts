@@ -9,6 +9,7 @@ export interface QuizQuestion {
     readonly correctAnswers: AnswerIdxs
     questionListGuid: string | null
     userInput?: AnswerIdxs
+    easyMode: boolean
 }
 
 export interface Answers {

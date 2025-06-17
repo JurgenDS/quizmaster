@@ -6,6 +6,7 @@ import {
     MultipleChoiceEdit,
     QuestionEdit,
     QuestionExplanationEdit,
+    EasyModeChoiceEdit,
     type QuestionFormData,
 } from 'pages/create-question/form'
 
@@ -28,6 +29,8 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
     const setQuestion = (question: string) => setQuestionData({ ...questionData, question })
     const setIsMultipleChoice = (isMultipleChoice: boolean) =>
         setQuestionData(setMultipleChoiceInQuestionData(isMultipleChoice, questionData))
+    const setIsEasyModeChoice = (isEasyModeChoice: boolean) =>
+        setQuestionData(setMultipleChoiceInQuestionData(isEasyModeChoice, questionData))
     const setAnswers = (answers: readonly AnswerData[]) => setQuestionData({ ...questionData, answers })
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })
@@ -38,6 +41,10 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
             <MultipleChoiceEdit
                 isMultipleChoice={questionData.isMultipleChoice}
                 setIsMultipleChoice={setIsMultipleChoice}
+            />
+            <EasyModeChoiceEdit
+                isEasyModeChoice={questionData.isEasyModeChoice}
+                setIsEasyModeChoice={setIsEasyModeChoice}
             />
             <AnswersEdit
                 answers={questionData.answers}

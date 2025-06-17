@@ -220,6 +220,12 @@ Then('Is correct checkboxes look like radio buttons', async function () {
     }
 })
 
+Then(/^Easy mode checkbox is (checked|unchecked)$/, async function (state: string) {
+    const expected = state === 'received'
+    const isChecked = await this.createQuestionPage.isEasyModeChoice()
+    expect(isChecked).toBe(expected)
+})
+
 When(/^I make the question (single|multi)-choice$/, async function (type: string) {
     if (type === 'single') {
         await this.createQuestionPage.setSingleChoice()

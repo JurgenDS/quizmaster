@@ -15,6 +15,7 @@ export interface QuestionFormData {
     readonly questionExplanation: string
     readonly isMultipleChoice: boolean
     readonly questionListGuid: string | null
+    readonly isEasyModeChoice: boolean
 }
 
 export const emptyQuestionFormData = (): QuestionFormData => ({
@@ -23,6 +24,7 @@ export const emptyQuestionFormData = (): QuestionFormData => ({
     questionExplanation: '',
     isMultipleChoice: false,
     questionListGuid: '',
+    isEasyModeChoice: false,
 })
 
 export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormData => {
@@ -38,6 +40,7 @@ export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormD
         questionExplanation: questionData.questionExplanation,
         isMultipleChoice: questionData.correctAnswers.length > 1,
         questionListGuid: questionData.questionListGuid,
+        isEasyModeChoice: questionData.easyMode,
     }
 }
 
@@ -56,5 +59,6 @@ export const toQuestionApiData = (questionData: QuestionFormData): QuestionApiDa
         correctAnswers,
         explanations,
         questionExplanation: questionData.questionExplanation,
+        easyMode: questionData.isEasyModeChoice,
     }
 }
