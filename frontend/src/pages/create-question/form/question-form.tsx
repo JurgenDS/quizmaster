@@ -28,12 +28,20 @@ function setMultipleChoiceInQuestionData(isMultipleChoice: boolean, questionData
     }
 }
 
+function setEasyModeChoiceInQuestionData(isEasyModeChoice: boolean, questionData: QuestionFormData): QuestionFormData {
+
+    return  {
+        ...questionData,
+        isEasyModeChoice
+    }
+}
+
 export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: QuestionEditProps) => {
     const setQuestion = (question: string) => setQuestionData({ ...questionData, question })
     const setIsMultipleChoice = (isMultipleChoice: boolean) =>
         setQuestionData(setMultipleChoiceInQuestionData(isMultipleChoice, questionData))
     const setIsEasyModeChoice = (isEasyModeChoice: boolean) =>
-        setQuestionData(setMultipleChoiceInQuestionData(isEasyModeChoice, questionData))
+        setQuestionData(setEasyModeChoiceInQuestionData(isEasyModeChoice, questionData))
     const setAnswers = (answers: readonly AnswerData[]) => setQuestionData({ ...questionData, answers })
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })

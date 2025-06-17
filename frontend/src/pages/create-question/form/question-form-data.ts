@@ -24,7 +24,7 @@ export const emptyQuestionFormData = (): QuestionFormData => ({
     questionExplanation: '',
     isMultipleChoice: false,
     questionListGuid: '',
-    isEasyModeChoice: false,
+    isEasyModeChoice: true,
 })
 
 export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormData => {
