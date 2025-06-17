@@ -22,17 +22,17 @@ function setMultipleChoiceInQuestionData(isMultipleChoice: boolean, questionData
     return {
         ...questionData,
         isMultipleChoice,
-        answers: !isMultipleChoice && numberOfCorrectAnswers > 1
-            ? questionData.answers.map(answer => ({ ...answer, isCorrect: false }))
-            : questionData.answers
+        answers:
+            !isMultipleChoice && numberOfCorrectAnswers > 1
+                ? questionData.answers.map(answer => ({ ...answer, isCorrect: false }))
+                : questionData.answers,
     }
 }
 
 function setEasyModeChoiceInQuestionData(isEasyModeChoice: boolean, questionData: QuestionFormData): QuestionFormData {
-
-    return  {
+    return {
         ...questionData,
-        isEasyModeChoice
+        isEasyModeChoice,
     }
 }
 
