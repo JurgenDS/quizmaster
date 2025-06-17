@@ -9,8 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class QuizControllerTest {
@@ -20,6 +22,9 @@ public class QuizControllerTest {
 
     @Autowired
     private QuizQuestionRepository quizQuestionRepository;
+
+    @Autowired
+    private QuizRepository quizRepository;
 
     @Test
     public void getQuiz() {
@@ -49,11 +54,22 @@ public class QuizControllerTest {
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(questions);
 
-        ResponseEntity<String> resp = quizController.createQuiz(quizInput);
+        ResponseEntity<Integer> resp = quizController.createQuiz(quizInput);
 
         assertNotNull(resp);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
-        String body = resp.getBody();
+        Integer body = resp.getBody();
         assertNotNull(body);
+
+        Optional<Quiz> byId = quizRepository.findById(body);
+        assertTrue(byId.isPresent());
+
+        Quiz quiz = byId.get();
+        assertEquals(body, quiz.getId());
+        assertEquals(quizInput.getTitle(), quiz.getTitle());
+        assertEquals(quizInput.getDescription(), quiz.getDescription());
+        assertEquals(quizInput.getPassScore(), quiz.getPassScore());
+        assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
+        assertEquals(quizInput.isAfterEach(), quiz.isAfterEach());
     }
 }

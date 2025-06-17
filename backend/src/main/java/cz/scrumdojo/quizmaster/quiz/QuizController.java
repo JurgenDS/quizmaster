@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QuizController {
 
     private final QuizQuestionRepository quizQuestionRepository;
+    private final QuizRepository quizRepository;
 
     private static QuizResponse quiz1 = new QuizResponse();
     private static QuizResponse quiz2 = new QuizResponse();
@@ -31,8 +32,9 @@ public class QuizController {
     private static HashMap<String, QuizResponse> quizs = new HashMap<>();
 
     @Autowired
-    public QuizController(QuizQuestionRepository quizQuestionRepository) {
+    public QuizController(QuizQuestionRepository quizQuestionRepository, QuizRepository quizRepository) {
         this.quizQuestionRepository = quizQuestionRepository;
+        this.quizRepository = quizRepository;
 
         QuizQuestion question = new QuizQuestion();
         question.setId(1);
@@ -150,7 +152,9 @@ public class QuizController {
 
     @Transactional
     @PostMapping("/quiz")
-    public ResponseEntity<String> createQuiz(Quiz quizInput) {
-        return ResponseEntity.ok("1");
+    public ResponseEntity<Integer> createQuiz(Quiz quizInput) {
+        Quiz output = quizRepository.save(quizInput);
+
+        return ResponseEntity.ok(output.getId());
     }
 }
