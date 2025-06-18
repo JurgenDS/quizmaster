@@ -36,6 +36,10 @@ When('I create new question to list {string}', async function (question: string)
     await createQuestionToList(this, question)
 })
 
+When('I click {string} button', async function (buttonLabel: string) {
+    await this.page.locator('button', { hasText: buttonLabel }).click()
+})
+
 Then('I see a blank page', async function () {
     await expectedNumberOfChildrenToBe(this.page.getByTestId('question-holder'), 0)
 })
@@ -51,4 +55,17 @@ Then('I see question in list {string}', async function (question: string) {
 
 Then('I see question list title {string}', async function (title: string) {
     await expectTextToBe(this.page.getByTestId('question-list-title'), title)
+})
+
+Then('I see {string} form', async function (title: string) {
+    await expectTextToContain(this.page.getByText(title), title)
+})
+
+When('I click Edit button for question {string}', async function (question: string) {
+    const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
+    await editButton.click()
+})
+
+Then('I see {string} editable form', async function (title: string) {
+    await expectTextToBe(this.page.locator('#question-text'), title)
 })

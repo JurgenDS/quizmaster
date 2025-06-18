@@ -2,6 +2,7 @@ export type AnswerIdxs = readonly number[]
 
 export interface QuizQuestion {
     readonly id: number
+    readonly hash: string
     readonly question: string
     readonly answers: string[]
     readonly explanations: string[]

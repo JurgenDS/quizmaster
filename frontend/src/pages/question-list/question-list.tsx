@@ -8,7 +8,7 @@ type Props = {
     questionListData?: QuestionListData
 }
 
-type EditQuestionButtonProps = WithOnClick & { id: string }
+type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
@@ -16,17 +16,11 @@ export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export const EditQuestionButton = ({ onClick, id }: EditQuestionButtonProps) => (
+export const EditQuestionButton = ({ id, onClick }: EditQuestionButtonProps) => (
     <Button id={id} className="edit-question" onClick={onClick}>
         Edit
     </Button>
 )
-
-export const onEditQuestion = (questionId: string) => {
-    console.log(questionId)
-    const navigate = useNavigate()
-    navigate(`/question/${questionId}/edit`)
-}
 
 export function QuestionList({ questionListData }: Props) {
     const params = useParams()
@@ -38,15 +32,26 @@ export function QuestionList({ questionListData }: Props) {
         navigate(`/question/new?listguid=${questionListId}`)
     }
 
+    const onEditQuestion = (hash: string) => {
+        navigate(`/question/${hash}/edit`)
+    }
+
     return questionListData ? (
         <div className="question-list-page">
-            <h1 data-testid="question-list-title">{questionListData.title}</h1>
+            <h1 id="question-title-header" data-testid="question-list-title">
+                {questionListData.title}
+            </h1>
             <div className="create-button">
-                <CreateQuestionButton onClick={() => onCreateNewQuestion()} />
+                <CreateQuestionButton onClick={onCreateNewQuestion} />
             </div>
             <div className="question-holder">
                 {questionListData.questions.map((q, index) => (
-                    <QuestionItem key={q.id || index} question={q} index={index} />
+                    <QuestionItem
+                        key={q.id || index}
+                        question={q}
+                        index={index}
+                        onEditQuestion={() => onEditQuestion(q.hash)}
+                    />
                 ))}
             </div>
         </div>
