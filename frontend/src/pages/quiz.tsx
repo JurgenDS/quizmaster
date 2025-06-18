@@ -30,7 +30,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
 
-
     const isAnswered = props.quizState[currentQuestionIdx] !== undefined
 
     const removeCurrentQuestionFromSkippedQuestions = () => {
@@ -196,7 +195,14 @@ export const QuizPage = () => {
             <>
                 <Countdown setTimeoutReached={setTimeoutReached} />
                 {timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} />}
-                <QuizQuestionForm setFirstQuizState={setFirstQuizState} setQuizState={setQuizState} firstQuizState={firstQuizState} quizState={quizState} onEvaluate={onEvaluate} quiz={quiz} />
+                <QuizQuestionForm
+                    setFirstQuizState={setFirstQuizState}
+                    setQuizState={setQuizState}
+                    firstQuizState={firstQuizState}
+                    quizState={quizState}
+                    onEvaluate={onEvaluate}
+                    quiz={quiz}
+                />
             </>
         )
     }

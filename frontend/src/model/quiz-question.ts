@@ -26,8 +26,11 @@ export interface Quiz {
 }
 
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean => {
-    if (selectedAnswerIdxs){
-        return selectedAnswerIdxs.length === correctAnswers.length && selectedAnswerIdxs.every(answerIndex => correctAnswers.includes(answerIndex))
+    if (selectedAnswerIdxs) {
+        return (
+            selectedAnswerIdxs.length === correctAnswers.length &&
+            selectedAnswerIdxs.every(answerIndex => correctAnswers.includes(answerIndex))
+        )
     }
     return false
 }

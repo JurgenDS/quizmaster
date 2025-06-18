@@ -131,8 +131,8 @@ Then('I will wait for {string}', async function (timer: string) {
 })
 
 Then('I should see the results table', async function () {
-    const textResult = await this.quizScorePage.resultTableExists();
-    expect(textResult).toBe(true);
+    const textResult = await this.quizScorePage.resultTableExists()
+    expect(textResult).toBe(true)
 })
 
 Then('I see answer {string} checked', async function (answer: string) {

@@ -1,7 +1,7 @@
 import type { Page, Locator } from '@playwright/test'
 
 export class QuizQuestionPage {
-    constructor(private page: Page) { }
+    constructor(private page: Page) {}
 
     goto = (quizId: string) => this.page.goto(`/quiz/${quizId}`)
 

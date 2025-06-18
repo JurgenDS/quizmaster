@@ -1,19 +1,19 @@
-import { useEffect, useRef } from "react"
-import { EvaluateButton } from "./buttons"
+import { useEffect, useRef } from 'react'
+import { EvaluateButton } from './buttons'
 
 export const TimeOutReachedModal = ({
     timeoutReached,
-    onEvaluate
+    onEvaluate,
 }: {
-    timeoutReached: boolean,
+    timeoutReached: boolean
     onEvaluate: () => void
 }) => {
-    const dialogRef = useRef<HTMLDialogElement>(null);
+    const dialogRef = useRef<HTMLDialogElement>(null)
     useEffect(() => {
         if (timeoutReached && dialogRef.current) {
             dialogRef.current.showModal()
         }
-    }, [])
+    }, [timeoutReached])
 
     return (
         <dialog ref={dialogRef}>
