@@ -26,8 +26,8 @@ const htmlFiles: HtmlFile[] = featureFiles.map(featureFile => ({
 }))
 
 for (const htmlFile of htmlFiles) {
-    fs.writeFileSync(`docs/${htmlFile.name}`, htmlFile.html)
+    fs.writeFileSync(`../site/docs/${htmlFile.name}`, htmlFile.html)
 }
 
 const index = indexHtml(htmlFiles)
-fs.writeFileSync('docs/index.html', index)
+fs.writeFileSync('../site/docs/index.html', index)

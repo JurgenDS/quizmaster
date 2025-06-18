@@ -25,7 +25,7 @@ BeforeScenario(async function () {
     })
 })
 
-const screenshotsDir = path.join(__dirname, '../docs/screenshots')
+const screenshotsDir = path.join(__dirname, '../../../site/docs/screenshots')
 fs.mkdir(screenshotsDir, { recursive: true })
 
 After(async function ({ $tags, $testInfo }) {
