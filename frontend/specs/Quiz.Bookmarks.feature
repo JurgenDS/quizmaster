@@ -2,7 +2,7 @@ Feature: Bookmark questions during a quiz
 
   Background:
     Given questions
-      | Bookmark  | Question                                              | Answers                   |
+      | bookmark  | question                                              | answers                   |
       | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
       | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
 

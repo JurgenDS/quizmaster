@@ -2,7 +2,7 @@ Feature: Take a quiz
 
   Background:
     Given questions
-      | Bookmark | Question                            | Answers                              |
+      | bookmark | question                            | answers                              |
       | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
       | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
@@ -129,7 +129,7 @@ Feature: Take a quiz
 
   Scenario: Submit button is visible as active when answer is checked
     Given questions
-      | Bookmark | Question                    | Answers                                            |
+      | bookmark | question                    | answers                                            |
       | Nose     | Which animal has long nose? | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
       | France   | What is capital of France?  | Marseille, Lyon, Paris (*), Toulouse               |
 
@@ -138,11 +138,11 @@ Feature: Take a quiz
     When I check answer "Elephant"
     Then I see the submit button as active
 
-  Scenario: Submit button is visible as inactive when no answer is checked
-    Given questions
-      | Bookmark | Question                    | Answers                                            |
-      | Nose     | Which animal has long nose? | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
-      | France   | What is capital of France?  | Marseille, Lyon, Paris (*), Toulouse               |
+Scenario: Submit button is visible as inactive when no answer is checked
+  Given questions
+    | bookmark | question                            | answers                                            |
+    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
 
     Given I start quiz "-3"
     Then I see question "Nose"

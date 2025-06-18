@@ -2,7 +2,7 @@ Feature: Evaluate quiz score
 
   Background:
     Given questions
-      | Bookmark  | Question                            | Answers                              |
+      | bookmark  | question                            | answers                              |
       | Sky       | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
       | France    | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 

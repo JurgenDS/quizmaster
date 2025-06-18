@@ -2,7 +2,7 @@ Feature: Quiz progress bar
 
   Background:
     Given questions
-      | Bookmark  | Question                                              | Answers                   |
+      | bookmark  | question                                              | answers                   |
       | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
       | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
       | Fruit     | Which fruit is known for having seeds on the outside? | Strawberry (*), Blueberry |
