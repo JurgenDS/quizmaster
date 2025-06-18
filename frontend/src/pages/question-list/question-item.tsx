@@ -1,5 +1,5 @@
 import type { QuizQuestion } from 'model/quiz-question'
-import { EditQuestionButton, onEditQuestion } from "./question-list.tsx";
+import { EditQuestionButton, onEditQuestion } from './question-list.tsx'
 
 interface Props {
     question: QuizQuestion
@@ -15,6 +15,5 @@ export const QuestionItem: React.FC<Props> = ({ question, index }) => {
                 <EditQuestionButton id={question.question} onClick={() => onEditQuestion(question.question)} />
             </div>
         </div>
-
     )
 }

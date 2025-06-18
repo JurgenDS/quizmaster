@@ -49,7 +49,6 @@ Then('I see question in list {string}', async function (question: string) {
     await expectedNumberOfChildrenToBe(this.page.locator('.edit-button'), 1)
 })
 
-
 Then('I see question list title {string}', async function (title: string) {
     await expectTextToBe(this.page.getByTestId('question-list-title'), title)
 })
