@@ -71,7 +71,7 @@ Feature: Take a quiz
     Then I should see the dialog evaluate button
     And I click on the dialog evaluate button
     Then I should see the results table
-  @only
+
   Scenario: Display score 0 when no answers were given
     Given I start quiz "-1"
     When I will wait for "2:00"
