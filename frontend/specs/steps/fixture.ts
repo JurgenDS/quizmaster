@@ -1,3 +1,5 @@
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
 import { test as base, createBdd } from 'playwright-bdd'
 import { QuizmasterWorld } from './world/world.ts'
 import { mcr } from '../coverage/mcr.config.ts'
@@ -9,7 +11,7 @@ export const test = base.extend<{ world: QuizmasterWorld }>({
     },
 })
 
-export const { Given, When, Then, BeforeScenario, AfterScenario, AfterAll } = createBdd(test, {
+export const { Given, When, Then, BeforeScenario, After, AfterScenario, AfterAll } = createBdd(test, {
     worldFixture: 'world',
 })
 
@@ -21,6 +23,21 @@ BeforeScenario(async function () {
     await this.page.coverage.startJSCoverage({
         resetOnNavigation: false,
     })
+})
+
+const screenshotsDir = path.join(__dirname, '../docs/screenshots')
+fs.mkdir(screenshotsDir, { recursive: true })
+
+After(async function ({ $tags, $testInfo }) {
+    const screenshotTag = $tags.find(tag => tag.startsWith('@screenshot:'))
+    if (!screenshotTag) return
+
+    const [filename, example] = screenshotTag.replace('@screenshot:', '').split(':')
+
+    if (filename && (!example || $testInfo.title === `Example #${example}`)) {
+        const screenshotPath = path.join(screenshotsDir, filename)
+        await this.page.screenshot({ path: screenshotPath })
+    }
 })
 
 AfterScenario(async function () {

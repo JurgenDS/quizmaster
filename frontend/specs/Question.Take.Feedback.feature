@@ -7,6 +7,7 @@ Feature: Take a single question
       | Planets   | Which of the following are planets?   | Mars (*), Pluto, Venus (*), Titan |
 
 
+  @screenshot:quiz-take-feedback-single-choice.png:1
   Scenario Outline: Single choice question feedback
     Question is answered correctly if the correct answer is selected
 
@@ -36,6 +37,7 @@ Feature: Take a single question
       | Pluto, Titan              | Incorrect! |
 
 
+  @screenshot:quiz-take-feedback-multiple-choice.png:3
   Scenario Outline: Multiple choice question per-answer feedback
     Upon submitting the question, each answer is marked with a color:
     - green if the answer is selected while correct
