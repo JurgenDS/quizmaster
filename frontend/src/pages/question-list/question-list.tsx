@@ -8,11 +8,25 @@ type Props = {
     questionListData?: QuestionListData
 }
 
+type EditQuestionButtonProps = WithOnClick & { id: string }
+
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
         Create New Question
     </Button>
 )
+
+export const EditQuestionButton = ({ onClick, id }: EditQuestionButtonProps) => (
+    <Button id={id} className="edit-question" onClick={onClick}>
+        Edit
+    </Button>
+)
+
+export const onEditQuestion = (questionId: string) => {
+    console.log(questionId)
+    const navigate = useNavigate()
+    navigate(`/question/${questionId}/edit`)
+}
 
 export function QuestionList({ questionListData }: Props) {
     const params = useParams()
