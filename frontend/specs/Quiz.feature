@@ -64,7 +64,7 @@ Feature: Take a quiz
     Given I start quiz "-1"
     Then I should see the countdown timer "2:00"
 
-@only
+  @only
   Scenario: Display modal after 2 minutes
     Given I start quiz "-1"
     When I will wait for "2:00"
@@ -130,42 +130,42 @@ Feature: Take a quiz
     When I click the back button
     Then I see answer "Green" checked
 
-Scenario: Remembered multiple choices after back button
-  Given questions
-    | Bookmark | Question                            | Answers                                            |
-    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
-    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+  Scenario: Remembered multiple choices after back button
+    Given questions
+      | Bookmark | Question                    | Answers                                            |
+      | Nose     | Which animal has long nose? | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+      | France   | What is capital of France?  | Marseille, Lyon, Paris (*), Toulouse               |
 
-  And I start quiz "-3"
-  Then I see question "Nose"
-  When I answer "Elephant, Anteater"
+    And I start quiz "-3"
+    Then I see question "Nose"
+    When I answer "Elephant, Anteater"
 
-  Then I see question "France"
-  When I click the back button
-  Then I see answer "Elephant" checked
-  Then I see answer "Anteater" checked
+    Then I see question "France"
+    When I click the back button
+    Then I see answer "Elephant" checked
+    Then I see answer "Anteater" checked
 
-Scenario: Submit button is visible as active when answer is checked
-  Given questions
-    | Bookmark | Question                            | Answers                                            |
-    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
-    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+  Scenario: Submit button is visible as active when answer is checked
+    Given questions
+      | Bookmark | Question                    | Answers                                            |
+      | Nose     | Which animal has long nose? | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+      | France   | What is capital of France?  | Marseille, Lyon, Paris (*), Toulouse               |
 
-  Given I start quiz "-3"
-  Then I see question "Nose"
-  When I check answer "Elephant"
-  Then I see the submit button as active
+    Given I start quiz "-3"
+    Then I see question "Nose"
+    When I check answer "Elephant"
+    Then I see the submit button as active
 
-Scenario: Submit button is visible as inactive when no answer is checked
-  Given questions
-    | Bookmark | Question                            | Answers                                            |
-    | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
-    | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+  Scenario: Submit button is visible as inactive when no answer is checked
+    Given questions
+      | Bookmark | Question                    | Answers                                            |
+      | Nose     | Which animal has long nose? | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
+      | France   | What is capital of France?  | Marseille, Lyon, Paris (*), Toulouse               |
 
-  Given I start quiz "-3"
-  Then I see question "Nose"
-  Then I see the submit button as inactive
-  When I check answer "Elephant"
-  Then I see the submit button as active
-  When I uncheck answer "Elephant"
-  Then I see the submit button as inactive
+    Given I start quiz "-3"
+    Then I see question "Nose"
+    Then I see the submit button as inactive
+    When I check answer "Elephant"
+    Then I see the submit button as active
+    When I uncheck answer "Elephant"
+    Then I see the submit button as inactive

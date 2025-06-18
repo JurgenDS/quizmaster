@@ -54,7 +54,7 @@ Then('I should see the evaluate button', async function () {
 })
 
 Then('I should see the modal evaluate button', async function () {
-   await expect(this.quizQuestionPage.evaluateModalButtonLocator()).toBeVisible()
+    await expect(this.quizQuestionPage.evaluateModalButtonLocator()).toBeVisible()
 })
 
 Then('I should not see the evaluate button', async function () {

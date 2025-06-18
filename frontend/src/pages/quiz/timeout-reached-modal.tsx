@@ -6,14 +6,14 @@ export const TimeOutReachedModal = ({
     onEvaluate
 }: {
     timeoutReached: boolean,
-    onEvaluate: ()=> void
+    onEvaluate: () => void
 }) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
-    useEffect(()=> {
-        if(timeoutReached){
-            dialogRef!.current!.showModal()
+    useEffect(() => {
+        if (timeoutReached && dialogRef.current) {
+            dialogRef.current.showModal()
         }
-    },[])
+    }, [])
 
     return (
         <dialog ref={dialogRef}>

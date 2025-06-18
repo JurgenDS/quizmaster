@@ -16,8 +16,8 @@ interface QuizQuestionProps {
     readonly quiz: Quiz
     firstQuizState: QuizState
     quizState: QuizState
-    setFirstQuizState: (firstQuizState:QuizState) => void
-    setQuizState: (quizState:QuizState) => void
+    setFirstQuizState: (firstQuizState: QuizState) => void
+    setQuizState: (quizState: QuizState) => void
 }
 
 type QuizState = readonly AnswerIdxs[]
@@ -159,7 +159,7 @@ export const QuizPage = () => {
     const [quiz, setQuiz] = useState<Quiz>()
 
     const onEvaluate = () => {
-        if (quiz){
+        if (quiz) {
             setQuizScore({
                 correct: quiz.questions.filter((question, idx) =>
                     isAnsweredCorrectly(quizState[idx], question.correctAnswers),
@@ -195,7 +195,7 @@ export const QuizPage = () => {
         ) : (
             <>
                 <Countdown setTimeoutReached={setTimeoutReached} />
-                { timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} /> }
+                {timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} />}
                 <QuizQuestionForm setFirstQuizState={setFirstQuizState} setQuizState={setQuizState} firstQuizState={firstQuizState} quizState={quizState} onEvaluate={onEvaluate} quiz={quiz} />
             </>
         )
