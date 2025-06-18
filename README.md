@@ -1,5 +1,7 @@
 # Quizmaster
 
+test
+
 A quiz taking app that serves as a case study during
 [Applying Professional Scrum for Software Development](https://scrumdojo.cz/aps-sd)
 training with [ScrumDojo.cz](https://scrumdojo.cz).
