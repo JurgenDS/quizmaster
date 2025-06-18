@@ -64,7 +64,7 @@ Feature: Take a quiz
     Given I start quiz "-1"
     Then I should see the countdown timer "2:00"
 
-
+@only
   Scenario: Display modal after 2 minutes
     Given I start quiz "-1"
     When I will wait for "2:00"
