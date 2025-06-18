@@ -162,7 +162,7 @@ public class QuizController {
 
     @Transactional
     @PostMapping("/quiz")
-    public ResponseEntity<Integer> createQuiz(Quiz quizInput) {
+    public ResponseEntity<Integer> createQuiz(@RequestBody Quiz quizInput) {
         Quiz output = quizRepository.save(quizInput);
 
         return ResponseEntity.ok(output.getId());
