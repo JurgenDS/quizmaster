@@ -54,6 +54,7 @@ export const toQuestionApiData = (questionData: QuestionFormData): QuestionApiDa
 
     return {
         question: questionData.question,
+        hash: '',
         questionListGuid: questionData.questionListGuid,
         answers,
         correctAnswers,
