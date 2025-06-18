@@ -7,7 +7,7 @@ Feature: Question list
   Scenario: Show empty question list existing guid
     Given I saved the question list "X"
     Then I see question list title "X"
-      And I see an empty question list
+    And I see an empty question list
 
   Scenario: Click create new question open question form
     Given I saved the question list "X"
@@ -17,7 +17,7 @@ Feature: Question list
 
   Scenario: Show non empty question
     Given I saved the question list "X"
-     When I create new question to list "Xquestion"
+    When I create new question to list "Xquestion"
     Then I see question list title "X"
     And I see question in list "Xquestion"
 

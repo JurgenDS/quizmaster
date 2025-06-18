@@ -53,6 +53,14 @@ Then('I should see the evaluate button', async function () {
     await expect(this.quizQuestionPage.evaluateButtonLocator()).toBeVisible()
 })
 
+Then('I should see the dialog evaluate button', async function () {
+    await expect(this.quizQuestionPage.evaluateModalButtonLocator()).toBeVisible()
+})
+
+Then('I click on the dialog evaluate button', async function () {
+    expect(await this.quizQuestionPage.evaluateModalButtonLocator().click())
+})
+
 Then('I should not see the evaluate button', async function () {
     await expect(this.quizQuestionPage.evaluateButtonLocator()).not.toBeVisible()
 })
@@ -93,7 +101,7 @@ Then('progress shows {int} of {int}', async function (current: number, max: numb
 })
 
 Then('I should see the text "Game over time"', async function () {
-    await expectTextToBe(this.page.getByTestId('modal-timeout'), 'Game over time')
+    await expectTextToBe(this.page.locator('dialog p'), 'Game over time')
 })
 
 Then('I should see the back button', async function () {
@@ -114,21 +122,21 @@ Then('I should see the countdown timer {string}', async function (timer: string)
 })
 
 Then('I should see the countdown timer after delay is less then {string}', async function (timer: string) {
-    await this.page.clock.install({ time: new Date('2023-10-01T00:01:30Z') })
+    await this.page.clock.install({ time: new Date() })
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
-    // await this.page.clock.runFor(30000)
     await this.page.clock.fastForward('02:00')
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
 
 Then('I will wait for {string}', async function (timer: string) {
-    await this.page.clock.install({ time: new Date('2023-10-01T00:01:30Z') })
+    await this.page.clock.install({ time: new Date() })
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
-    await this.page.clock.fastForward(timer)
+    await this.page.clock.fastForward('02:00')
 })
 
 Then('I should see the results table', async function () {
-    await expectThatIsVisible(this.page.getByTestId('resultTableId'))
+    const textResult = await this.quizScorePage.resultTableExists()
+    expect(textResult).toBe(true)
 })
 
 Then('I see answer {string} checked', async function (answer: string) {
