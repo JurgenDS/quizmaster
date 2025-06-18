@@ -11,6 +11,7 @@ import {
     QuestionListPage,
 } from '../../pages'
 import type { Question } from './question'
+export type Quiz = { url: string; title: string; description: string; mode: string; passscore: string }
 
 export class QuizmasterWorld {
     constructor(
@@ -38,6 +39,7 @@ export class QuizmasterWorld {
     quizId = ''
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
+    quizWip: Quiz = { url: '', title: '', description: '', mode: '', passscore: '' }
     questionListWipGuid = ''
     nextAnswerIdx = 0
     bookmarks: Record<string, Question> = {}

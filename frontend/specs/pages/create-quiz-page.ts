@@ -7,25 +7,20 @@ export class CreateQuizPage {
 
     waitForLoaded = () => this.page.isHidden('#is-loaded[value="loaded"]')
 
-    quizLocator = () => this.page.locator('#quiz-text')
-    questionLocator = (index: number) => this.page.locator(`#question-${index}`)
-    private quizUrlLocator = () => this.page.locator('#quiz-link')
+    // Locators
+    quizTitleLocator = () => this.page.locator('#quiz-title')
+    quizDescriptionLocator = () => this.page.locator('#quiz-description')
+    quizModeLocator = () => this.page.locator('input[type="radio"]:checked')
+    quizPassscoreLocator = () => this.page.locator('#quiz-passscore')
+    quizUrlLocator = () => this.page.locator('#submit-quiz-button')
 
-    createQuiz = (quiz: string) => this.quizLocator().fill(quiz)
+    // Input methods
+    enterTitle = (title: string) => this.quizTitleLocator().fill(title)
+    enterDescription = (description: string) => this.quizDescriptionLocator().fill(description)
+    selectMode = (mode: string) => this.quizModeLocator().selectOption({ label: mode })
+    enterPassscore = (passscore: string) => this.quizPassscoreLocator().fill(passscore)
 
-    enterQuestion = async (index: number, value: string) => {
-        await this.questionLocator(index).fill(value)
-    }
-
-    addQuestion = async (index: number) => {
-        await this.page.locator('button#add-question').click()
-        await this.page.waitForSelector(`#question-text-${index}`)
-    }
-
-    quizTitleInputLocator = () => this.page.locator('input[type="text"]#quiz-title')
-    questionInputLocator = () => this.page.locator('input[type="text"]#question-text-0')
-    addQuestionButtonLocator = () => this.page.locator('button[type="button"]')
-    submitButtonLocator = () => this.page.locator('button[type="submit"]')
+    // Submission and result
     submit = () => this.page.locator('button[type="submit"]').click()
     quizUrl = () => this.quizUrlLocator().textContent()
     followQuizUrl = () => this.quizUrlLocator().click()

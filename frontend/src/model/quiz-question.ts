@@ -26,6 +26,15 @@ export interface Quiz {
     passScore: number
 }
 
+export interface QuizCreateRequest {
+    id: number
+    title: string
+    description: string
+    questionIds: number[]
+    afterEach: boolean
+    passScore: number
+}
+
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean => {
     if (selectedAnswerIdxs) {
         return (
