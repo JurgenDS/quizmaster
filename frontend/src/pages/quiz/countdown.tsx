@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react'
 
 export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: boolean) => void }) => {
     const durationMs = 2 * 60 * 1000 // 2 minuty
-    const endTime = Date.now() + durationMs
 
     const [timeLeft, setTimeLeft] = useState(durationMs)
 
     useEffect(() => {
+        const endTime = Date.now() + durationMs
         const interval = setInterval(() => {
             const newTimeLeft = endTime - Date.now()
             if (newTimeLeft <= 0) {
                 clearInterval(interval)
                 setTimeLeft(0)
             } else {
+                console.log('time left:', newTimeLeft)
                 setTimeLeft(newTimeLeft)
             }
         }, 1000)
-
         return () => clearInterval(interval)
     }, [])
 
