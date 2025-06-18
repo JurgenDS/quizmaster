@@ -13,7 +13,7 @@ export const TimeOutReachedModal = ({
         if (timeoutReached && dialogRef.current) {
             dialogRef.current.showModal()
         }
-    }, [timeoutReached])
+    })
 
     return (
         <dialog ref={dialogRef}>

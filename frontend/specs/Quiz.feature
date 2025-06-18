@@ -64,18 +64,13 @@ Feature: Take a quiz
     Given I start quiz "-1"
     Then I should see the countdown timer "2:00"
 
-  Scenario: Display modal after 2 minutes
+  Scenario: Display result table after 2 minutes
     Given I start quiz "-1"
     When I will wait for "2:00"
     And I should see the text "Game over time"
-    Then I should see the modal evaluate button
-
-  @skip
-  Scenario: Display result table after 2 minutes
-    Given I start quiz "-1"
-    Then I will wait for "02:00"
-    Then I should see the text "Game over time"
-
+    Then I should see the dialog evaluate button
+    And I click on the dialog evaluate button
+    Then I should see the results table
 
   Scenario: Last question is not answered and there are any skipped questions
     Given I start quiz "-1"

@@ -18,7 +18,7 @@ export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: bo
         }, 1000)
 
         return () => clearInterval(interval)
-    }, [endTime])
+    })
 
     useEffect(() => {
         if (timeLeft <= 0) {

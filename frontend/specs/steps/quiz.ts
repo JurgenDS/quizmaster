@@ -53,8 +53,12 @@ Then('I should see the evaluate button', async function () {
     await expect(this.quizQuestionPage.evaluateButtonLocator()).toBeVisible()
 })
 
-Then('I should see the modal evaluate button', async function () {
+Then('I should see the dialog evaluate button', async function () {
     await expect(this.quizQuestionPage.evaluateModalButtonLocator()).toBeVisible()
+})
+
+Then('I click on the dialog evaluate button', async function () {
+    expect(await this.quizQuestionPage.evaluateModalButtonLocator().click())
 })
 
 Then('I should not see the evaluate button', async function () {
