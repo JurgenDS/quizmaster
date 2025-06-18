@@ -19,8 +19,8 @@ const createQuestionToList = async (world: QuizmasterWorld, question: string) =>
 }
 
 const createQuestionList = async (world: QuizmasterWorld, title: string) => {
-    world.createQuestionListPage.gotoNew()
-    world.createQuestionListPage.enterQuestionListTitle(title)
+    await world.createQuestionListPage.gotoNew()
+    await world.createQuestionListPage.enterQuestionListTitle(title)
     await world.createQuestionListPage.submit()
 }
 
