@@ -9,6 +9,7 @@ export class QuizQuestionPage {
     nextButtonLocator = () => this.page.locator('button#next')
     skipButtonLocator = () => this.page.locator('button#skip')
     evaluateButtonLocator = () => this.page.locator('button#evaluate')
+    evaluateModalButtonLocator = () => this.page.locator('dialog #evaluate')
     addQuestionToBookmarkButtonLocator = () => this.page.locator('button#add-question-to-bookmark')
 
     private progressBarLocator = () => this.page.locator('#progress-bar')

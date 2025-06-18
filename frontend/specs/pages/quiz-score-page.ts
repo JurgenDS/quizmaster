@@ -3,6 +3,9 @@ import type { Page } from '@playwright/test'
 export class QuizScorePage {
     constructor(private page: Page) {}
 
+    private resultTableLocator = () => this.page.locator('#results')
+    resultTableExists = () => this.resultTableLocator().isVisible()
+
     private correctAnswerLocator = () => this.page.locator('#correct-answers')
     correctAnswers = () => this.correctAnswerLocator().textContent().then(Number)
 

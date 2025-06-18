@@ -12,8 +12,12 @@ import { TimeOutReachedModal } from './quiz/timeout-reached-modal.tsx'
 import { BookmarkList } from './components/bookmark-list'
 
 interface QuizQuestionProps {
-    readonly onEvaluate: (quizScore: QuizScore) => void
+    readonly onEvaluate: () => void
     readonly quiz: Quiz
+    firstQuizState: QuizState
+    quizState: QuizState
+    setFirstQuizState: (firstQuizState:QuizState) => void
+    setQuizState: (quizState:QuizState) => void
 }
 
 type QuizState = readonly AnswerIdxs[]
@@ -26,9 +30,8 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
 
-    const [quizState, setQuizState] = useState<QuizState>([])
-    const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
-    const isAnswered = quizState[currentQuestionIdx] !== undefined
+
+    const isAnswered = props.quizState[currentQuestionIdx] !== undefined
 
     const removeCurrentQuestionFromSkippedQuestions = () => {
         setSkippedQuestions(prev => {
@@ -37,14 +40,14 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     }
 
     const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
-        const newQuizState = Array.from(quizState)
+        const newQuizState = Array.from(props.quizState)
         newQuizState[currentQuestionIdx] = selectedAnswerIdxs
-        setQuizState(newQuizState)
+        props.setQuizState(newQuizState)
 
-        if (firstQuizState[currentQuestionIdx] === undefined) {
-            const newFirstQuizState = Array.from(firstQuizState)
+        if (props.firstQuizState[currentQuestionIdx] === undefined) {
+            const newFirstQuizState = Array.from(props.firstQuizState)
             newFirstQuizState[currentQuestionIdx] = selectedAnswerIdxs
-            setFirstQuizState(newFirstQuizState)
+            props.setFirstQuizState(newFirstQuizState)
         }
 
         removeCurrentQuestionFromSkippedQuestions()
@@ -95,20 +98,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         onDelete: () => setBookmarkedQuestions(prev => prev.filter(i => i !== idx)),
     }))
 
-    const onEvaluate = () => {
-        props.onEvaluate({
-            correct: props.quiz.questions.filter((question, idx) =>
-                isAnsweredCorrectly(quizState[idx], question.correctAnswers),
-            ).length,
-            firstCorrect: props.quiz.questions.filter((question, idx) =>
-                isAnsweredCorrectly(firstQuizState[idx], question.correctAnswers),
-            ).length,
-            total: props.quiz.questions.length,
-        })
-        props.quiz.questions.forEach((question, idx) => {
-            question.userInput = quizState[idx]
-        })
-    }
     const anySkippedQuestions = skippedQuestions.length > 0
     const isQuestionSkipable = !isAnswered && (!isLastQuestion || anySkippedQuestions)
 
@@ -143,7 +132,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                                 (!isLastQuestion || anySkippedQuestions ? (
                                     <NextButton onClick={onNext} />
                                 ) : (
-                                    <EvaluateButton onClick={onEvaluate} />
+                                    <EvaluateButton onClick={props.onEvaluate} />
                                 ))}
                         </div>
                     </>
@@ -164,8 +153,27 @@ export const QuizPage = () => {
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
     const [timeoutReached, setTimeoutReached] = useState(false)
+    const [quizState, setQuizState] = useState<QuizState>([])
+    const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
 
     const [quiz, setQuiz] = useState<Quiz>()
+
+    const onEvaluate = () => {
+        if (quiz){
+            setQuizScore({
+                correct: quiz.questions.filter((question, idx) =>
+                    isAnsweredCorrectly(quizState[idx], question.correctAnswers),
+                ).length,
+                firstCorrect: quiz.questions.filter((question, idx) =>
+                    isAnsweredCorrectly(firstQuizState[idx], question.correctAnswers),
+                ).length,
+                total: quiz.questions.length,
+            })
+            quiz.questions.forEach((question, idx) => {
+                question.userInput = quizState[idx]
+            })
+        }
+    }
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -187,8 +195,8 @@ export const QuizPage = () => {
         ) : (
             <>
                 <Countdown setTimeoutReached={setTimeoutReached} />
-                <TimeOutReachedModal timeoutReached={timeoutReached} />
-                <QuizQuestionForm onEvaluate={setQuizScore} quiz={quiz} />
+                { timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} /> }
+                <QuizQuestionForm setFirstQuizState={setFirstQuizState} setQuizState={setQuizState} firstQuizState={firstQuizState} quizState={quizState} onEvaluate={onEvaluate} quiz={quiz} />
             </>
         )
     }

@@ -1,24 +1,37 @@
 import { useEffect, useState } from 'react'
 
 export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: boolean) => void }) => {
-    const now = new Date()
-    const endTime = new Date(now.getTime() + 2 * 60 * 1000) // 2 minutes from now
-    const [time, setTime] = useState(new Date(endTime.getTime() - now.getTime()))
+    const durationMs = 2 * 60 * 1000 // 2 minuty
+    const endTime = Date.now() + durationMs
+
+    const [timeLeft, setTimeLeft] = useState(durationMs)
+
     useEffect(() => {
-        const countdown = setInterval(() => {
-            setTime(prev => {
-                const newDate = new Date(prev.getTime() - 1000)
-                if (newDate.getTime() <= 0) {
-                    clearInterval(countdown)
-                    setTimeoutReached(true)
-                    return new Date(0)
-                }
-                return newDate
-            })
+        const interval = setInterval(() => {
+            const newTimeLeft = endTime - Date.now()
+            if (newTimeLeft <= 0) {
+                clearInterval(interval)
+                setTimeLeft(0)
+            } else {
+                setTimeLeft(newTimeLeft)
+            }
         }, 1000)
-        return () => {
-            clearInterval(countdown)
+
+        return () => clearInterval(interval)
+    }, [])
+
+    useEffect(() => {
+        if (timeLeft <= 0) {
+            setTimeoutReached(true)
         }
-    }, [setTimeoutReached])
-    return <div data-testId="timerID">{`${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`}</div>
+    }, [timeLeft, setTimeoutReached])
+
+    const minutes = Math.floor(timeLeft / 60000)
+    const seconds = Math.floor((timeLeft % 60000) / 1000)
+
+    return (
+        <div data-testId="timerID">
+            {`${minutes}:${seconds.toString().padStart(2, '0')}`}
+        </div>
+    )
 }
