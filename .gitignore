@@ -1,4 +1,5 @@
 .idea/
+.pnpm-store/
 
 backend/bin/
 backend/.gradle/
