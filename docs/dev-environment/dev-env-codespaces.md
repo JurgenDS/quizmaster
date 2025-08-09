@@ -16,8 +16,6 @@
 Congratulations, you're good to go! You can either work from the browser window,
 or open the codespace from your VS Code.
 
-> Apple Silicon / arm64 tip: Prefer local development? Open the repository directly in the included dev container “QuizMaster (Apple Silicon / arm64 Dev Container)” via VS Code/Cursor → Dev Containers: Reopen in Container. It provisions Java 21, Node 22 + pnpm, PostgreSQL 16 and Playwright automatically.
-
 ## ⚠️ Troubleshooting
 
 ### 403: Permission denied when `git push`

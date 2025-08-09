@@ -27,7 +27,7 @@ Prior to the class ge yourself familiar with the tech stack:
 
     See more for [comparison](docs/dev-environment/dev-env-comparison.md).
 
-    > Apple Silicon / arm64 note: This repo includes a ready-to-use dev container for Apple Silicon. In VS Code/Cursor choose “Dev Containers: Reopen in Container” and select “QuizMaster (Apple Silicon / arm64 Dev Container)”. It will build/pull everything needed (Java 21, Node 22 + pnpm, PostgreSQL 16, Playwright deps) and start the DB automatically. No extra setup on your Mac is required.
+    > Apple Silicon / arm64 note: This repo includes a ready-to-use dev container for Apple Silicon. In VS Code/Cursor choose “Dev Containers: Reopen in Container” and select “QuizMaster (Apple Silicon / arm64 Dev Container)”. It will build/pull everything needed (Java 21, Node 22 + pnpm, PostgreSQL 16, Playwright deps) and start the DB automatically. No extra setup on your Mac is required except having Docker Desktop installed.
 
 2. **Setup your IDE**
 
