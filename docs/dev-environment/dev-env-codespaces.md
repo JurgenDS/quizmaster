@@ -1,4 +1,4 @@
-# Develop Quizmaster in GutHub Codespaces
+# Develop Quizmaster in GitHub Codespaces
 
 ## Create a Codespace
 
@@ -15,6 +15,8 @@
 
 Congratulations, you're good to go! You can either work from the browser window,
 or open the codespace from your VS Code.
+
+> Apple Silicon / arm64 tip: Prefer local development? Open the repository directly in the included dev container “QuizMaster (Apple Silicon / arm64 Dev Container)” via VS Code/Cursor → Dev Containers: Reopen in Container. It provisions Java 21, Node 22 + pnpm, PostgreSQL 16 and Playwright automatically.
 
 ## ⚠️ Troubleshooting
 
@@ -71,7 +73,7 @@ You need [GitHub CLI](https://cli.github.com/) to set it up. Install it if you h
 
 ### Connect from IntelliJ IDEA
 
-Make sure the Codespace is running on https://github.com/codespaces.
+Make sure the Codespace is running on <https://github.com/codespaces>.
 
 1. On the IntelliJ IDEA Welcome screen, select "Remote Development > SSH". Press New Project button.
 
